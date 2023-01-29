@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@astar-network/astar-api": "^0.1.5-7",
+    "@polkadot/api": "^9.12.1",
+    "@polkadot/api-contract": "^9.12.1"
+  }
+}
