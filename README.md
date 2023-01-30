@@ -2,7 +2,7 @@
 
 ### To build and compile contracts:
 ```
-cd contracts/shiden34
+cd Polkadot-Hackathon-Europe-2023/contracts/contracts/shiden34
 cargo contract build --release
 ```
 
