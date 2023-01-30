@@ -3,7 +3,7 @@
 ### To build and compile contracts:
 ```
 cd Polkadot-Hackathon-Europe-2023/contracts/contracts/shiden34
-cargo contract build --release
+cargo contract +nightly build --release
 ```
 
 ### You can use whatever node you want. 
