@@ -27,7 +27,7 @@ npm run dev
 ```
 ### setup for different network 
 
-The network I've set for this repo is the Shibuya testnet. 
+The network I've set for this repo is the **Shibuya** testnet. 
 You can change the network to **alephzeroTestnet, astar, development(for local node)** by going to **.env.local** and change the environment variable:
 ```ts
 NEXT_PUBLIC_DEFAULT_CHAIN=YOUR_PREFERRED_NETWORK
