@@ -25,8 +25,16 @@ cd nft-marketplace
 npm install 
 npm run dev
 ```
+### setup for different network 
 
-## use-Inkathon library 
+The network I've set for this repo is the Shibuya testnet. 
+You can change the network to **alephzeroTestnet, astar, development(for local node)** by going to **.env.local** and change the environment variable:
+```ts
+NEXT_PUBLIC_DEFAULT_CHAIN=YOUR_PREFERRED_NETWORK
+NEXT_PUBLIC_SUPPORTED_CHAINS=["YOUR_PREFERRED_NETWORK"]
+```
+
+### use-Inkathon library 
 https://github.com/scio-labs/use-inkathon/tree/main/src 
 
 
