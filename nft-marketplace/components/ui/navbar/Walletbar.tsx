@@ -6,6 +6,9 @@ import { FunctionComponent } from "react";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import { useInkathon } from "@scio-labs/use-inkathon";
 import { truncateHash } from "@shared/truncateHash";
+import { VStack, HStack, Text } from "@chakra-ui/react";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+
 export interface WalletbarProps {
   children?: React.ReactNode;
 }
@@ -42,13 +45,14 @@ const Walletbar: FunctionComponent<WalletbarProps> = () => {
     return (
       <Menu as="div" className="ml-3 relative">
         <div>
-          <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-            <span className="sr-only">Open user menu</span>
-            <img
-              className="h-8 w-8 rounded-full"
-              src="/images/default_user_image.png"
-              alt=""
-            />
+          <Menu.Button className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <VStack spacing={0.5}>
+              <Text fontSize="sm">{account.meta?.name}</Text>
+              <Text fontSize="xs" fontWeight="normal" opacity={0.75}>
+                {" "}
+                {truncateHash(account.address, 8)}
+              </Text>
+            </VStack>
           </Menu.Button>
         </div>
 
@@ -66,9 +70,15 @@ const Walletbar: FunctionComponent<WalletbarProps> = () => {
                       "block px-4 py-2 text-sm text-gray-700"
                     )}
                   >
-                    {acc.meta?.name}
-                    {"\n"}
-                    {truncateHash(acc.address, 10)}
+                    <VStack align="start" spacing={0}>
+                      <HStack>
+                        <Text>{acc.meta?.name}</Text>
+                        {acc.address === account.address && (
+                          <AiOutlineCheckCircle size={16} />
+                        )}
+                      </HStack>
+                      <Text fontSize="xs">{truncateHash(acc.address, 10)}</Text>
+                    </VStack>
                   </a>
                 </Link>
               )}
