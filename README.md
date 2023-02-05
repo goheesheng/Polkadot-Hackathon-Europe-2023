@@ -15,6 +15,22 @@ The following link uses substrate node:
 Substrate Contracts UI is a web application for deploying and interacting with WASM smart contracts on Substrate blockchains that include the FRAME Contracts Pallet.
 `https://github.com/paritytech/contracts-ui`
 
+## Folders Directory
+The project folder consists of : 
+1. **Contracts**
+2. **Frontend**
+
+I've created 2 NFT folders in the **Contracts** folder, one for **__PSP34__** standard, the other for **__RMRK__** standard
+
+### For testing website 
+After running 
+```ts 
+cargo contract build 
+```
+on the desired smart contract, navigate to ***/frontend/contracts/***, create a new folder if the smart contract folder isn't there already, and copy the **metadata.json** file to this folder. Create **address.json** to store the contract's address for use in ***/src/deployment/deployments.ts***
+
+note: Smart contracts uploaded to the development chain are wiped out upon system exit. So need to reconfigure the **address.json** each time we rerun the local node and re-upload the smart contract
+
 ## Frontend 
 
 ### Getting started 

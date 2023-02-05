@@ -1,0 +1,11 @@
+/home/kang5647/Polkadot-Hackathon-Europe-2023/contracts/target/ink/rmrk_example_equippable/release/deps/obce_codegen-c124e0086df8c857.rmeta: /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/lib.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/definition.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/implementation.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/types.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/utils.rs
+
+/home/kang5647/Polkadot-Hackathon-Europe-2023/contracts/target/ink/rmrk_example_equippable/release/deps/libobce_codegen-c124e0086df8c857.rlib: /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/lib.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/definition.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/implementation.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/types.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/utils.rs
+
+/home/kang5647/Polkadot-Hackathon-Europe-2023/contracts/target/ink/rmrk_example_equippable/release/deps/obce_codegen-c124e0086df8c857.d: /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/lib.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/definition.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/implementation.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/types.rs /home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/utils.rs
+
+/home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/lib.rs:
+/home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/definition.rs:
+/home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/implementation.rs:
+/home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/types.rs:
+/home/kang5647/.cargo/git/checkouts/obce-34c9b72ea1523ca3/163c456/codegen/src/utils.rs:

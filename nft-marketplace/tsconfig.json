@@ -20,12 +20,14 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@ui" : ["components/ui"],
-      "@ui/*" : ["components/ui/*"],
-      "@_types/*" : ["types/*"],
-      "@providers" : ["components/providers"],
+      "@ui" : ["src/components/ui"],
+      "@ui/*" : ["src/components/ui/*"],
+      "@_types/*" : ["src/types/*"],
+      "@providers" : ["src/components/providers"],
       "@providers/*" : ["components/providers/*"],
-      "@shared/*" : ["shared/*"]
+      "@shared/*" : ["src/shared/*"],
+      "@deployments/*": ["src/deployments/*"],
+      "@contracts/*" : ["contracts/*"],
     }
   },
   "include": [
