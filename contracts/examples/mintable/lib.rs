@@ -87,7 +87,6 @@ pub mod rmrk_example_mintable {
             name: String,
             symbol: String,
             base_uri: String,
-            max_supply: u64,
             price_per_mint: Balance,
             collection_metadata: String,
             _royalty_receiver: AccountId,
@@ -99,7 +98,6 @@ pub mod rmrk_example_mintable {
                     name,
                     symbol,
                     base_uri,
-                    max_supply,
                     price_per_mint,
                     collection_metadata,
                 )

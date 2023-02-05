@@ -24,7 +24,6 @@ pub trait Config<T> {
         name: String,
         symbol: String,
         base_uri: String,
-        max_supply: u64,
         price_per_mint: Balance,
         collection_metadata: String,
     );
@@ -34,7 +33,6 @@ pub trait Config<T> {
         name: String,
         symbol: String,
         base_uri: String,
-        max_supply: u64,
         price_per_mint: Balance,
         collection_metadata: String,
         royalty_receiver: AccountId,
@@ -57,7 +55,6 @@ where
         name: String,
         symbol: String,
         base_uri: String,
-        max_supply: u64,
         price_per_mint: Balance,
         collection_metadata: String,
     ) {
@@ -76,7 +73,6 @@ where
         );
 
         let minting: &mut rmrk_minting::MintingData = <T as StorageAsMut>::data(self);
-        minting.max_supply = max_supply;
         minting.price_per_mint = price_per_mint;
     }
 
@@ -85,7 +81,6 @@ where
         name: String,
         symbol: String,
         base_uri: String,
-        max_supply: u64,
         price_per_mint: Balance,
         collection_metadata: String,
         _royalty_receiver: AccountId,
@@ -96,7 +91,6 @@ where
             name,
             symbol,
             base_uri,
-            max_supply,
             price_per_mint,
             collection_metadata,
         );
