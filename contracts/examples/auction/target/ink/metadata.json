@@ -1,0 +1,316 @@
+{
+  "source": {
+    "hash": "0x9aeeb5cedebe39ae01cb6b40f82e96835ea607caa3022e658559c9d001d7965c",
+    "language": "ink! 3.4.0",
+    "compiler": "rustc 1.69.0-nightly"
+  },
+  "contract": {
+    "name": "auction",
+    "version": "0.6.0",
+    "authors": [
+      "Singapore Blockchain Collective"
+    ]
+  },
+  "V3": {
+    "spec": {
+      "constructors": [
+        {
+          "args": [
+            {
+              "label": "nft",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            },
+            {
+              "label": "initial_price",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 3
+              }
+            },
+            {
+              "label": "deadline",
+              "type": {
+                "displayName": [
+                  "Timestamp"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [],
+          "label": "new",
+          "payable": false,
+          "selector": "0x9bae9d5e"
+        }
+      ],
+      "docs": [],
+      "events": [
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "nft",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            },
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "initial_price",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 3
+              }
+            },
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "deadline",
+              "type": {
+                "displayName": [
+                  "Timestamp"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [],
+          "label": "NewAuction"
+        },
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "bid",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 3
+              }
+            },
+            {
+              "docs": [],
+              "indexed": false,
+              "label": "bidder",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [],
+          "label": "BidPlaced"
+        }
+      ],
+      "messages": [
+        {
+          "args": [
+            {
+              "label": "bid",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 3
+              }
+            }
+          ],
+          "docs": [],
+          "label": "place_bid",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x441cccf2"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "cancel_auction",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x64e3bd76"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "close_auction",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x63009030"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "claim_nft",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x11dba191"
+        }
+      ]
+    },
+    "storage": {
+      "struct": {
+        "fields": [
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "owner"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0100000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "nft"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0200000000000000000000000000000000000000000000000000000000000000",
+                "ty": 3
+              }
+            },
+            "name": "initial_price"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                "ty": 4
+              }
+            },
+            "name": "deadline"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0400000000000000000000000000000000000000000000000000000000000000",
+                "ty": 3
+              }
+            },
+            "name": "high_bid"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0500000000000000000000000000000000000000000000000000000000000000",
+                "ty": 0
+              }
+            },
+            "name": "high_bidder"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0600000000000000000000000000000000000000000000000000000000000000",
+                "ty": 5
+              }
+            },
+            "name": "completed"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0700000000000000000000000000000000000000000000000000000000000000",
+                "ty": 5
+              }
+            },
+            "name": "cancelled"
+          }
+        ]
+      }
+    },
+    "types": [
+      {
+        "id": 0,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 1,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_env",
+            "types",
+            "AccountId"
+          ]
+        }
+      },
+      {
+        "id": 1,
+        "type": {
+          "def": {
+            "array": {
+              "len": 32,
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "type": {
+          "def": {
+            "primitive": "u8"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "type": {
+          "def": {
+            "primitive": "u128"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "type": {
+          "def": {
+            "primitive": "u64"
+          }
+        }
+      },
+      {
+        "id": 5,
+        "type": {
+          "def": {
+            "primitive": "bool"
+          }
+        }
+      }
+    ]
+  }
+}
