@@ -23,6 +23,12 @@ The project folder consists of :
 I've created 2 NFT folders in the **Contracts** folder, one for **__PSP34__** standard, the other for **__RMRK__** standard
 
 ### For testing website 
+
+Local Node (Astar) 
+```bash 
+./astar --port 30333 --ws-port 9944 --rpc-port 9933 --rpc-cors all --alice --dev
+```
+
 After running 
 ```ts 
 cargo contract build 
