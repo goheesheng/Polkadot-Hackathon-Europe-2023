@@ -28,6 +28,11 @@ Local Node (Astar)
 ```bash 
 ./astar --port 30333 --ws-port 9944 --rpc-port 9933 --rpc-cors all --alice --dev
 ```
+If you want to save the instance of smart contract in your local node so that it won't be discarded every time you close the local node, create a new folder for the local node to save its data in: 
+
+```bash
+./astar --port 30333 --ws-port 9944 --rpc-port 9933 --rpc-cors all --alice --dev --d [YOUR FOLDER]
+```
 
 After running 
 ```ts 
