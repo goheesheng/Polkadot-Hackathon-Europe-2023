@@ -27,9 +27,33 @@ export const pinFileToIPFS = async (file:File, fileName: string, keys: object) =
           Authorization: JWT
         }
       });
-      console.log(res.data);
+      return res.data.IpfsHash
     } catch (error) {
       console.log(error);
     }
 }
 
+export const viewFilesInIPFS = async (keys : object) => {
+    var config = {
+        method: 'get',
+        url: 'https://api.pinata.cloud/data/pinList',
+        headers: { 
+          'Authorization': JWT
+        },
+        params: { "metadata[keyvalues]": keys}
+      };
+      try{
+        const res = await axios(config)
+        return res.data
+      } catch (err){
+        console.log(err)
+      }
+};
+
+// const fs = require('fs')
+// const file = fs.createReadStream('./test.jpg')
+// const keys = {"key": "value"}
+// pinFileToIPFS(file, "test", keys)
+// viewFilesInIPFS({
+//     "key": {"value": "value", "op": "eq"}
+// })
