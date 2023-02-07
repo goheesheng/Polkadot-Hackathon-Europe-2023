@@ -19,8 +19,6 @@ const Home: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.psp34_nft);
   const { api, account } = useInkathon();
 
-  console.log(api);
-
   const getContractInfo = async () => {
     if (!api || !contract || !account) return;
     try {
@@ -30,10 +28,7 @@ const Home: NextPage = () => {
         contract,
         "psp34::collectionId"
       );
-      console.log("result");
-      console.log(result.output?.toPrimitive);
-      const message = unwrapResultOrError<string>(result);
-      console.log(message);
+      console.log((result.output?.toPrimitive() as { bytes: any }).bytes);
     } catch (e) {
       console.error(e);
     }

@@ -1,4 +1,4 @@
-import { NftMeta } from "@/types/nft";
+import { NftMeta } from "@_types/nft";
 import { FunctionComponent } from "react";
 
 type NFTItemProps = {
