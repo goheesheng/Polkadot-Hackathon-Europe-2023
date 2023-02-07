@@ -13,7 +13,6 @@ import {
   unwrapResultOrError,
 } from "@scio-labs/use-inkathon";
 import { ContractIds } from "@deployments/deployment";
-import { stringCamelCase } from "@polkadot/util";
 
 const Home: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.psp34_nft);

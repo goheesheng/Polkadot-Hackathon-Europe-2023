@@ -55,6 +55,12 @@ const NftCreate: NextPage = () => {
             data: stringToHex(JSON.stringify(messageToSign.data)),
             type: "bytes",
           });
+
+          await axios.post("/api/verify", {
+            address: account.address,
+            signature: signature,
+            nft: nftMeta,
+          });
           console.log(signature);
         }
       }
