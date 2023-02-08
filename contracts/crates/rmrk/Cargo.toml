@@ -22,7 +22,7 @@ rmrk_minting = { path = "../minting", default-features = false, optional = true 
 rmrk_multiasset = { path = "../multiasset", default-features = false, optional = true }
 rmrk_nesting = { path = "../nesting", default-features = false, optional = true }
 rmrk_common = { path = "../common", default-features = false, optional = true }
-rmrk_auction = { path = "../auction", default-features = false, optional = true }
+rmrk_equippable = { path = "../equippable", default-features = false, optional = true }
 
 [lib]
 path = "src/lib.rs"
@@ -46,9 +46,8 @@ std = [
     "rmrk_minting/std",
     "rmrk_multiasset/std",
     "rmrk_nesting/std",
-    "rmrk_auction/std",
+    "rmrk_equippable/std",
 ]
 mintable = [ "rmrk_common", "rmrk_minting" ] 
-auction = ["mintable", "rmrk_base", "rmrk_multiasset", "rmrk_nesting", "rmrk_auction"]
-
-
+equippable = ["mintable", "rmrk_base", "rmrk_multiasset", "rmrk_nesting", "rmrk_equippable"]
+auction = ["rmrk_common","mintable","rmrk_base","rmrk_minting","rmrk_multiasset","rmrk_nesting","rmrk_equippable"]

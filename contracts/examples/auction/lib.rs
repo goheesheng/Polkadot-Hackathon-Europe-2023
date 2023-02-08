@@ -1,19 +1,57 @@
 #![cfg_attr(not(feature = "std"), no_std)]
+#![feature(min_specialization)]
 
 use ink_lang as ink;
 
 #[ink::contract]
-mod Auction {
+pub mod Auction {
+
+    use ink_lang::codegen::{
+        EmitEvent,
+        Env,
+    };
+    
+    use ink_storage::traits::SpreadAllocate;
+    
+    use openbrush::{
+        contracts::{
+            ownable::*,
+            psp34::extensions::{
+                enumerable::*,
+                metadata::*,
+            },
+            reentrancy_guard::*,
+        },
+        traits::{
+            Storage,
+        },
+    };
+
+    use rmrk::{
+        storage::*,
+        traits::*,
+        Config as RmrkConfig,
+    };
 
     /// Defines the storage of your contract.
     /// Add new fields to the below struct in order
     /// to add new static storage fields to your contract.
     #[ink(storage)]
+    #[derive(Default, SpreadAllocate, Storage)]
     pub struct Auction {
+        #[storage_field]
+        psp34: psp34::Data<enumerable::Balances>,
+        #[storage_field]
+        guard: reentrancy_guard::Data,
+        #[storage_field]
+        ownable: ownable::Data,
+        #[storage_field]
+        metadata: metadata::Data,
+        #[storage_field]
+        minting: MintingData,
+        nft: Id,
         /// The owner of the auction
         owner: AccountId,
-        /// The NFT being auctioned
-        nft: AccountId,
         /// The initial price of the NFT
         initial_price: Balance,
         /// The deadline of the auction
@@ -30,7 +68,7 @@ mod Auction {
 
     #[ink(event)]
     pub struct NewAuction {
-        nft: AccountId,
+        nft: Id,
         initial_price: Balance,
         deadline: Timestamp,
     }
@@ -38,24 +76,57 @@ mod Auction {
     #[ink(event)]
     pub struct BidPlaced {
         bid: Balance,
-        bidder:
-         AccountId,
+        bidder: AccountId,
     }
+
+    #[ink(event)]
+    pub struct Transfer {
+        #[ink(topic)]
+        from: Option<AccountId>,
+        #[ink(topic)]
+        to: Option<AccountId>,
+        #[ink(topic)]
+        nft: Id,
+    }
+
+    #[ink(event)]
+    pub struct Approval {
+        #[ink(topic)]
+        from: AccountId,
+        #[ink(topic)]
+        to: AccountId,
+        #[ink(topic)]
+        nft: Option<Id>,
+        approved: bool,
+    }
+
+    impl PSP34 for Auction {}
+
+    impl Ownable for Auction {}
+
+    impl PSP34Metadata for Auction {}
+
+    impl PSP34Enumerable for Auction {}
+
+    impl Minting for Auction {}
+
 
     impl Auction {
         #[ink(constructor)]
-        pub fn new(nft: AccountId, initial_price: Balance, deadline: Timestamp) -> Self {
+        pub fn new(nft: Id, initial_price: Balance, deadline: Timestamp, completed: bool, cancelled: bool) -> Self {
             let owner = Self::env().caller();
-            Self {
-                owner: owner,
-                nft: nft,
-                initial_price: initial_price,
-                deadline: deadline,
-                high_bid: initial_price,
-                high_bidder: owner,
-                completed: false,
-                cancelled: false,
-            }
+            ink_lang::codegen::initialize_contract(|instance: &mut Auction| {
+                RmrkConfig::config(
+                    owner: owner,
+                    nft: nft,
+                    initial_price: initial_price,
+                    deadline: deadline,
+                    high_bid: initial_price,
+                    high_bidder: owner,
+                    completed: completed,
+                    cancelled: cancelled,
+                )
+            })
         }
     
        #[ink(message)]
@@ -90,7 +161,7 @@ mod Auction {
             // self.nft.transfer(self.owner);
 
             // This is not right, nft address != nft owner address
-            self.nft = self.owner;
+            // self.nft = _emit_transfer_event;
         }
     
         #[ink(message)]
@@ -107,7 +178,7 @@ mod Auction {
                 // self.nft.transfer(self.owner);
                 
                 // This is not right, nft address != nft owner address
-                self.nft = self.owner;
+                self.nft = 1;
             } else {
                 // Transfer the NFT to the highest bidder
                 // self.nft.transfer(self.high_bidder);
@@ -131,6 +202,29 @@ mod Auction {
 
             // This is not right, nft address != nft owner address
             self.nft = self.high_bidder;
+        }
+    }
+
+    impl psp34::Internal for Auction {
+        /// Emit Transfer event
+        fn _emit_transfer_event(&self, from: Option<AccountId>, to: Option<AccountId>, id: Id) {
+            self.env().emit_event(Transfer { from, to, id });
+        }
+
+        /// Emit Approval event
+        fn _emit_approval_event(
+            &self,
+            from: AccountId,
+            to: AccountId,
+            id: Option<Id>,
+            approved: bool,
+        ) {
+            self.env().emit_event(Approval {
+                from,
+                to,
+                id,
+                approved,
+            });
         }
     }
 

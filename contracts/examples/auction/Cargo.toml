@@ -17,6 +17,8 @@ scale-info = { version = "2", default-features = false, features = ["derive"], o
 
 openbrush = { tag = "v2.3.0", git = "https://github.com/Supercolony-net/openbrush-contracts", default-features = false, features = ["ownable", "psp34", "reentrancy_guard"] }
 
+rmrk = { path = "../../crates/rmrk", default-features = false, features = ["mintable","equippable"] }
+
 [lib]
 name = "auction"
 path = "lib.rs"
@@ -35,5 +37,6 @@ std = [
     "scale/std",
     "scale-info/std",
     "openbrush/std",
+    "rmrk/std",
 ]
 ink-as-dependency = []
