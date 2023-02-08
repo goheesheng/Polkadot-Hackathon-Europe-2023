@@ -6,7 +6,7 @@ import { BaseLayout } from "@ui";
 import { Switch } from "@headlessui/react";
 import Link from "next/link";
 import React from "react";
-import { NftMeta } from "@_types/nft";
+import { NftMeta, PinataRes } from "@_types/nft";
 import axios from "axios";
 import { useInkathon } from "@scio-labs/use-inkathon";
 import { web3FromSource } from "@polkadot/extension-dapp";
@@ -25,6 +25,51 @@ const NftCreate: NextPage = () => {
     ],
   });
   const { account } = useInkathon();
+
+  const getSignedData = async () => {
+    const messageToSign = await axios.get("/api/verify");
+    const injector = await web3FromSource(account!.meta.source);
+    const signRaw = injector?.signer?.signRaw;
+
+    const { signature } = await signRaw!({
+      address: account!.address,
+      data: stringToHex(JSON.stringify(messageToSign.data)),
+      type: "bytes",
+    });
+
+    return { signature };
+  };
+
+  const handleImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      console.error("Select a file");
+      return;
+    }
+
+    const file = e.target.files[0];
+    const buffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    try {
+      const { signature } = await getSignedData();
+      const res = await axios.post("/api/verify-image", {
+        address: account!.address,
+        signature: signature,
+        bytes: bytes,
+        contentType: file.type,
+        fileName: file.name.replace(/\.[^/.]+$/, ""),
+      });
+
+      const data = res.data as PinataRes;
+      console.log(data);
+      setNftMeta({
+        ...nftMeta,
+        image: `${process.env.NEXT_PUBLIC_PINATA_DOMAIN}/ipfs/${data.IpfsHash}`,
+      });
+    } catch (e: any) {
+      console.error();
+    }
+  };
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -45,25 +90,12 @@ const NftCreate: NextPage = () => {
   };
   const createNft = async () => {
     try {
-      const messageToSign = await axios.get("/api/verify");
-      if (!!account) {
-        const injector = await web3FromSource(account?.meta.source);
-        const signRaw = injector?.signer?.signRaw;
-        if (!!signRaw) {
-          const { signature } = await signRaw({
-            address: account.address,
-            data: stringToHex(JSON.stringify(messageToSign.data)),
-            type: "bytes",
-          });
-
-          await axios.post("/api/verify", {
-            address: account.address,
-            signature: signature,
-            nft: nftMeta,
-          });
-          console.log(signature);
-        }
-      }
+      const { signature } = await getSignedData();
+      const jsonData = await axios.post("/api/verify", {
+        address: account!.address,
+        signature: signature,
+        nft: nftMeta,
+      });
     } catch (e: any) {
       console.error(e.message);
     }
@@ -232,12 +264,8 @@ const NftCreate: NextPage = () => {
                       </p>
                     </div>
                     {/* Has Image? */}
-                    {false ? (
-                      <img
-                        src="https://eincode.mypinata.cloud/ipfs/QmaQYCrX9Fg2kGijqapTYgpMXV7QPPzMwGrSRfV9TvTsfM/Creature_1.png"
-                        alt=""
-                        className="h-40"
-                      />
+                    {nftMeta.image ? (
+                      <img src={nftMeta.image} alt="" className="h-40" />
                     ) : (
                       <div>
                         <label className="block text-sm font-medium text-gray-700">
@@ -266,6 +294,7 @@ const NftCreate: NextPage = () => {
                               >
                                 <span>Upload a file</span>
                                 <input
+                                  onChange={handleImage}
                                   id="file-upload"
                                   name="file-upload"
                                   type="file"
