@@ -33,6 +33,7 @@ If you want to save the instance of smart contract in your local node so that it
 ```bash
 ./astar --port 30333 --ws-port 9944 --rpc-port 9933 --rpc-cors all --alice --dev --base-path [YOUR FOLDER]
 ```
+Check [local explorer](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) 
 
 After running 
 ```ts 
