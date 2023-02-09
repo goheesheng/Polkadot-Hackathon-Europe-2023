@@ -10,14 +10,38 @@
 - Used wallet (browser extension) is Polkadot.js
 - Contract is deployed using Polkadot.js API
 
-We have never touched Rust and ink! programming language before the Polkadot Hackathon Europe 2023. Thus being a beginner.
+We have never touched Rust and ink! programming language before the Polkadot Hackathon Europe 2023.
 We ask for you understanding.
+
+## Project Description: Building an NFT Marketplace using Ink! Programming Language
+
+The goal of this project is to develop a decentralized Non-Fungible Token (NFT) marketplace using the Ink! programming language. The platform will be built on the Substrate framework, providing a robust and secure environment for transactions to take place.
+
+Ink! is a modern, Rust-based programming language designed for building decentralized applications. It is known for its security and scalability, making it an ideal choice for developing an NFT marketplace. The project will use the Ink! contract system to define and enforce the rules of the marketplace, such as setting prices for NFTs, establishing ownership, and executing transactions.
+
+The platform will be designed to support a wide range of NFTs, including digital art and collectibles. Users will be able to buy and sell NFTs. The platform will also offer a customizable user interface, allowing users to personalize their experience and make it easy to use.
+
+One of the key features of the platform will be its robust security measures. The NFT marketplace will be built on the Substrate framework, providing a secure and decentralized environment for transactions to take place. Additionally, the platform will use advanced encryption and authentication methods to ensure the safety of users' NFTs and other assets.
+
+Overall, this project will provide a comprehensive and user-friendly NFT marketplace that leverages the power of the Ink! programming language and the Substrate framework. Whether you're a seasoned NFT collector or just starting out, this platform will offer a secure and accessible way to participate in the growing NFT economy.
+
+## How the project uses Substrate or other technology?
+
+The project utilizes the Substrate framework to build the NFT marketplace. Substrate is a blockchain development platform that provides the necessary infrastructure and tools to build decentralized applications (dApps). It offers a modular and flexible architecture, allowing developers to easily build, test, and deploy dApps with a variety of features and functionalities.
+
+By using Substrate, the project benefits from its built-in security and scalability features, as well as its ability to support multiple chains and networks. This allows the NFT marketplace to operate in a decentralized and trustless environment, ensuring that all transactions are secure and transparent.
+
+In addition to Substrate, the project may also use other technologies to enhance its functionality and user experience. For example, the platform may use Interledger Protocol (ILP) to enable fast and efficient transfers between different blockchains, or use IPFS to store and retrieve digital assets in a decentralized manner.
+
+Overall, the use of Substrate and other technologies helps to create a secure, scalable, and user-friendly NFT marketplace that leverages the latest advancements in blockchain technology.
 
 ## Contact information
  - Goh Ee Sheng - https://goheesheng.github.io/
  - Yeo Jong Han - yeojonghan@hotmail.com
  - Poon Kang Wei - kang5647@hotmail.com
  - Derrick Png Teck Guan - derrickpng34@gmail.com
+
+## Category 2: Ink! Smart Contracts
 
 ### To build and compile contracts:
 ```
