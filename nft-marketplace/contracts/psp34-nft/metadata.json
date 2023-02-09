@@ -536,7 +536,7 @@
             }
           ],
           "docs": [],
-          "label": "PayableMint::token_uri",
+          "label": "PayableMint::get_metadata",
           "mutates": false,
           "payable": false,
           "returnType": {

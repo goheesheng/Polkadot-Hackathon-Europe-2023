@@ -762,7 +762,7 @@
           "docs": [
             " Get URI for the token Id."
           ],
-          "label": "Minting::token_uri",
+          "label": "Minting::get_metadata",
           "mutates": false,
           "payable": false,
           "returnType": {

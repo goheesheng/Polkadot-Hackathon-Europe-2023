@@ -17,8 +17,8 @@ const MAX_SUPPLY = 888;
 const BASE_URI = "ipfs://tokenUriPrefix/";
 const COLLECTION_METADATA = "ipfs://collectionMetadata/data.json";
 const BASE_METADATA = "ipfs://baseMetadata";
-const TOKEN_URI_1 = "ipfs://tokenUriPrefix/1.json";
-const TOKEN_URI_5 = "ipfs://tokenUriPrefix/5.json";
+const get_metadata_1 = "ipfs://tokenUriPrefix/1.json";
+const get_metadata_5 = "ipfs://tokenUriPrefix/5.json";
 const ONE = new BN(10).pow(new BN(18));
 const PRICE_PER_MINT = ONE;
 

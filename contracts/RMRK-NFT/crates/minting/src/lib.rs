@@ -100,7 +100,7 @@ where
     }
 
     /// Mint next available token with specific metadata
-    #[modifiers(only_owner)]
+    #[modifiers(non_reentrant)]
     default fn mint_with_metadata(
         &mut self,
         metadata: PreludeString,
@@ -135,7 +135,7 @@ where
     }
 
     /// Get URI for the token Id
-    default fn token_uri(&self, token_id: u64) -> Result<PreludeString, PSP34Error> {
+    default fn get_metadata(&self, token_id: u64) -> Result<PreludeString, PSP34Error> {
         self.ensure_exists_and_get_owner(&Id::U64(token_id))?;
         let uri: PreludeString;
         match self
@@ -143,8 +143,8 @@ where
             .nft_metadata
             .get(Id::U64(token_id))
         {
-            Some(token_uri) => {
-                uri = PreludeString::from_utf8(token_uri).unwrap();
+            Some(get_metadata) => {
+                uri = PreludeString::from_utf8(get_metadata).unwrap();
             }
             None => {
                 let value = self.get_attribute(
@@ -152,8 +152,8 @@ where
                         .collection_id(),
                     String::from("baseUri"),
                 );
-                let token_uri = PreludeString::from_utf8(value.unwrap()).unwrap();
-                uri = token_uri + &token_id.to_string() + &PreludeString::from(".json");
+                let get_metadata = PreludeString::from_utf8(value.unwrap()).unwrap();
+                uri = get_metadata + &token_id.to_string() + &PreludeString::from(".json");
             }
         }
         Ok(uri)

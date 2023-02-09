@@ -237,6 +237,7 @@ pub mod rmrk_example_equippable {
             name: String,
             symbol: String,
             base_uri: String,
+            max_supply: u64,
             price_per_mint: Balance,
             collection_metadata: String,
             _royalty_receiver: AccountId,
@@ -248,6 +249,7 @@ pub mod rmrk_example_equippable {
                     name,
                     symbol,
                     base_uri,
+                    max_supply,
                     price_per_mint,
                     collection_metadata,
                 )
@@ -445,6 +447,7 @@ pub mod rmrk_example_equippable {
 
         const PRICE: Balance = 100_000_000_000_000_000;
         const BASE_URI: &str = "ipfs://myIpfsUri/";
+        const MAX_SUPPLY: u64 = 10;
 
         #[ink::test]
         fn init_works() {
@@ -462,6 +465,7 @@ pub mod rmrk_example_equippable {
                 rmrk.get_attribute(collection_id, String::from("baseUri")),
                 Some(String::from(BASE_URI))
             );
+            assert_eq!(rmrk.max_supply(), MAX_SUPPLY);
             assert_eq!(rmrk.price(), PRICE);
         }
 
@@ -471,6 +475,7 @@ pub mod rmrk_example_equippable {
                 String::from("Rmrk Project"),
                 String::from("RMK"),
                 String::from(BASE_URI),
+                MAX_SUPPLY,
                 PRICE,
                 String::from(BASE_URI),
                 accounts.eve,
@@ -550,18 +555,18 @@ pub mod rmrk_example_equippable {
             assert_eq!(rmrk.owners_token_by_index(accounts.bob, 0), Ok(Id::U64(1)));
             assert_eq!(1, ink_env::test::recorded_events().count());
 
-            // token_uri for rmrk mint works
+            // get_metadata for rmrk mint works
             assert_eq!(
-                rmrk.token_uri(1),
+                rmrk.get_metadata(1),
                 Ok(PreludeString::from(RMRK_METADATA.to_owned()))
             );
 
-            // token_uri for mint_next work
+            // get_metadata for mint_next work
             set_sender(accounts.bob);
             test::set_value_transferred::<ink_env::DefaultEnvironment>(PRICE);
             assert!(rmrk.mint_next().is_ok());
             assert_eq!(
-                rmrk.token_uri(2),
+                rmrk.get_metadata(2),
                 Ok(PreludeString::from(BASE_URI.to_owned() + "2.json"))
             );
         }
@@ -571,6 +576,7 @@ pub mod rmrk_example_equippable {
             let mut rmrk = init();
             let accounts = default_accounts();
             set_sender(accounts.alice);
+            let num_of_mints: u64 = MAX_SUPPLY + 1;
 
             assert_eq!(rmrk.total_supply(), 0);
             test::set_value_transferred::<ink_env::DefaultEnvironment>(
@@ -630,7 +636,7 @@ pub mod rmrk_example_equippable {
         }
 
         #[ink::test]
-        fn token_uri_works() {
+        fn get_metadata_works() {
             let mut rmrk = init();
             let accounts = default_accounts();
             set_sender(accounts.alice);
@@ -638,20 +644,20 @@ pub mod rmrk_example_equippable {
             test::set_value_transferred::<ink_env::DefaultEnvironment>(PRICE);
             assert!(rmrk.mint_next().is_ok());
             // return error if request is for not yet minted token
-            assert_eq!(rmrk.token_uri(42), Err(TokenNotExists));
+            assert_eq!(rmrk.get_metadata(42), Err(TokenNotExists));
             assert_eq!(
-                rmrk.token_uri(1),
+                rmrk.get_metadata(1),
                 Ok(PreludeString::from(BASE_URI.to_owned() + "1.json"))
             );
 
             // return error if request is for not yet minted token
-            assert_eq!(rmrk.token_uri(42), Err(TokenNotExists));
+            assert_eq!(rmrk.get_metadata(42), Err(TokenNotExists));
 
-            // verify token_uri when baseUri is empty
+            // verify get_metadata when baseUri is empty
             set_sender(accounts.alice);
             assert!(rmrk.set_base_uri(PreludeString::from("")).is_ok());
             assert_eq!(
-                rmrk.token_uri(1),
+                rmrk.get_metadata(1),
                 Ok("".to_owned() + &PreludeString::from("1.json"))
             );
         }
