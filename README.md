@@ -35,6 +35,21 @@ In addition to Substrate, the project may also use other technologies to enhance
 
 Overall, the use of Substrate and other technologies helps to create a secure, scalable, and user-friendly NFT marketplace that leverages the latest advancements in blockchain technology.
 
+## A list of tech stack (solutions, technology infrastructure, technology services, etc) used by the team to build your project.
+
+Ink!: A modern, Rust-based programming language for building decentralized applications. The project will use Ink! to define and enforce the rules of the marketplace, such as setting prices for NFTs, establishing ownership, and executing transactions.
+
+Substrate: A blockchain development platform that provides the infrastructure and tools to build decentralized applications. Substrate will serve as the underlying technology for the NFT marketplace, providing a secure and decentralized environment for transactions to take place.
+
+Interledger Protocol (ILP): A technology used to transfer value between different ledgers, such as different blockchains or payment networks. ILP can be used to facilitate fast and efficient transfers between different cryptocurrencies, enabling the NFT marketplace to support a wide range of tokens.
+
+IPFS: A decentralized, peer-to-peer file system that can be used to store and retrieve digital assets, such as NFTs. IPFS can help to ensure that digital assets are securely and efficiently stored and accessible to users of the NFT marketplace.
+
+React: A JavaScript library for building user interfaces. React can be used to create a customizable and user-friendly interface for the NFT marketplace, allowing users to easily navigate and interact with the platform.
+
+Blockchain Node: A server that runs a full copy of the blockchain ledger and can be used to validate and process transactions. The project use a Substrate node, such to ensure that the NFT marketplace is able to interact and execute transactions in a secure and efficient manner.
+
+
 ## Contact information
  - Goh Ee Sheng - https://goheesheng.github.io/
  - Yeo Jong Han - yeojonghan@hotmail.com
