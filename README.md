@@ -1,6 +1,12 @@
 # Polkadot-Hackathon-Europe-2023
-## Challenge Category: Ink! Smart Contracts
 # **RMRK NFT** NFT minting site
+
+## Challenge Category: Ink! Smart Contracts
+- **Bounty:** **Build NFT project (marketplace) with ink!**
+    - User should be able to mint the NFT through a friendly UI.
+    - User should be able to view the minted NFT.
+    - NFTs are minted as PSP34 and created with ink! smart contracts.
+    - Add concise documentation about the features and how to use your product.
 
 ## This dApp enables users to create and deploy NFT in RMRK standard.
 ### RMRK (pronounced "remark") is a set of NFT legos that give NFTs infinite extensibility, hosted on the Kusama blockchain, Polkadot's canary network, without the need for parachains or smart contracts.
