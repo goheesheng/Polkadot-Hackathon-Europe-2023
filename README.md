@@ -15,7 +15,7 @@ We ask for you understanding.
 
 ## Contact information
  - EeSheng Goh - https://goheesheng.github.io/
- - Yeo Jong Han - 
+ - Yeo Jong Han - yeojonghan@hotmail.com
  - Poon Kang Wei - kang5647@hotmail.com
  - Derrick Png Teck Guan - 
 
