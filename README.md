@@ -1,4 +1,23 @@
 # Polkadot-Hackathon-Europe-2023
+# **RMRK NFT** NFT minting site
+
+## This dApp enables users to create and deploy NFT in RMRK standard.
+### RMRK (pronounced "remark") is a set of NFT legos that give NFTs infinite extensibility, hosted on the Kusama blockchain, Polkadot's canary network, without the need for parachains or smart contracts.
+
+- The image given by user is stored on IPFS
+- Metadata for the image is stored on IPFS
+- This site is deployed for Shibuya and Shiden networks
+- Used wallet (browser extension) is Polkadot.js
+- Contract is deployed using Polkadot.js API
+
+We have never touched Rust and ink! programming language before the Polkadot Hackathon Europe 2023. Thus being a beginner.
+We ask for you understanding.
+
+## Contact information
+ - EeSheng Goh - https://goheesheng.github.io/
+ - Kang Wei - 
+ - Yeo Jong Han - 
+ - Derrick Png Teck Guan - 
 
 ### To build and compile contracts:
 ```
