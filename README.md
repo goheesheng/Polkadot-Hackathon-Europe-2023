@@ -1,4 +1,5 @@
 # Polkadot-Hackathon-Europe-2023
+## Challenge Category: Ink! Smart Contracts
 # **RMRK NFT** NFT minting site
 
 ## This dApp enables users to create and deploy NFT in RMRK standard.
@@ -56,7 +57,7 @@ Blockchain Node: A server that runs a full copy of the blockchain ledger and can
  - Poon Kang Wei - kang5647@hotmail.com
  - Derrick Png Teck Guan - derrickpng34@gmail.com
 
-## Category 2: Ink! Smart Contracts
+
 
 ### To build and compile contracts:
 ```
