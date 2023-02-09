@@ -15,8 +15,8 @@ We ask for you understanding.
 
 ## Contact information
  - EeSheng Goh - https://goheesheng.github.io/
- - Kang Wei - 
  - Yeo Jong Han - 
+ - Poon Kang Wei - kang5647@hotmail.com
  - Derrick Png Teck Guan - 
 
 ### To build and compile contracts:
