@@ -17,7 +17,7 @@ We ask for you understanding.
  - EeSheng Goh - https://goheesheng.github.io/
  - Yeo Jong Han - yeojonghan@hotmail.com
  - Poon Kang Wei - kang5647@hotmail.com
- - Derrick Png Teck Guan - 
+ - Derrick Png Teck Guan - derrickpng34@gmail.com
 
 ### To build and compile contracts:
 ```
