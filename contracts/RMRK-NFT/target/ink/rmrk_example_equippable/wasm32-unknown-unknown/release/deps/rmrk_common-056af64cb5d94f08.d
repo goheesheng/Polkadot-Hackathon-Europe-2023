@@ -1,0 +1,10 @@
+/home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/target/ink/rmrk_example_equippable/wasm32-unknown-unknown/release/deps/rmrk_common-056af64cb5d94f08.rmeta: /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/lib.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/errors.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/types.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/utils.rs
+
+/home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/target/ink/rmrk_example_equippable/wasm32-unknown-unknown/release/deps/librmrk_common-056af64cb5d94f08.rlib: /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/lib.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/errors.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/types.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/utils.rs
+
+/home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/target/ink/rmrk_example_equippable/wasm32-unknown-unknown/release/deps/rmrk_common-056af64cb5d94f08.d: /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/lib.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/errors.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/types.rs /home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/utils.rs
+
+/home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/lib.rs:
+/home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/errors.rs:
+/home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/types.rs:
+/home/user/Desktop/Polkadot-Hackathon-Europe-2023/contracts/RMRK-NFT/crates/common/src/utils.rs:

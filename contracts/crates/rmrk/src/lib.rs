@@ -21,26 +21,26 @@ pub mod utils {
 pub mod storage {
     #[cfg(feature="mintable")]
     pub use rmrk_minting::*;
-    #[cfg(feature="auction")]
+    #[cfg(feature="equippable")]
     pub use rmrk_base::*;
-    #[cfg(feature="auction")]
-    pub use rmrk_auction::*;
-    #[cfg(feature="auction")]
+    #[cfg(feature="equippable")]
+    pub use rmrk_equippable::*;
+    #[cfg(feature="equippable")]
     pub use rmrk_multiasset::*;
-    #[cfg(feature="auction")]
+    #[cfg(feature="equippable")]
     pub use rmrk_nesting::*;
 }
 
 pub mod traits {
     #[cfg(feature="mintable")]
     pub use rmrk_minting::traits::*;
-    #[cfg(feature="auction")]
+    #[cfg(feature="equippable")]
     pub use rmrk_base::traits::*;
-    #[cfg(feature="auction")]
-    pub use rmrk_auction::traits::*;
-    #[cfg(feature="auction")]
+    #[cfg(feature="equippable")]
+    pub use rmrk_equippable::traits::*;
+    #[cfg(feature="equippable")]
     pub use rmrk_multiasset::traits::*;
-    #[cfg(feature="auction")]
+    #[cfg(feature="equippable")]
     pub use rmrk_nesting::traits::*;
 }
 

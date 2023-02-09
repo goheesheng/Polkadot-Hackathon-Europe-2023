@@ -16,6 +16,7 @@ scale = { package = "parity-scale-codec", version = "3", default-features = fals
 scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
 
 openbrush = { tag = "v2.3.0", git = "https://github.com/Supercolony-net/openbrush-contracts", default-features = false, features = ["ownable", "psp34", "reentrancy_guard"] }
+rmrk_example_equippable = { path = "../../RMRK-NFT/examples/equippable", default-features = false, features = ["ink-as-dependency"] }
 
 [lib]
 name = "auction"
@@ -23,6 +24,7 @@ path = "lib.rs"
 crate-type = [
 	# Used for normal contract Wasm blobs.
 	"cdylib",
+    "rlib",
 ]
 
 [features]
@@ -35,5 +37,6 @@ std = [
     "scale/std",
     "scale-info/std",
     "openbrush/std",
+    "rmrk_example_equippable/std",
 ]
 ink-as-dependency = []

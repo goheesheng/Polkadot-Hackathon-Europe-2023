@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x9aeeb5cedebe39ae01cb6b40f82e96835ea607caa3022e658559c9d001d7965c",
+    "hash": "0xa70d7abacb9860a392321e43854c1180e3ae3497cfb0a02120f1092d5ed76462",
     "language": "ink! 3.4.0",
     "compiler": "rustc 1.69.0-nightly"
   },
@@ -17,7 +17,7 @@
         {
           "args": [
             {
-              "label": "nft",
+              "label": "address",
               "type": {
                 "displayName": [
                   "AccountId"
@@ -26,12 +26,21 @@
               }
             },
             {
+              "label": "nft",
+              "type": {
+                "displayName": [
+                  "Id"
+                ],
+                "type": 9
+              }
+            },
+            {
               "label": "initial_price",
               "type": {
                 "displayName": [
                   "Balance"
                 ],
-                "type": 3
+                "type": 6
               }
             },
             {
@@ -40,7 +49,7 @@
                 "displayName": [
                   "Timestamp"
                 ],
-                "type": 4
+                "type": 5
               }
             }
           ],
@@ -60,9 +69,9 @@
               "label": "nft",
               "type": {
                 "displayName": [
-                  "AccountId"
+                  "Id"
                 ],
-                "type": 0
+                "type": 9
               }
             },
             {
@@ -73,7 +82,7 @@
                 "displayName": [
                   "Balance"
                 ],
-                "type": 3
+                "type": 6
               }
             },
             {
@@ -84,7 +93,7 @@
                 "displayName": [
                   "Timestamp"
                 ],
-                "type": 4
+                "type": 5
               }
             }
           ],
@@ -101,7 +110,7 @@
                 "displayName": [
                   "Balance"
                 ],
-                "type": 3
+                "type": 6
               }
             },
             {
@@ -122,6 +131,15 @@
       ],
       "messages": [
         {
+          "args": [],
+          "docs": [],
+          "label": "initialize_auction",
+          "mutates": true,
+          "payable": false,
+          "returnType": null,
+          "selector": "0x6da5808e"
+        },
+        {
           "args": [
             {
               "label": "bid",
@@ -129,14 +147,14 @@
                 "displayName": [
                   "Balance"
                 ],
-                "type": 3
+                "type": 6
               }
             }
           ],
           "docs": [],
           "label": "place_bid",
           "mutates": true,
-          "payable": false,
+          "payable": true,
           "returnType": null,
           "selector": "0x441cccf2"
         },
@@ -174,12 +192,30 @@
         "fields": [
           {
             "layout": {
-              "cell": {
-                "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
-                "ty": 0
+              "struct": {
+                "fields": [
+                  {
+                    "layout": {
+                      "struct": {
+                        "fields": [
+                          {
+                            "layout": {
+                              "cell": {
+                                "key": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                                "ty": 0
+                              }
+                            },
+                            "name": "account_id"
+                          }
+                        ]
+                      }
+                    },
+                    "name": "inner"
+                  }
+                ]
               }
             },
-            "name": "owner"
+            "name": "rmrk_instance"
           },
           {
             "layout": {
@@ -188,13 +224,101 @@
                 "ty": 0
               }
             },
+            "name": "owner"
+          },
+          {
+            "layout": {
+              "enum": {
+                "dispatchKey": "0x0200000000000000000000000000000000000000000000000000000000000000",
+                "variants": {
+                  "0": {
+                    "fields": [
+                      {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                            "ty": 2
+                          }
+                        },
+                        "name": null
+                      }
+                    ]
+                  },
+                  "1": {
+                    "fields": [
+                      {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                            "ty": 3
+                          }
+                        },
+                        "name": null
+                      }
+                    ]
+                  },
+                  "2": {
+                    "fields": [
+                      {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                            "ty": 4
+                          }
+                        },
+                        "name": null
+                      }
+                    ]
+                  },
+                  "3": {
+                    "fields": [
+                      {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                            "ty": 5
+                          }
+                        },
+                        "name": null
+                      }
+                    ]
+                  },
+                  "4": {
+                    "fields": [
+                      {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                            "ty": 6
+                          }
+                        },
+                        "name": null
+                      }
+                    ]
+                  },
+                  "5": {
+                    "fields": [
+                      {
+                        "layout": {
+                          "cell": {
+                            "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                            "ty": 7
+                          }
+                        },
+                        "name": null
+                      }
+                    ]
+                  }
+                }
+              }
+            },
             "name": "nft"
           },
           {
             "layout": {
               "cell": {
-                "key": "0x0200000000000000000000000000000000000000000000000000000000000000",
-                "ty": 3
+                "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
+                "ty": 6
               }
             },
             "name": "initial_price"
@@ -202,8 +326,8 @@
           {
             "layout": {
               "cell": {
-                "key": "0x0300000000000000000000000000000000000000000000000000000000000000",
-                "ty": 4
+                "key": "0x0400000000000000000000000000000000000000000000000000000000000000",
+                "ty": 5
               }
             },
             "name": "deadline"
@@ -211,8 +335,8 @@
           {
             "layout": {
               "cell": {
-                "key": "0x0400000000000000000000000000000000000000000000000000000000000000",
-                "ty": 3
+                "key": "0x0500000000000000000000000000000000000000000000000000000000000000",
+                "ty": 6
               }
             },
             "name": "high_bid"
@@ -220,7 +344,7 @@
           {
             "layout": {
               "cell": {
-                "key": "0x0500000000000000000000000000000000000000000000000000000000000000",
+                "key": "0x0600000000000000000000000000000000000000000000000000000000000000",
                 "ty": 0
               }
             },
@@ -229,8 +353,8 @@
           {
             "layout": {
               "cell": {
-                "key": "0x0600000000000000000000000000000000000000000000000000000000000000",
-                "ty": 5
+                "key": "0x0700000000000000000000000000000000000000000000000000000000000000",
+                "ty": 8
               }
             },
             "name": "completed"
@@ -238,11 +362,20 @@
           {
             "layout": {
               "cell": {
-                "key": "0x0700000000000000000000000000000000000000000000000000000000000000",
-                "ty": 5
+                "key": "0x0800000000000000000000000000000000000000000000000000000000000000",
+                "ty": 8
               }
             },
             "name": "cancelled"
+          },
+          {
+            "layout": {
+              "cell": {
+                "key": "0x0900000000000000000000000000000000000000000000000000000000000000",
+                "ty": 8
+              }
+            },
+            "name": "initialized"
           }
         ]
       }
@@ -291,7 +424,7 @@
         "id": 3,
         "type": {
           "def": {
-            "primitive": "u128"
+            "primitive": "u16"
           }
         }
       },
@@ -299,7 +432,7 @@
         "id": 4,
         "type": {
           "def": {
-            "primitive": "u64"
+            "primitive": "u32"
           }
         }
       },
@@ -307,8 +440,111 @@
         "id": 5,
         "type": {
           "def": {
+            "primitive": "u64"
+          }
+        }
+      },
+      {
+        "id": 6,
+        "type": {
+          "def": {
+            "primitive": "u128"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "type": {
+          "def": {
+            "sequence": {
+              "type": 2
+            }
+          }
+        }
+      },
+      {
+        "id": 8,
+        "type": {
+          "def": {
             "primitive": "bool"
           }
+        }
+      },
+      {
+        "id": 9,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 2,
+                      "typeName": "u8"
+                    }
+                  ],
+                  "index": 0,
+                  "name": "U8"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 3,
+                      "typeName": "u16"
+                    }
+                  ],
+                  "index": 1,
+                  "name": "U16"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 4,
+                      "typeName": "u32"
+                    }
+                  ],
+                  "index": 2,
+                  "name": "U32"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 5,
+                      "typeName": "u64"
+                    }
+                  ],
+                  "index": 3,
+                  "name": "U64"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 6,
+                      "typeName": "u128"
+                    }
+                  ],
+                  "index": 4,
+                  "name": "U128"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 7,
+                      "typeName": "Vec<u8>"
+                    }
+                  ],
+                  "index": 5,
+                  "name": "Bytes"
+                }
+              ]
+            }
+          },
+          "path": [
+            "openbrush_contracts",
+            "traits",
+            "types",
+            "Id"
+          ]
         }
       }
     ]

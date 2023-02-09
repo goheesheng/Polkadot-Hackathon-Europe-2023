@@ -32,6 +32,7 @@ dependencies = [
  "ink_storage",
  "openbrush",
  "parity-scale-codec",
+ "rmrk_example_equippable",
  "scale-info",
 ]
 
@@ -719,9 +720,9 @@ checksum = "d01a5bd0424d00070b0098dd17ebca6f961a959dead1dbcbbbc1d1cd8d3deeba"
 
 [[package]]
 name = "pest"
-version = "2.5.4"
+version = "2.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ab62d2fa33726dbe6321cc97ef96d8cde531e3eeaf858a058de53a8a6d40d8f"
+checksum = "028accff104c4e513bad663bbcd2ad7cfd5304144404c31ed0a77ac103d00660"
 dependencies = [
  "thiserror",
  "ucd-trie",
@@ -802,6 +803,140 @@ name = "rlibc"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc874b127765f014d792f16763a81245ab80500e2ad921ed4ee9e82481ee08fe"
+
+[[package]]
+name = "rmrk"
+version = "0.5.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk_base",
+ "rmrk_common",
+ "rmrk_equippable",
+ "rmrk_minting",
+ "rmrk_multiasset",
+ "rmrk_nesting",
+ "scale-info",
+]
+
+[[package]]
+name = "rmrk_base"
+version = "0.5.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk_common",
+ "scale-info",
+]
+
+[[package]]
+name = "rmrk_common"
+version = "0.5.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "scale-info",
+]
+
+[[package]]
+name = "rmrk_equippable"
+version = "0.5.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk_base",
+ "rmrk_common",
+ "rmrk_multiasset",
+ "scale-info",
+]
+
+[[package]]
+name = "rmrk_example_equippable"
+version = "0.6.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk",
+ "scale-info",
+]
+
+[[package]]
+name = "rmrk_minting"
+version = "0.5.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk_common",
+ "scale-info",
+]
+
+[[package]]
+name = "rmrk_multiasset"
+version = "0.5.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk_common",
+ "scale-info",
+]
+
+[[package]]
+name = "rmrk_nesting"
+version = "0.5.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk_common",
+ "scale-info",
+]
 
 [[package]]
 name = "ryu"
@@ -894,9 +1029,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.92"
+version = "1.0.93"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7434af0dc1cbd59268aa98b4c22c131c0584d2232f6fb166efb993e2832e896a"
+checksum = "cad406b69c91885b5107daf2c29572f6c8cdb3c66826821e286c533490c0bc76"
 dependencies = [
  "itoa",
  "ryu",
