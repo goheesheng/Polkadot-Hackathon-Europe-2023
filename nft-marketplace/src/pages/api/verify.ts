@@ -11,6 +11,7 @@ import {
 import { NftMeta } from "@_types/nft";
 import { addressCheckMiddleWare } from "./utils";
 import axios from "axios";
+import { pinJSONToIPFS } from "./pinata";
 
 export default withSession(
   async (req: NextApiRequest & { session: Session }, res: NextApiResponse) => {
@@ -24,26 +25,8 @@ export default withSession(
             .send({ message: "Some of the form data are missing" });
         }
         await addressCheckMiddleWare(req, res);
-        const data = JSON.stringify({
-          pinataOptions: {
-            cidVersion: 1,
-          },
-          pinataMetadata: {
-            name: uuidv4(),
-          },
-          pinataContent: nft,
-        });
-        const config = {
-          method: "post",
-          url: "https://api.pinata.cloud/pinning/pinJSONToIPFS",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + pinataJWT,
-          },
-          data: data,
-        };
-        const jsonRes = await axios(config);
-        console.log(jsonRes.data);
+        const jsonRes = await pinJSONToIPFS(nft);
+
         return res.status(200).send(jsonRes.data);
       } catch {
         return res.status(422).send({ message: "Cannot create JSON" });
