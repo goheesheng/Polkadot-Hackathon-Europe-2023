@@ -63,9 +63,6 @@ mod Auction {
         pub fn new(address: AccountId, nft: Id, initial_price: Balance, deadline: Timestamp) -> Self {
             let owner = Self::env().caller();
             let rmrk_instance: RmrkRef = FromAccountId::from_account_id(address);
-            // Need to check if owner owns that nft id
-            // assert_eq!(rmrk_instance.owner_of(nft.clone()), Some(owner), "You do not own this NFT");
-            // Need to transfer ownership of NFT to the smart contract. How? Only user can transfer
             Self {
                 rmrk_instance: rmrk_instance,
                 owner: owner,
@@ -82,6 +79,8 @@ mod Auction {
 
        #[ink(message)]
         pub fn initialize_auction(&mut self) {
+            assert!(!self.cancelled, "Auction has been cancelled");
+            assert!(!self.completed, "Auction has already been completed");
             assert_eq!(Some(self.env().account_id()), self.rmrk_instance.owner_of(self.nft.clone()), "Smart contract needs to own the NFT first before opening the auction");
             self.initialized = true;
         }
@@ -97,16 +96,17 @@ mod Auction {
            // Check if the bid amount is greater than the current high bid
            assert!(bid > self.high_bid, "Bid must be higher than current high bid");
            // Deduct the bid amount from the caller's account
-        //    let transferred = self.env().transferred_value();
-        //    if transferred !== bid {
-        //     self.env().transfer(transferred, self.env().caller())
-        //    } else {
+           let transferred = self.env().transferred_value();
+           if transferred != bid {
+            self.env().transfer(self.env().caller(),transferred);
+            panic!("You need to transfer the amount that you bid");
+           } else {
             // Transfer the current high bid deposit to the previous high bidder
             self.env().transfer(self.high_bidder, self.high_bid);
             // Update the high bid and high bidder information
             self.high_bid = bid;
             self.high_bidder = self.env().caller();
-        //    }
+           }
        }
     
         #[ink(message)]
@@ -136,9 +136,11 @@ mod Auction {
             // Check if the auction was cancelled
             if self.cancelled {
                 // Transfer the NFT back to the owner
+                assert_eq!(Some(self.owner), self.rmrk_instance.owner_of(self.nft.clone()), "Already returned NFT to owner");
                 self.rmrk_instance.transfer(self.owner, self.nft.clone(), "Cancelled auction, returning NFT to owner".as_bytes().to_vec());
             } else {
                 // Transfer the NFT to the highest bidder
+                // Can remove this if you want the user to claim the nft manually
                 self.rmrk_instance.transfer(self.high_bidder, self.nft.clone(), "Won auction for NFT".as_bytes().to_vec());
                 // Transfer the funds to the owner
                 self.env().transfer(self.owner, self.high_bid);
@@ -157,6 +159,18 @@ mod Auction {
             // Transfer the NFT to the high bidder
             self.rmrk_instance.transfer(self.high_bidder, self.nft.clone(), "Won auction for NFT".as_bytes().to_vec());
         }
+
+        #[ink(message)]
+        pub fn get_highest_bid_info(&self) -> (AccountId,Balance) {
+            assert!(self.initialized, "Auction needs to be initialized");
+            (self.high_bidder,self.high_bid)
+        }
+
+        // #[ink(message)]
+        // pub fn get_current_time(&self) -> u64 {
+        //     self.env().block_timestamp()
+        // }
+        // Time might be able to get from frontend and stored in backend
     }
 
 }

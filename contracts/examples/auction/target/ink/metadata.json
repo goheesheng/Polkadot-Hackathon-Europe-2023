@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xa70d7abacb9860a392321e43854c1180e3ae3497cfb0a02120f1092d5ed76462",
+    "hash": "0x441236eb579084f285b1355b776a969ca213ebb4e4556f4a1507c5563321feae",
     "language": "ink! 3.4.0",
     "compiler": "rustc 1.69.0-nightly"
   },
@@ -184,6 +184,18 @@
           "payable": false,
           "returnType": null,
           "selector": "0x11dba191"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "get_highest_bid_info",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [],
+            "type": 10
+          },
+          "selector": "0xbb43ef88"
         }
       ]
     },
@@ -545,6 +557,17 @@
             "types",
             "Id"
           ]
+        }
+      },
+      {
+        "id": 10,
+        "type": {
+          "def": {
+            "tuple": [
+              0,
+              6
+            ]
+          }
         }
       }
     ]
