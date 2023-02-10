@@ -6,6 +6,14 @@ import FormData from "form-data";
 import { v4 as uuidv4 } from "uuid";
 import { pinFileToIPFS } from "./pinata";
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "10mb", // you can specify more data if needed
+    },
+  },
+};
+
 export default withSession(
   async (req: NextApiRequest & { session: Session }, res: NextApiResponse) => {
     if (req.method === "POST") {

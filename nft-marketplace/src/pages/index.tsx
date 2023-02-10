@@ -13,9 +13,9 @@ import {
   unwrapResultOrError,
 } from "@scio-labs/use-inkathon";
 import { ContractIds } from "@deployments/deployment";
-
+import { ContractMethod } from "@enumeration/contract-methods";
 const Home: NextPage = () => {
-  const { contract } = useRegisteredContract(ContractIds.psp34_nft);
+  const { contract } = useRegisteredContract(ContractIds.nft_equippable);
   const { api, account } = useInkathon();
 
   const getContractInfo = async () => {
@@ -25,9 +25,9 @@ const Home: NextPage = () => {
         api,
         account.address,
         contract,
-        "psp34::collectionId"
+        ContractMethod.mintingPrice
       );
-      console.log((result.output?.toPrimitive() as { bytes: any }).bytes);
+      console.log(result.output?.toPrimitive());
     } catch (e) {
       console.error(e);
     }

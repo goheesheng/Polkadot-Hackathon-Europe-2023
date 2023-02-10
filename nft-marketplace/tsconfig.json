@@ -28,6 +28,7 @@
       "@shared/*" : ["src/shared/*"],
       "@deployments/*": ["src/deployments/*"],
       "@contracts/*" : ["contracts/*"],
+      "@enumeration/*": ["src/enumeration/*"]
     }
   },
   "include": [

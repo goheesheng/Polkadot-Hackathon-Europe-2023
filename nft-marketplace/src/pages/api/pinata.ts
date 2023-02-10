@@ -44,18 +44,29 @@ export const pinFileToIPFS = async (
     cidVersion: 0,
   });
   formData.append("pinataOptions", options);
-
-  const res = await axios.post(
-    "https://api.pinata.cloud/pinning/pinFileToIPFS",
-    formData,
-    {
-      maxBodyLength: Infinity,
-      headers: {
-        "Content-Type": `multipart/form-data; boundary=${formData.getBoundary()}`,
-        Authorization: JWT,
-      },
-    }
-  );
+  const config = {
+    method: "post",
+    url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+    headers: {
+      Accept: "text/plain",
+      Authorization: JWT,
+      "Content-Type": `multipart/form-data; boundary=${formData.getBoundary()}`,
+    },
+    maxBodyLength: Infinity,
+    data: formData,
+  };
+  const res = await axios(config);
+  // const res = await axios.post(
+  //   "https://api.pinata.cloud/pinning/pinFileToIPFS",
+  //   formData,
+  //   {
+  //     maxBodyLength: Infinity,
+  //     headers: {
+  //       "Content-Type": `multipart/form-data; boundary=${formData.getBoundary()}`,
+  //       Authorization: JWT,
+  //     },
+  //   }
+  // );
   return res;
 };
 

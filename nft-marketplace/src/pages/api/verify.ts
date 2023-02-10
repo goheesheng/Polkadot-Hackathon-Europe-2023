@@ -19,7 +19,7 @@ export default withSession(
       try {
         const { body } = req;
         const nft = body.nft as NftMeta;
-        if (!nft.name || !nft.description || !nft.attributes) {
+        if (!nft.name || !nft.description || !nft.image || !nft.attributes) {
           return res
             .status(422)
             .send({ message: "Some of the form data are missing" });
