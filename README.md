@@ -67,6 +67,7 @@ Blockchain Node: A server that runs a full copy of the blockchain ledger and can
 
 ### To build and compile contracts:
 ```
+* Outdated - To be updated *
 cd Polkadot-Hackathon-Europe-2023/contracts/contracts/shiden34
 cargo contract build --release
 ```
