@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x8b498fdd3a5e5d2436a30ba0b06fd8e67b8ec743ec2f7df8e53ec0db962ca85a",
+    "hash": "0xfea5d30f2de9b509339651a0491279e42a7c5792c926ca4c6e70f6ebcfd6806f",
     "language": "ink! 3.4.0",
     "compiler": "rustc 1.65.0-nightly"
   },
@@ -41,15 +41,6 @@
                   "String"
                 ],
                 "type": 7
-              }
-            },
-            {
-              "label": "max_supply",
-              "type": {
-                "displayName": [
-                  "u64"
-                ],
-                "type": 5
               }
             },
             {
@@ -674,206 +665,6 @@
       ],
       "messages": [
         {
-          "args": [],
-          "docs": [
-            " Returns current NFT total supply."
-          ],
-          "label": "PSP34::total_supply",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "TotalSupplyOutput"
-            ],
-            "type": 6
-          },
-          "selector": "0x628413fe"
-        },
-        {
-          "args": [
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "OwnerOfInput1"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Returns the owner of the token if any."
-          ],
-          "label": "PSP34::owner_of",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "OwnerOfOutput"
-            ],
-            "type": 19
-          },
-          "selector": "0x1168624d"
-        },
-        {
-          "args": [
-            {
-              "label": "owner",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "operator",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput2"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput3"
-                ],
-                "type": 14
-              }
-            }
-          ],
-          "docs": [
-            " Returns `true` if the operator is approved by the owner to withdraw `id` token.",
-            " If `id` is `None`, returns `true` if the operator is approved to withdraw all owner's tokens."
-          ],
-          "label": "PSP34::allowance",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "AllowanceOutput"
-            ],
-            "type": 39
-          },
-          "selector": "0x4790f55a"
-        },
-        {
-          "args": [
-            {
-              "label": "operator",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput2"
-                ],
-                "type": 14
-              }
-            },
-            {
-              "label": "approved",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput3"
-                ],
-                "type": 39
-              }
-            }
-          ],
-          "docs": [
-            " Approves `operator` to withdraw the `id` token from the caller's account.",
-            " If `id` is `None` approves or disapproves the operator for all tokens of the caller.",
-            "",
-            " On success a `Approval` event is emitted.",
-            "",
-            " # Errors",
-            "",
-            " Returns `SelfApprove` error if it is self approve.",
-            "",
-            " Returns `NotApproved` error if caller is not owner of `id`."
-          ],
-          "label": "PSP34::approve",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "ApproveOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0x1932a8b0"
-        },
-        {
-          "args": [
-            {
-              "label": "owner",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "BalanceOfInput1"
-                ],
-                "type": 8
-              }
-            }
-          ],
-          "docs": [
-            " Returns the balance of the owner.",
-            "",
-            " This represents the amount of unique tokens the owner has."
-          ],
-          "label": "PSP34::balance_of",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "BalanceOfOutput"
-            ],
-            "type": 4
-          },
-          "selector": "0xcde7e55f"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Returns the collection `Id` of the NFT token.",
-            "",
-            " This can represents the relationship between tokens/contracts/pallets."
-          ],
-          "label": "PSP34::collection_id",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "CollectionIdOutput"
-            ],
-            "type": 1
-          },
-          "selector": "0xffa27a5f"
-        },
-        {
           "args": [
             {
               "label": "to",
@@ -934,29 +725,219 @@
         {
           "args": [],
           "docs": [
-            " Leaves the contract without owner. It will not be possible to call",
-            " owner's functions anymore. Can only be called by the current owner.",
+            " Returns the collection `Id` of the NFT token.",
             "",
-            " NOTE: Renouncing ownership will leave the contract without an owner,",
-            " thereby removing any functionality that is only available to the owner.",
+            " This can represents the relationship between tokens/contracts/pallets."
+          ],
+          "label": "PSP34::collection_id",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "CollectionIdOutput"
+            ],
+            "type": 1
+          },
+          "selector": "0xffa27a5f"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput1"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput2"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput3"
+                ],
+                "type": 14
+              }
+            }
+          ],
+          "docs": [
+            " Returns `true` if the operator is approved by the owner to withdraw `id` token.",
+            " If `id` is `None`, returns `true` if the operator is approved to withdraw all owner's tokens."
+          ],
+          "label": "PSP34::allowance",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "AllowanceOutput"
+            ],
+            "type": 39
+          },
+          "selector": "0x4790f55a"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Returns current NFT total supply."
+          ],
+          "label": "PSP34::total_supply",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "TotalSupplyOutput"
+            ],
+            "type": 6
+          },
+          "selector": "0x628413fe"
+        },
+        {
+          "args": [
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "OwnerOfInput1"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [
+            " Returns the owner of the token if any."
+          ],
+          "label": "PSP34::owner_of",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "OwnerOfOutput"
+            ],
+            "type": 19
+          },
+          "selector": "0x1168624d"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "BalanceOfInput1"
+                ],
+                "type": 8
+              }
+            }
+          ],
+          "docs": [
+            " Returns the balance of the owner.",
             "",
-            " On success a `OwnershipTransferred` event is emitted.",
+            " This represents the amount of unique tokens the owner has."
+          ],
+          "label": "PSP34::balance_of",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "BalanceOfOutput"
+            ],
+            "type": 4
+          },
+          "selector": "0xcde7e55f"
+        },
+        {
+          "args": [
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput1"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput2"
+                ],
+                "type": 14
+              }
+            },
+            {
+              "label": "approved",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput3"
+                ],
+                "type": 39
+              }
+            }
+          ],
+          "docs": [
+            " Approves `operator` to withdraw the `id` token from the caller's account.",
+            " If `id` is `None` approves or disapproves the operator for all tokens of the caller.",
+            "",
+            " On success a `Approval` event is emitted.",
             "",
             " # Errors",
             "",
-            " Panics with `CallerIsNotOwner` error if caller is not owner"
+            " Returns `SelfApprove` error if it is self approve.",
+            "",
+            " Returns `NotApproved` error if caller is not owner of `id`."
           ],
-          "label": "Ownable::renounce_ownership",
+          "label": "PSP34::approve",
           "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
-              "ownable_external",
-              "RenounceOwnershipOutput"
+              "psp34_external",
+              "ApproveOutput"
             ],
-            "type": 47
+            "type": 45
           },
-          "selector": "0x5e228753"
+          "selector": "0x1932a8b0"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Returns the address of the current owner."
+          ],
+          "label": "Ownable::owner",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "ownable_external",
+              "OwnerOutput"
+            ],
+            "type": 8
+          },
+          "selector": "0x4fa43c8c"
         },
         {
           "args": [
@@ -998,19 +979,29 @@
         {
           "args": [],
           "docs": [
-            " Returns the address of the current owner."
+            " Leaves the contract without owner. It will not be possible to call",
+            " owner's functions anymore. Can only be called by the current owner.",
+            "",
+            " NOTE: Renouncing ownership will leave the contract without an owner,",
+            " thereby removing any functionality that is only available to the owner.",
+            "",
+            " On success a `OwnershipTransferred` event is emitted.",
+            "",
+            " # Errors",
+            "",
+            " Panics with `CallerIsNotOwner` error if caller is not owner"
           ],
-          "label": "Ownable::owner",
-          "mutates": false,
+          "label": "Ownable::renounce_ownership",
+          "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
               "ownable_external",
-              "OwnerOutput"
+              "RenounceOwnershipOutput"
             ],
-            "type": 8
+            "type": 47
           },
-          "selector": "0x4fa43c8c"
+          "selector": "0x5e228753"
         },
         {
           "args": [
@@ -1051,37 +1042,6 @@
             "type": 49
           },
           "selector": "0xf19d48d1"
-        },
-        {
-          "args": [
-            {
-              "label": "index",
-              "type": {
-                "displayName": [
-                  "psp34enumerable_external",
-                  "TokenByIndexInput1"
-                ],
-                "type": 6
-              }
-            }
-          ],
-          "docs": [
-            " Returns a token `Id` at a given `index` of all the tokens stored by the contract.",
-            " Use along with `total_supply` to enumerate all tokens.",
-            "",
-            " The start index is zero."
-          ],
-          "label": "PSP34Enumerable::token_by_index",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34enumerable_external",
-              "TokenByIndexOutput"
-            ],
-            "type": 50
-          },
-          "selector": "0xcd0340d0"
         },
         {
           "args": [
@@ -1127,30 +1087,33 @@
         {
           "args": [
             {
-              "label": "token_id",
+              "label": "index",
               "type": {
                 "displayName": [
-                  "minting_external",
-                  "GetMetadataInput1"
+                  "psp34enumerable_external",
+                  "TokenByIndexInput1"
                 ],
-                "type": 5
+                "type": 6
               }
             }
           ],
           "docs": [
-            " Get URI for the token Id."
+            " Returns a token `Id` at a given `index` of all the tokens stored by the contract.",
+            " Use along with `total_supply` to enumerate all tokens.",
+            "",
+            " The start index is zero."
           ],
-          "label": "Minting::get_metadata",
+          "label": "PSP34Enumerable::token_by_index",
           "mutates": false,
           "payable": false,
           "returnType": {
             "displayName": [
-              "minting_external",
-              "GetMetadataOutput"
+              "psp34enumerable_external",
+              "TokenByIndexOutput"
             ],
-            "type": 51
+            "type": 50
           },
-          "selector": "0x3cf9e80b"
+          "selector": "0xcd0340d0"
         },
         {
           "args": [
@@ -1191,6 +1154,51 @@
           "selector": "0x0f8c5089"
         },
         {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "minting_external",
+                  "GetMetadataInput1"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [
+            " Get URI for the token Id."
+          ],
+          "label": "Minting::get_metadata",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "minting_external",
+              "GetMetadataOutput"
+            ],
+            "type": 51
+          },
+          "selector": "0x3cf9e80b"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Get token mint price."
+          ],
+          "label": "Minting::price",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "minting_external",
+              "PriceOutput"
+            ],
+            "type": 6
+          },
+          "selector": "0xdc61647f"
+        },
+        {
           "args": [],
           "docs": [
             " Get max supply of tokens."
@@ -1223,23 +1231,6 @@
             "type": 45
           },
           "selector": "0xe1ca1a29"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Get token mint price."
-          ],
-          "label": "Minting::price",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "minting_external",
-              "PriceOutput"
-            ],
-            "type": 6
-          },
-          "selector": "0xdc61647f"
         },
         {
           "args": [
@@ -1278,113 +1269,6 @@
             "type": 45
           },
           "selector": "0xc125efc7"
-        },
-        {
-          "args": [
-            {
-              "label": "parent_token_id",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AddChildInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AddChildInput2"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Add a child NFT (from different collection) to the NFT in this collection.",
-            " The status of the added child is `Pending` if caller is not owner of child NFT",
-            " The status of the added child is `Accepted` if caller is is owner of child NFT",
-            " The caller needs not to be the owner of the to_parent_token_id, but",
-            " Caller must be owner of the child NFT,",
-            " in order to perform transfer() ownership of the child nft to to_parent_token_id.",
-            "",
-            " # Requirements:",
-            " * `child_contract_address` needs to be added by collecion owner",
-            " * `to_parent_token_id` must exist.",
-            " * `child_token_id` must exist.",
-            " * There cannot be two identical children.",
-            "",
-            " # Arguments:",
-            " * `to_parent_token_id`: is the tokenId of the parent NFT. The receiver of child.",
-            " * `child_nft`: (collection_id, token_id) of the child instance.",
-            "",
-            " # Result:",
-            " Ownership of child NFT will be transferred to this contract (cross contract call)",
-            " On success emitts `RmrkEvent::ChildAdded`",
-            " On success emitts `RmrkEvent::ChildAccepted` - only if caller is already owner of child NFT"
-          ],
-          "label": "Nesting::add_child",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "AddChildOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0x1d6f5156"
-        },
-        {
-          "args": [
-            {
-              "label": "parent_token_id",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AcceptChildInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AcceptChildInput2"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Accept a child NFT (from different collection) to be owned by parent token.",
-            "",
-            " # Requirements:",
-            " * The status of the child is `Pending`",
-            "",
-            " # Arguments:",
-            " * `parent_token_id`: is the tokenId of the parent NFT.",
-            " * `child_nft`: (collection_id, token_id) of the child instance.",
-            "",
-            " # Result:",
-            " Child Nft is moved from pending to accepted",
-            " On success emitts `RmrkEvent::ChildAccepted`"
-          ],
-          "label": "Nesting::accept_child",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "AcceptChildOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0x3b3e2643"
         },
         {
           "args": [
@@ -1503,6 +1387,39 @@
               "type": {
                 "displayName": [
                   "nesting_external",
+                  "ChildrenBalanceInput1"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [
+            " Read the number of children on the parent token.",
+            " # Arguments:",
+            " * `parent_token_id`: parent tokenId to check",
+            "",
+            " # Result:",
+            " Returns the tupple of `(accepted_children, pending_children)` count"
+          ],
+          "label": "Nesting::children_balance",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "nesting_external",
+              "ChildrenBalanceOutput"
+            ],
+            "type": 53
+          },
+          "selector": "0x2348106c"
+        },
+        {
+          "args": [
+            {
+              "label": "parent_token_id",
+              "type": {
+                "displayName": [
+                  "nesting_external",
                   "RemoveChildInput1"
                 ],
                 "type": 1
@@ -1554,31 +1471,333 @@
               "type": {
                 "displayName": [
                   "nesting_external",
-                  "ChildrenBalanceInput1"
+                  "AddChildInput1"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "child_nft",
+              "type": {
+                "displayName": [
+                  "nesting_external",
+                  "AddChildInput2"
+                ],
+                "type": 28
+              }
+            }
+          ],
+          "docs": [
+            " Add a child NFT (from different collection) to the NFT in this collection.",
+            " The status of the added child is `Pending` if caller is not owner of child NFT",
+            " The status of the added child is `Accepted` if caller is is owner of child NFT",
+            " The caller needs not to be the owner of the to_parent_token_id, but",
+            " Caller must be owner of the child NFT,",
+            " in order to perform transfer() ownership of the child nft to to_parent_token_id.",
+            "",
+            " # Requirements:",
+            " * `child_contract_address` needs to be added by collecion owner",
+            " * `to_parent_token_id` must exist.",
+            " * `child_token_id` must exist.",
+            " * There cannot be two identical children.",
+            "",
+            " # Arguments:",
+            " * `to_parent_token_id`: is the tokenId of the parent NFT. The receiver of child.",
+            " * `child_nft`: (collection_id, token_id) of the child instance.",
+            "",
+            " # Result:",
+            " Ownership of child NFT will be transferred to this contract (cross contract call)",
+            " On success emitts `RmrkEvent::ChildAdded`",
+            " On success emitts `RmrkEvent::ChildAccepted` - only if caller is already owner of child NFT"
+          ],
+          "label": "Nesting::add_child",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "nesting_external",
+              "AddChildOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0x1d6f5156"
+        },
+        {
+          "args": [
+            {
+              "label": "parent_token_id",
+              "type": {
+                "displayName": [
+                  "nesting_external",
+                  "AcceptChildInput1"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "child_nft",
+              "type": {
+                "displayName": [
+                  "nesting_external",
+                  "AcceptChildInput2"
+                ],
+                "type": 28
+              }
+            }
+          ],
+          "docs": [
+            " Accept a child NFT (from different collection) to be owned by parent token.",
+            "",
+            " # Requirements:",
+            " * The status of the child is `Pending`",
+            "",
+            " # Arguments:",
+            " * `parent_token_id`: is the tokenId of the parent NFT.",
+            " * `child_nft`: (collection_id, token_id) of the child instance.",
+            "",
+            " # Result:",
+            " Child Nft is moved from pending to accepted",
+            " On success emitts `RmrkEvent::ChildAccepted`"
+          ],
+          "label": "Nesting::accept_child",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "nesting_external",
+              "AcceptChildOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0x3b3e2643"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "GetAcceptedTokenAssetsInput1"
                 ],
                 "type": 1
               }
             }
           ],
           "docs": [
-            " Read the number of children on the parent token.",
-            " # Arguments:",
-            " * `parent_token_id`: parent tokenId to check",
-            "",
-            " # Result:",
-            " Returns the tupple of `(accepted_children, pending_children)` count"
+            " Fetch all accepted assets for the token_id"
           ],
-          "label": "Nesting::children_balance",
+          "label": "MultiAsset::get_accepted_token_assets",
           "mutates": false,
           "payable": false,
           "returnType": {
             "displayName": [
-              "nesting_external",
-              "ChildrenBalanceOutput"
+              "multiasset_external",
+              "GetAcceptedTokenAssetsOutput"
+            ],
+            "type": 55
+          },
+          "selector": "0x765ef0e3"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "TotalTokenAssetsInput1"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [
+            " Used to retrieve the total number of assets per token"
+          ],
+          "label": "MultiAsset::total_token_assets",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "multiasset_external",
+              "TotalTokenAssetsOutput"
             ],
             "type": 53
           },
-          "selector": "0x2348106c"
+          "selector": "0x525922a3"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "RemoveAssetInput1"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "asset_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "RemoveAssetInput2"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [
+            " Remove the assets for the list of token assets"
+          ],
+          "label": "MultiAsset::remove_asset",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "multiasset_external",
+              "RemoveAssetOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0xfdbda22c"
+        },
+        {
+          "args": [
+            {
+              "label": "asset_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "GetAssetUriInput1"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [
+            " Used to retrieve asset's uri"
+          ],
+          "label": "MultiAsset::get_asset_uri",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "multiasset_external",
+              "GetAssetUriOutput"
+            ],
+            "type": 49
+          },
+          "selector": "0xb677b85c"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "AddAssetToTokenInput1"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "asset_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "AddAssetToTokenInput2"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "label": "replaces_asset_with_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "AddAssetToTokenInput3"
+                ],
+                "type": 57
+              }
+            }
+          ],
+          "docs": [
+            " Used to add an asset to a token.",
+            " If the given asset is already added to the token, the execution will be reverted.",
+            " If the asset ID is invalid, the execution will be reverted.",
+            " If the token already has the maximum amount of pending assets (128), the execution will be",
+            " reverted.",
+            " If the asset is being added by the current root owner of the token, the asset will be automatically",
+            " accepted.",
+            " # Arguments",
+            "  * tokenId ID of the token to add the asset to",
+            "  * assetId ID of the asset to add to the token",
+            "  * replacesAssetWithId ID of the asset to replace from the token's list of active assets",
+            " Emits an {AssetAddedToToken} event."
+          ],
+          "label": "MultiAsset::add_asset_to_token",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "multiasset_external",
+              "AddAssetToTokenOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0xe893e17a"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "RejectAssetInput1"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "asset_id",
+              "type": {
+                "displayName": [
+                  "multiasset_external",
+                  "RejectAssetInput2"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [
+            " Rejects an asset from the pending array of given token.",
+            " Removes the asset from the token's pending asset array.",
+            " # Requirements:",
+            "  * The caller must own the token or be approved to manage the token's assets",
+            "  * `tokenId` must exist.",
+            "  * `assetId` must be in the pending_asset list.",
+            " # Arguments",
+            "  * tokenId ID of the token for which to accept the pending asset",
+            "  * assetId ID of the asset expected to be in the pending_asset list.",
+            " Emits a {AssetRejected} event."
+          ],
+          "label": "MultiAsset::reject_asset",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "multiasset_external",
+              "RejectAssetOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0xb3e25a89"
         },
         {
           "args": [],
@@ -1606,44 +1825,46 @@
               "type": {
                 "displayName": [
                   "multiasset_external",
-                  "SetPriorityInput1"
+                  "AcceptAssetInput1"
                 ],
                 "type": 1
               }
             },
             {
-              "label": "priorities",
+              "label": "asset_id",
               "type": {
                 "displayName": [
                   "multiasset_external",
-                  "SetPriorityInput2"
+                  "AcceptAssetInput2"
                 ],
-                "type": 32
+                "type": 4
               }
             }
           ],
           "docs": [
-            " Used to specify the priorities for a given token's active assets.",
-            " If the length of the priorities array doesn't match the length of the active assets array, the execution",
-            "  will be reverted.",
-            " The position of the priority value in the array corresponds the position of the asset in the active",
-            "  assets array it will be applied to.",
+            " Accepts an asset at from the pending array of given token.",
+            " Migrates the asset from the token's pending asset array to the token's active asset array.",
+            " Active assets cannot be removed by anyone, but can be replaced by a new asset.",
+            " # Requirements:",
+            "  * The caller must own the token or be approved to manage the token's assets",
+            "  * `tokenId` must exist.",
+            "  * `assetId` must be in the pending_asset list.",
             " # Arguments",
-            "  * tokenId ID of the token for which the priorities are being set",
-            "  * priorities Array of priorities for the assets",
-            " Emits a {AssetPrioritySet} event."
+            "  * tokenId ID of the token for which to accept the pending asset",
+            "  * assetId ID of the asset expected to be in the pending_asset list.",
+            " Emits an {AssetAccepted} event."
           ],
-          "label": "MultiAsset::set_priority",
+          "label": "MultiAsset::accept_asset",
           "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
               "multiasset_external",
-              "SetPriorityOutput"
+              "AcceptAssetOutput"
             ],
             "type": 45
           },
-          "selector": "0x1fde0ead"
+          "selector": "0xdc2df4e5"
         },
         {
           "args": [
@@ -1714,302 +1935,72 @@
               "type": {
                 "displayName": [
                   "multiasset_external",
-                  "RejectAssetInput1"
+                  "SetPriorityInput1"
                 ],
                 "type": 1
               }
             },
             {
-              "label": "asset_id",
+              "label": "priorities",
               "type": {
                 "displayName": [
                   "multiasset_external",
-                  "RejectAssetInput2"
+                  "SetPriorityInput2"
                 ],
-                "type": 4
+                "type": 32
               }
             }
           ],
           "docs": [
-            " Rejects an asset from the pending array of given token.",
-            " Removes the asset from the token's pending asset array.",
-            " # Requirements:",
-            "  * The caller must own the token or be approved to manage the token's assets",
-            "  * `tokenId` must exist.",
-            "  * `assetId` must be in the pending_asset list.",
+            " Used to specify the priorities for a given token's active assets.",
+            " If the length of the priorities array doesn't match the length of the active assets array, the execution",
+            "  will be reverted.",
+            " The position of the priority value in the array corresponds the position of the asset in the active",
+            "  assets array it will be applied to.",
             " # Arguments",
-            "  * tokenId ID of the token for which to accept the pending asset",
-            "  * assetId ID of the asset expected to be in the pending_asset list.",
-            " Emits a {AssetRejected} event."
+            "  * tokenId ID of the token for which the priorities are being set",
+            "  * priorities Array of priorities for the assets",
+            " Emits a {AssetPrioritySet} event."
           ],
-          "label": "MultiAsset::reject_asset",
+          "label": "MultiAsset::set_priority",
           "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
               "multiasset_external",
-              "RejectAssetOutput"
+              "SetPriorityOutput"
             ],
             "type": 45
           },
-          "selector": "0xb3e25a89"
+          "selector": "0x1fde0ead"
         },
         {
           "args": [
             {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "GetAssetUriInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to retrieve asset's uri"
-          ],
-          "label": "MultiAsset::get_asset_uri",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "GetAssetUriOutput"
-            ],
-            "type": 49
-          },
-          "selector": "0xb677b85c"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "RemoveAssetInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "RemoveAssetInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Remove the assets for the list of token assets"
-          ],
-          "label": "MultiAsset::remove_asset",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "RemoveAssetOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0xfdbda22c"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AcceptAssetInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AcceptAssetInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Accepts an asset at from the pending array of given token.",
-            " Migrates the asset from the token's pending asset array to the token's active asset array.",
-            " Active assets cannot be removed by anyone, but can be replaced by a new asset.",
-            " # Requirements:",
-            "  * The caller must own the token or be approved to manage the token's assets",
-            "  * `tokenId` must exist.",
-            "  * `assetId` must be in the pending_asset list.",
-            " # Arguments",
-            "  * tokenId ID of the token for which to accept the pending asset",
-            "  * assetId ID of the asset expected to be in the pending_asset list.",
-            " Emits an {AssetAccepted} event."
-          ],
-          "label": "MultiAsset::accept_asset",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "AcceptAssetOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0xdc2df4e5"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "GetAcceptedTokenAssetsInput1"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Fetch all accepted assets for the token_id"
-          ],
-          "label": "MultiAsset::get_accepted_token_assets",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "GetAcceptedTokenAssetsOutput"
-            ],
-            "type": 55
-          },
-          "selector": "0x765ef0e3"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "TotalTokenAssetsInput1"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Used to retrieve the total number of assets per token"
-          ],
-          "label": "MultiAsset::total_token_assets",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "TotalTokenAssetsOutput"
-            ],
-            "type": 53
-          },
-          "selector": "0x525922a3"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetToTokenInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetToTokenInput2"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "replaces_asset_with_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetToTokenInput3"
-                ],
-                "type": 57
-              }
-            }
-          ],
-          "docs": [
-            " Used to add an asset to a token.",
-            " If the given asset is already added to the token, the execution will be reverted.",
-            " If the asset ID is invalid, the execution will be reverted.",
-            " If the token already has the maximum amount of pending assets (128), the execution will be",
-            " reverted.",
-            " If the asset is being added by the current root owner of the token, the asset will be automatically",
-            " accepted.",
-            " # Arguments",
-            "  * tokenId ID of the token to add the asset to",
-            "  * assetId ID of the asset to add to the token",
-            "  * replacesAssetWithId ID of the asset to replace from the token's list of active assets",
-            " Emits an {AssetAddedToToken} event."
-          ],
-          "label": "MultiAsset::add_asset_to_token",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "AddAssetToTokenOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0xe893e17a"
-        },
-        {
-          "args": [
-            {
-              "label": "parts",
+              "label": "part_id",
               "type": {
                 "displayName": [
                   "base_external",
-                  "AddPartListInput1"
+                  "SetEquippableByAllInput1"
                 ],
-                "type": 58
+                "type": 4
               }
             }
           ],
           "docs": [
-            " Add one or more parts to the base"
+            " Sets the is_equippable_by_all flag to true, meaning that any collection may be equipped into the `PartId`"
           ],
-          "label": "Base::add_part_list",
+          "label": "Base::set_equippable_by_all",
           "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
               "base_external",
-              "AddPartListOutput"
+              "SetEquippableByAllOutput"
             ],
             "type": 45
           },
-          "selector": "0xa69bb397"
+          "selector": "0xf02dfddf"
         },
         {
           "args": [
@@ -2050,6 +2041,34 @@
           "selector": "0x676b2b0e"
         },
         {
+          "args": [
+            {
+              "label": "part_id",
+              "type": {
+                "displayName": [
+                  "base_external",
+                  "ResetEquippableAddressesInput1"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [
+            " Remove list of equippable addresses for given Part"
+          ],
+          "label": "Base::reset_equippable_addresses",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "base_external",
+              "ResetEquippableAddressesOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0xa1771d47"
+        },
+        {
           "args": [],
           "docs": [],
           "label": "Base::get_base_metadata",
@@ -2065,114 +2084,21 @@
           "selector": "0xef4c0817"
         },
         {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "IsEquippableByAllInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
+          "args": [],
           "docs": [
-            " Checks if the given `PartId` can be equipped by any collection"
+            " Get the list of all parts."
           ],
-          "label": "Base::is_equippable_by_all",
+          "label": "Base::get_parts_count",
           "mutates": false,
           "payable": false,
           "returnType": {
             "displayName": [
               "base_external",
-              "IsEquippableByAllOutput"
+              "GetPartsCountOutput"
             ],
-            "type": 39
+            "type": 4
           },
-          "selector": "0xc51b3205"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "GetPartInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Get the part details for the given PartId."
-          ],
-          "label": "Base::get_part",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "GetPartOutput"
-            ],
-            "type": 59
-          },
-          "selector": "0x4adb5884"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "SetEquippableByAllInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Sets the is_equippable_by_all flag to true, meaning that any collection may be equipped into the `PartId`"
-          ],
-          "label": "Base::set_equippable_by_all",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "SetEquippableByAllOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0xf02dfddf"
-        },
-        {
-          "args": [
-            {
-              "label": "base_metadata",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "SetupBaseInput1"
-                ],
-                "type": 7
-              }
-            }
-          ],
-          "docs": [],
-          "label": "Base::setup_base",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "SetupBaseOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0xcd5b2ca6"
+          "selector": "0x0ae71607"
         },
         {
           "args": [
@@ -2215,47 +2141,112 @@
         {
           "args": [
             {
+              "label": "parts",
+              "type": {
+                "displayName": [
+                  "base_external",
+                  "AddPartListInput1"
+                ],
+                "type": 58
+              }
+            }
+          ],
+          "docs": [
+            " Add one or more parts to the base"
+          ],
+          "label": "Base::add_part_list",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "base_external",
+              "AddPartListOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0xa69bb397"
+        },
+        {
+          "args": [
+            {
+              "label": "base_metadata",
+              "type": {
+                "displayName": [
+                  "base_external",
+                  "SetupBaseInput1"
+                ],
+                "type": 7
+              }
+            }
+          ],
+          "docs": [],
+          "label": "Base::setup_base",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "base_external",
+              "SetupBaseOutput"
+            ],
+            "type": 45
+          },
+          "selector": "0xcd5b2ca6"
+        },
+        {
+          "args": [
+            {
               "label": "part_id",
               "type": {
                 "displayName": [
                   "base_external",
-                  "ResetEquippableAddressesInput1"
+                  "GetPartInput1"
                 ],
                 "type": 4
               }
             }
           ],
           "docs": [
-            " Remove list of equippable addresses for given Part"
+            " Get the part details for the given PartId."
           ],
-          "label": "Base::reset_equippable_addresses",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "ResetEquippableAddressesOutput"
-            ],
-            "type": 45
-          },
-          "selector": "0xa1771d47"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Get the list of all parts."
-          ],
-          "label": "Base::get_parts_count",
+          "label": "Base::get_part",
           "mutates": false,
           "payable": false,
           "returnType": {
             "displayName": [
               "base_external",
-              "GetPartsCountOutput"
+              "GetPartOutput"
             ],
-            "type": 4
+            "type": 59
           },
-          "selector": "0x0ae71607"
+          "selector": "0x4adb5884"
+        },
+        {
+          "args": [
+            {
+              "label": "part_id",
+              "type": {
+                "displayName": [
+                  "base_external",
+                  "IsEquippableByAllInput1"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [
+            " Checks if the given `PartId` can be equipped by any collection"
+          ],
+          "label": "Base::is_equippable_by_all",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "base_external",
+              "IsEquippableByAllOutput"
+            ],
+            "type": 39
+          },
+          "selector": "0xc51b3205"
         },
         {
           "args": [
@@ -2360,50 +2351,6 @@
             "type": 60
           },
           "selector": "0xce09be8e"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "GetAssetAndEquippableDataInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "GetAssetAndEquippableDataInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to get the asset and equippable data associated with given `asset_id`.",
-            " # Arguments:",
-            "  * tokenId ID of the token for which to retrieve the asset",
-            "  * asset_id ID of the asset of which we are retrieving",
-            " # Returns:",
-            "    * asset_id metadataURI,",
-            "    * EquippableAsset"
-          ],
-          "label": "Equippable::get_asset_and_equippable_data",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "equippable_external",
-              "GetAssetAndEquippableDataOutput"
-            ],
-            "type": 61
-          },
-          "selector": "0xeddf27de"
         },
         {
           "args": [
@@ -2534,6 +2481,50 @@
             "type": 45
           },
           "selector": "0x9d5323ba"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "equippable_external",
+                  "GetAssetAndEquippableDataInput1"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "label": "asset_id",
+              "type": {
+                "displayName": [
+                  "equippable_external",
+                  "GetAssetAndEquippableDataInput2"
+                ],
+                "type": 4
+              }
+            }
+          ],
+          "docs": [
+            " Used to get the asset and equippable data associated with given `asset_id`.",
+            " # Arguments:",
+            "  * tokenId ID of the token for which to retrieve the asset",
+            "  * asset_id ID of the asset of which we are retrieving",
+            " # Returns:",
+            "    * asset_id metadataURI,",
+            "    * EquippableAsset"
+          ],
+          "label": "Equippable::get_asset_and_equippable_data",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "equippable_external",
+              "GetAssetAndEquippableDataOutput"
+            ],
+            "type": 61
+          },
+          "selector": "0xeddf27de"
         }
       ]
     },
