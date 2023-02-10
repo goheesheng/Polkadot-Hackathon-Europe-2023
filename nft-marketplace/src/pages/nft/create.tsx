@@ -137,6 +137,7 @@ const NftCreate: NextPage = () => {
       attributes: nftMeta.attributes,
     });
   };
+
   const uploadMetadata = async () => {
     try {
       const { signature } = await getSignedData();
@@ -149,7 +150,7 @@ const NftCreate: NextPage = () => {
       const res = await toast.promise(promise, {
         pending: "Uploading metadata",
         success: "Metadata Uploaded",
-        error: "Transaction failed",
+        error: "Upload metadata error",
       });
 
       const data = res.data as PinataRes;
