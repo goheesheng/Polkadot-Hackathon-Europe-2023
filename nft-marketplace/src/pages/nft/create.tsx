@@ -62,8 +62,17 @@ const NftCreate: NextPage = () => {
       options,
       [],
       (result) => {
-        console.log(result);
-        if (result?.status?.isInBlock) console.log(result.status.toJSON());
+        const { status, events } = result;
+        const { isInBlock } = status;
+        if (isInBlock) {
+          events.forEach(({ event: { method } }) => {
+            if (method === "ExtrinsicSuccess") {
+              toast.success("ExtrinsicSuccess");
+            } else if (method === "ExtrinsicFailed") {
+              toast.error("Extrinsic Failed");
+            }
+          });
+        }
       }
     );
   };
@@ -179,8 +188,6 @@ const NftCreate: NextPage = () => {
 
       await toast.promise(tx, {
         pending: "Minting NFT",
-        success: "NFT minted",
-        error: "Mint NFT error",
       });
     } catch (e: any) {
       console.error(e.message);

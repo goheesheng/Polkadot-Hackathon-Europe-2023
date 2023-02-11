@@ -27,15 +27,8 @@ function classNames(...classes: string[]) {
 }
 
 const Walletbar: FunctionComponent<WalletbarProps> = () => {
-  const {
-    connect,
-    isConnecting,
-    isConnected,
-    account,
-    accounts,
-    api,
-    setAccount,
-  } = useInkathon();
+  const { connect, isConnecting, isConnected, account, accounts, setAccount } =
+    useInkathon();
 
   if (isConnecting) {
     return (
@@ -51,11 +44,23 @@ const Walletbar: FunctionComponent<WalletbarProps> = () => {
     );
   }
 
+  const connectIfWalletAvailable = async () => {
+    const { web3Enable } = await import("@polkadot/extension-dapp");
+    const extensions = await web3Enable("NFT!Marketplace");
+    if (!extensions?.length) {
+      window.open("https://polkadot.js.org/", "_ blank");
+    } else {
+      {
+        connect;
+      }
+    }
+  };
+
   // Connect Button
   if (!account)
     return (
       <Button
-        onClick={connect}
+        onClick={connectIfWalletAvailable}
         isLoading={isConnecting}
         size="md"
         py={6}
