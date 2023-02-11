@@ -872,6 +872,7 @@ dependencies = [
  "parity-scale-codec",
  "rmrk",
  "scale-info",
+ "serde",
 ]
 
 [[package]]

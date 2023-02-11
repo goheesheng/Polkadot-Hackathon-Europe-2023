@@ -42,4 +42,7 @@ pub trait Minting {
     /// Get URI for the token Id.
     #[ink(message)]
     fn get_metadata(&self, token_id: u64) -> Result<PreludeString, PSP34Error>;
+
+    #[ink(message)]
+    fn get_listed(&self, token_id: u64) -> bool;
 }

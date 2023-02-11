@@ -7,9 +7,12 @@ pub mod rmrk_example_equippable {
         EmitEvent,
         Env,
     };
+    use ink_prelude::collections::BTreeMap;
     use ink_prelude::vec::Vec;
+    use ink_prelude::vec;
     use ink_storage::traits::SpreadAllocate;
-    use rmrk::storage::MintingData;
+    use ink_prelude::string::ToString;
+
     use openbrush::{
         contracts::{
             ownable::*,
@@ -255,15 +258,92 @@ pub mod rmrk_example_equippable {
             })
         }
 
-        // #[ink(message)]
-        // pub fn get_all_listed_nft(&mut self) -> Vec<(i8, Id)>{
-        //     let info = vec![];
-        //     let _total_supply = self.total_supply();
-        //     for n in 1..(_total_supply+1) {
-        //         info.push((n,MintingData::get_metadata(n)));
-        //     }
-        //     info
-        // }
+        #[ink(message)]
+        pub fn get_all_listed_nft(&mut self) -> Vec<BTreeMap<String, String>>{
+            let mut info = vec![];
+            let _total_supply = self.total_supply();
+            for n in 1..(_total_supply+1) {
+                let id: u64 = n as u64;
+                let mut tokenId: BTreeMap<String, String> = BTreeMap::new();
+                tokenId.insert("token".as_bytes().to_vec(),id.to_string().as_bytes().to_vec());
+                
+                let result = self.get_metadata(id);
+                match result {
+                    Ok(result) => {
+                        tokenId.insert("metadata".as_bytes().to_vec(), result.as_bytes().to_vec());
+                    },
+                    Err(err) => {
+                        tokenId.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                    }
+                }
+                
+                info.push(tokenId);
+            }
+            info
+        }
+
+        #[ink(message)]
+        pub fn test(&mut self, address: AccountId, index: u128) -> bool {
+            let tokenId = self.owners_token_by_index(address, index);
+            match tokenId {
+                Ok(tokenId) => {
+                    true
+                }, Err(_) => {
+                    false
+                }
+            }
+        }
+
+        #[ink(message)]
+        pub fn get_nft_by_owner(&mut self, address: AccountId) -> Vec<BTreeMap<String, String>> {
+            let mut info = vec![];
+            let mut index = 0;
+            
+            while true {
+                let mut dictMap: BTreeMap<String, String> = BTreeMap::new();
+                let tokenId = self.owners_token_by_index(address, index);
+                index += 1;
+                match tokenId {
+                    Ok(tokenId) => {
+                        let token_id = if let Id::U64(tokenId) = 
+                        tokenId {
+                            tokenId
+                        } else {
+                            unreachable!("I am sure it is U64")
+                        };
+                        dictMap.insert("token".as_bytes().to_vec(), (token_id).to_string().as_bytes().to_vec());
+                        match self
+                            .minting
+                            .listed
+                            .get(tokenId)
+                        {
+                            Some(res) => {
+                                dictMap.insert("listed".as_bytes().to_vec(), res.to_string().as_bytes().to_vec());
+                                let resultId = self.get_metadata(token_id);
+                                match resultId {
+                                    Ok(resultId) => {
+                                        dictMap.insert("metadata".as_bytes().to_vec(), resultId.as_bytes().to_vec());
+                                    },
+                                    Err(err) => {
+                                        dictMap.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                                    }
+                                }
+                            }
+                            None => {
+                                dictMap.insert("listed".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                                dictMap.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                            }
+                        }
+                        info.push(dictMap);
+                    },
+                    Err(err) => {
+                        break;
+                    }
+                }
+            }
+
+            info
+        }
     }
 
     impl psp34::Internal for Rmrk {

@@ -48,6 +48,7 @@ pub struct MintingData {
     pub max_supply: u64,
     pub price_per_mint: Balance,
     pub nft_metadata: Mapping<Id, String>,
+    pub listed: Mapping<Id, bool>,
 }
 
 impl<T> Minting for T
@@ -118,10 +119,33 @@ where
         self.data::<MintingData>()
             .nft_metadata
             .insert(Id::U64(token_id), &String::from(metadata));
+        self.data::<MintingData>()
+            .listed
+            .insert(Id::U64(token_id), &true);
         self.data::<MintingData>().last_token_id += 1;
 
         self._emit_transfer_event(None, Some(to), Id::U64(token_id));
         return Ok(())
+    }
+
+    // Get listed bool for token
+    default fn get_listed(&self, token_id: u64) -> bool {
+        // self.ensure_exists_and_get_owner(&Id::U64(token_id));
+        let listed: bool;
+        match self
+            .data::<MintingData>()
+            .listed
+            .get(Id::U64(token_id))
+        {
+            Some(get_listed) => {
+                listed = get_listed;
+            }
+            None => {
+                // If got error, return false
+                listed = false;
+            }
+        }
+        listed
     }
 
     /// Get max supply of tokens
