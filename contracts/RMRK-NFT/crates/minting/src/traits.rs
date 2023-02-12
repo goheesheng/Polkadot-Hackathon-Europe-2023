@@ -24,11 +24,12 @@ pub trait Minting {
     fn mint(&mut self, to: AccountId, mint_amount: u64) -> Result<(), PSP34Error>;
 
     /// Mint next available token with specific metadata
-    #[ink(message)]
+    #[ink(message, payable)]
     fn mint_with_metadata(
         &mut self,
         metadata: PreludeString,
         to: AccountId,
+        nft_price: Balance,
     ) -> Result<(), PSP34Error>;
 
     /// Get max supply of tokens.
@@ -42,7 +43,4 @@ pub trait Minting {
     /// Get URI for the token Id.
     #[ink(message)]
     fn get_metadata(&self, token_id: u64) -> Result<PreludeString, PSP34Error>;
-
-    #[ink(message)]
-    fn get_listed(&self, token_id: u64) -> bool;
 }

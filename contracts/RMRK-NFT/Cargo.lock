@@ -21,6 +21,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8da52d66c7071e2e3fa2a1e5c6d088fec47b593032b254f5e980de8ea54454d6"
 
 [[package]]
+name = "auction"
+version = "0.6.0"
+dependencies = [
+ "ink_env",
+ "ink_lang",
+ "ink_metadata",
+ "ink_prelude",
+ "ink_primitives",
+ "ink_storage",
+ "openbrush",
+ "parity-scale-codec",
+ "rmrk_example_equippable",
+ "scale-info",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -860,7 +876,7 @@ dependencies = [
 
 [[package]]
 name = "rmrk_example_equippable"
-version = "0.6.0"
+version = "0.10.0"
 dependencies = [
  "ink_env",
  "ink_lang",

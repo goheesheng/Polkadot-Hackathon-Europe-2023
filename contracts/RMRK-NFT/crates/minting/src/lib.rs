@@ -49,6 +49,7 @@ pub struct MintingData {
     pub price_per_mint: Balance,
     pub nft_metadata: Mapping<Id, String>,
     pub listed: Mapping<Id, bool>,
+    pub nft_price: Mapping<Id, Balance>,
 }
 
 impl<T> Minting for T
@@ -60,7 +61,8 @@ where
         + Storage<metadata::Data>
         + psp34::extensions::metadata::PSP34Metadata
         + psp34::Internal
-        + Utils,
+        + Utils
+        + PSP34,
 {
     /// Mint next available token for the caller
     default fn mint_next(&mut self) -> Result<(), PSP34Error> {
@@ -106,7 +108,11 @@ where
         &mut self,
         metadata: PreludeString,
         to: AccountId,
+        nft_price: Balance,
     ) -> Result<(), PSP34Error> {
+
+        assert_eq!(self.price(), Self::env().transferred_value(), "Need to pay fee for listing NFT");
+
         let token_id = self
             .data::<MintingData>()
             .last_token_id
@@ -122,30 +128,19 @@ where
         self.data::<MintingData>()
             .listed
             .insert(Id::U64(token_id), &true);
+        self.data::<MintingData>()
+            .nft_price
+            .insert(Id::U64(token_id), &nft_price);
         self.data::<MintingData>().last_token_id += 1;
 
-        self._emit_transfer_event(None, Some(to), Id::U64(token_id));
-        return Ok(())
-    }
-
-    // Get listed bool for token
-    default fn get_listed(&self, token_id: u64) -> bool {
-        // self.ensure_exists_and_get_owner(&Id::U64(token_id));
-        let listed: bool;
-        match self
-            .data::<MintingData>()
-            .listed
-            .get(Id::U64(token_id))
-        {
-            Some(get_listed) => {
-                listed = get_listed;
+        match self.approve(T::env().account_id(), Some(Id::U64(token_id)), true){
+            Ok(res) => {
+                self._emit_transfer_event(None, Some(to), Id::U64(token_id));
+                return Ok(())
             }
-            None => {
-                // If got error, return false
-                listed = false;
-            }
+            Err(err) => Err(err)
         }
-        listed
+        // return Ok(())
     }
 
     /// Get max supply of tokens

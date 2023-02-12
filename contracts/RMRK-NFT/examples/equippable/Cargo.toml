@@ -1,6 +1,6 @@
 [package]
 name = "rmrk_example_equippable"
-version = "0.6.0"
+version = "0.10.0"
 authors = ["Stake Technologies <devops@stake.co.jp>"]
 edition = "2021"
 

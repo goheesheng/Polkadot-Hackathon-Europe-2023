@@ -35,6 +35,17 @@ pub mod rmrk_example_equippable {
         Config as RmrkConfig,
     };
 
+
+    #[ink(event)]
+    pub struct SetListed {
+        #[ink(topic)]
+        token_id: Id,
+        #[ink(topic)]
+        old_listed: Option<bool>,
+        #[ink(topic)]
+        new_listed: bool,
+    }
+
     /// Event emitted when a token transfer occurs.
     #[ink(event)]
     pub struct Transfer {
@@ -272,8 +283,18 @@ pub mod rmrk_example_equippable {
                     Ok(result) => {
                         tokenId.insert("metadata".as_bytes().to_vec(), result.as_bytes().to_vec());
                     },
-                    Err(err) => {
+                    Err(_err) => {
                         tokenId.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                    }
+                }
+
+                let nft_price = self.minting.nft_price.get(Id::U64(id));
+                match nft_price {
+                    Some(result) => {
+                        tokenId.insert("nft_price".as_bytes().to_vec(), result.to_string().as_bytes().to_vec());
+                    },
+                    None => {
+                        tokenId.insert("nft_price".as_bytes().to_vec(), "Error".as_bytes().to_vec());
                     }
                 }
                 
@@ -283,23 +304,11 @@ pub mod rmrk_example_equippable {
         }
 
         #[ink(message)]
-        pub fn test(&mut self, address: AccountId, index: u128) -> bool {
-            let tokenId = self.owners_token_by_index(address, index);
-            match tokenId {
-                Ok(tokenId) => {
-                    true
-                }, Err(_) => {
-                    false
-                }
-            }
-        }
-
-        #[ink(message)]
         pub fn get_nft_by_owner(&mut self, address: AccountId) -> Vec<BTreeMap<String, String>> {
             let mut info = vec![];
             let mut index = 0;
             
-            while true {
+            loop {
                 let mut dictMap: BTreeMap<String, String> = BTreeMap::new();
                 let tokenId = self.owners_token_by_index(address, index);
                 index += 1;
@@ -324,7 +333,7 @@ pub mod rmrk_example_equippable {
                                     Ok(resultId) => {
                                         dictMap.insert("metadata".as_bytes().to_vec(), resultId.as_bytes().to_vec());
                                     },
-                                    Err(err) => {
+                                    Err(_err) => {
                                         dictMap.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
                                     }
                                 }
@@ -334,9 +343,20 @@ pub mod rmrk_example_equippable {
                                 dictMap.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
                             }
                         }
+
+                        let nft_price = self.minting.nft_price.get(Id::U64(token_id));
+                        match nft_price {
+                            Some(result) => {
+                                dictMap.insert("nft_price".as_bytes().to_vec(), result.to_string().as_bytes().to_vec());
+                            },
+                            None => {
+                                dictMap.insert("nft_price".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                            }
+                        }
+
                         info.push(dictMap);
                     },
-                    Err(err) => {
+                    Err(_err) => {
                         break;
                     }
                 }
@@ -344,6 +364,42 @@ pub mod rmrk_example_equippable {
 
             info
         }
+
+        #[ink(message)]
+        pub fn buy_nft(&mut self, token_id_u64: u64) -> Result<(),PSP34Error> {
+            let token_id = Id::U64(token_id_u64);
+            let buyer = self.env().caller();
+            assert!(buyer != self.owner_of(token_id.clone()).unwrap(), "AlreadyOwner");
+
+            let from = self.env().account_id();
+            self.env().emit_event(Transfer { from: Some(from), to: Some(buyer), id: token_id.clone() });
+            
+            // use _transfer_token instead of transfer as contract only has allowance, contract isnt owner. Nvm
+            // https://github.com/727-Ventures/openbrush-contracts/blob/main/contracts/src/token/psp34/psp34.rs#L134
+            // match self.call("transact"(buyer, Some(token_id.clone()), true){
+            match PSP34::transfer(self, buyer, token_id.clone(), ink_prelude::vec::Vec::new(),){
+                Ok(()) => {
+                    let old_listed = self.minting.listed.get(token_id.clone());
+                    let new_listed: bool = false;
+                    self.minting.listed.insert(token_id.clone(), &new_listed);
+
+                    self.env().emit_event(SetListed {token_id, old_listed, new_listed});
+                    Ok(())
+                }
+                Err(err) => Err(err)
+            }
+        }
+
+        #[ink(message)]
+        pub fn test1(&mut self) -> AccountId {
+            self.test2()
+        }
+
+        #[ink(message)]
+        pub fn test2(&mut self) -> AccountId {
+            self.env().caller()
+        }
+    
     }
 
     impl psp34::Internal for Rmrk {
