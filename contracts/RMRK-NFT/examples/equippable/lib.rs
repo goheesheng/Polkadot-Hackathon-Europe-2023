@@ -252,6 +252,7 @@ pub mod rmrk_example_equippable {
             name: String,
             symbol: String,
             base_uri: String,
+            max_supply: u64,
             price_per_mint: Balance,
             collection_metadata: String,
             _royalty_receiver: AccountId,
@@ -263,6 +264,7 @@ pub mod rmrk_example_equippable {
                     name,
                     symbol,
                     base_uri,
+                    max_supply,
                     price_per_mint,  
                     collection_metadata,
                 )
@@ -592,6 +594,7 @@ pub mod rmrk_example_equippable {
 
         const PRICE: Balance = 100_000_000_000_000_000;
         const BASE_URI: &str = "ipfs://myIpfsUri/";
+        const MAX_SUPPLY: u64 = 10;
 
         #[ink::test]
         fn init_works() {
@@ -609,6 +612,7 @@ pub mod rmrk_example_equippable {
                 rmrk.get_attribute(collection_id, String::from("baseUri")),
                 Some(String::from(BASE_URI))
             );
+            assert_eq!(rmrk.max_supply(), MAX_SUPPLY);
             assert_eq!(rmrk.price(), PRICE);
         }
 
@@ -618,6 +622,7 @@ pub mod rmrk_example_equippable {
                 String::from("Rmrk Project"),
                 String::from("RMK"),
                 String::from(BASE_URI),
+                MAX_SUPPLY,
                 PRICE,
                 String::from(BASE_URI),
                 accounts.eve,
@@ -718,6 +723,7 @@ pub mod rmrk_example_equippable {
             let mut rmrk = init();
             let accounts = default_accounts();
             set_sender(accounts.alice);
+            let num_of_mints: u64 = MAX_SUPPLY + 1;
 
             assert_eq!(rmrk.total_supply(), 0);
             test::set_value_transferred::<ink_env::DefaultEnvironment>(
