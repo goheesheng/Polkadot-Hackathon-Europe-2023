@@ -49,7 +49,7 @@ const NftCreate: NextPage = () => {
       return;
     }
 
-    const value = new BN("10000000000000000000", 10);
+    const value = new BN("10000000000000", 10);
     const options = {
       storageDepositLimit: null,
       value: value,
