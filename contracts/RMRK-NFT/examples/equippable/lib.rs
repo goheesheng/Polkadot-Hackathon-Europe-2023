@@ -377,7 +377,7 @@ pub mod rmrk_example_equippable {
             // use _transfer_token instead of transfer as contract only has allowance, contract isnt owner. Nvm
             // https://github.com/727-Ventures/openbrush-contracts/blob/main/contracts/src/token/psp34/psp34.rs#L134
             // match self.call("transact"(buyer, Some(token_id.clone()), true){
-            match PSP34::transfer(self, buyer, token_id.clone(), ink_prelude::vec::Vec::new(),){
+            match self.psp34.transfer(buyer, token_id.clone(), ink_prelude::vec::Vec::new(),){
                 Ok(()) => {
                     let old_listed = self.minting.listed.get(token_id.clone());
                     let new_listed: bool = false;
