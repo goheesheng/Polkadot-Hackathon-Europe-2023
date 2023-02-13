@@ -3,7 +3,6 @@
 import { NftMeta } from "src/types/nft";
 import type { NextPage } from "next";
 import { BaseLayout, NftList } from "@ui";
-import nfts from "../content/meta.json";
 import {
   useBalance,
   useInkathon,
@@ -14,9 +13,12 @@ import {
 } from "@scio-labs/use-inkathon";
 import { ContractIds } from "@deployments/deployment";
 import { ContractMethod } from "@enumeration/contract-methods";
+import { useState } from "react";
 const Home: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.nft_equippable);
   const { api, account } = useInkathon();
+
+  const [nfts, setNfts] = useState<NftMeta[]>([]);
 
   const getContractInfo = async () => {
     if (!api || !contract || !account) return;
@@ -33,6 +35,35 @@ const Home: NextPage = () => {
     }
   };
   getContractInfo();
+
+  const getAllNFTs = async () => {
+    if (!api || !contract || !account) return;
+    try {
+      const result = await contractQuery(
+        api,
+        account.address,
+        contract,
+        ContractMethod.getAllNfts
+      );
+      const res = JSON.parse(JSON.stringify(result.output?.toPrimitive()))
+      const tmp_nfts: NftMeta[] = []
+      for(let index = 0; index < Object.keys(res).length; index++)
+      {
+        const tmp = JSON.parse(res[index].metadata)
+        console.log(tmp)
+        tmp_nfts.push({
+          name: tmp.name,
+          description: tmp.description,
+          image: tmp.image,
+          attributes: tmp.attributes,
+        })
+      }
+      setNfts(tmp_nfts);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  getAllNFTs();
   return (
     <BaseLayout>
       <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
