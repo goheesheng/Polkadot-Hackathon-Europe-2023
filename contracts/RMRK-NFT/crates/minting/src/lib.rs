@@ -130,7 +130,7 @@ where
             .insert(Id::U64(token_id), &true);
         self.data::<MintingData>()
             .nft_price
-            .insert(Id::U64(token_id), &nft_price);
+            .insert(Id::U64(token_id), &(nft_price*1000000000000));
         self.data::<MintingData>().last_token_id += 1;
 
         match self.approve(T::env().account_id(), Some(Id::U64(token_id)), true){

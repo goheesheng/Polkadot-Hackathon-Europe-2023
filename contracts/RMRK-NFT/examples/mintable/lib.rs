@@ -215,40 +215,51 @@ pub mod rmrk_example_mintable {
             info
         }
 
-        #[ink(message)]
+        #[ink(message, payable)]
         pub fn buy_nft(&mut self, token_id_u64: u64) -> Result<(),PSP34Error> {
             let token_id = Id::U64(token_id_u64);
             let buyer = self.env().caller();
-            assert!(buyer != self.owner_of(token_id.clone()).unwrap(), "AlreadyOwner");
+            let old_owner = self.owner_of(token_id.clone()).unwrap();
+            assert!(buyer != old_owner, "AlreadyOwner");
+            let paid = self.env().transferred_value();
+            let nft_price = self.minting.nft_price.get(token_id.clone()).unwrap();
+            if paid != nft_price {
+                self.env().transfer(buyer, paid);
+                assert_eq!(paid, nft_price, "You need to pay the nft price!");
+                Err(PSP34Error::Custom("You need to pay the nft price!".as_bytes().to_vec(),))
+            } else {
+                let from = self.env().account_id();           
 
-            let from = self.env().account_id();
-            self.env().emit_event(Transfer { from: Some(from), to: Some(buyer), id: token_id.clone() });
-            
-            // use _transfer_token instead of transfer as contract only has allowance, contract isnt owner. Nvm
-            // https://github.com/727-Ventures/openbrush-contracts/blob/main/contracts/src/token/psp34/psp34.rs#L134
-            // match self.call("transact"(buyer, Some(token_id.clone()), true){
-            match self.psp34.transfer(buyer, token_id.clone(), ink_prelude::vec::Vec::new(),){
-                Ok(()) => {
-                    let old_listed = self.minting.listed.get(token_id.clone());
-                    let new_listed: bool = false;
-                    self.minting.listed.insert(token_id.clone(), &new_listed);
+                self.env().transfer(old_owner, nft_price);
+                PSP34Ref::transfer_builder(&self.env().account_id(), buyer, token_id.clone(), Vec::default()).call_flags(ink_env::CallFlags::default().set_allow_reentry(true)).fire();
+                self.env().emit_event(Transfer { from: Some(from), to: Some(buyer), id: token_id.clone() });                
 
-                    self.env().emit_event(SetListed {token_id, old_listed, new_listed});
-                    Ok(())
-                }
-                Err(err) => Err(err)
+                let old_listed = self.minting.listed.get(token_id.clone());
+                let new_listed: bool = false;
+                self.minting.listed.insert(token_id.clone(), &new_listed);
+
+                self.env().emit_event(SetListed {token_id, old_listed, new_listed});
+
+                Ok(())
             }
         }
 
         #[ink(message)]
-        pub fn test1(&mut self) -> AccountId {
-            self.test2()
+        pub fn toggle_list_nft(&mut self, token_id_u64: u64, listed: bool) -> Result<(), PSP34Error> {
+            let token_id = Id::U64(token_id_u64);
+            let token_owner = self.owner_of(token_id.clone()).ok_or(PSP34Error::TokenNotExists)?;
+            assert_eq!(token_owner, self.env().caller(), "You need to be the owner of the NFT");
+            
+            let old_listed = self.minting.listed.get(token_id.clone());
+            assert!(listed != old_listed.unwrap(), "Already listed/unlisted");
+            let new_listed: bool = listed;
+            self.minting.listed.insert(token_id.clone(), &new_listed);
+
+            self.env().emit_event(SetListed {token_id, old_listed, new_listed});
+            
+            Ok(())
         }
 
-        #[ink(message)]
-        pub fn test2(&mut self) -> AccountId {
-            self.env().caller()
-        }
     } 
 
     impl psp34::Internal for Rmrk {
