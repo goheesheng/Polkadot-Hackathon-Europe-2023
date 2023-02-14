@@ -3,5 +3,6 @@ export enum ContractMethod {
   collectionId = "psp34::collectionId",
   mintingPrice = "minting::price",
   mintNext = "minting::mintNext",
-  getAllNfts = "get_all_listed_nft"
+  getAllNfts = "get_all_listed_nft",
+  getNftByOwner = "get_nft_by_owner"
 }
