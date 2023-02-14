@@ -9,6 +9,7 @@ import Walletbar from "@ui/navbar/Walletbar";
 const navigation = [
   { name: "Marketplace", href: "/", current: true },
   { name: "Create", href: "/nft/create", current: false },
+  { name: "Profile", href: "/profile", current: false },
 ];
 
 function classNames(...classes: string[]) {
