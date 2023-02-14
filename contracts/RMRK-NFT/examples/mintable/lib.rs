@@ -34,6 +34,17 @@ pub mod rmrk_example_mintable {
         Config as RmrkConfig,
     };
 
+    /// Event emitted when an nft price is changed.
+    #[ink(event)]
+    pub struct ChangeNftPrice {
+        #[ink(topic)]
+        old_price: Balance,
+        #[ink(topic)]
+        new_price: Balance,
+        #[ink(topic)]
+        id: Id,
+    }
+
     /// Event emitted when a token is bought/listed.
     #[ink(event)]
     pub struct SetListed {
@@ -221,6 +232,10 @@ pub mod rmrk_example_mintable {
             let buyer = self.env().caller();
             let old_owner = self.owner_of(token_id.clone()).unwrap();
             assert!(buyer != old_owner, "AlreadyOwner");
+            
+            let old_listed = self.minting.listed.get(token_id.clone());
+            assert!(old_listed.unwrap(), "NFT is not listed!");
+
             let paid = self.env().transferred_value();
             let nft_price = self.minting.nft_price.get(token_id.clone()).unwrap();
             if paid != nft_price {
@@ -231,10 +246,11 @@ pub mod rmrk_example_mintable {
                 let from = self.env().account_id();           
 
                 self.env().transfer(old_owner, nft_price);
+                // This is the transfer function, calling with the context of the smart contract
                 PSP34Ref::transfer_builder(&self.env().account_id(), buyer, token_id.clone(), Vec::default()).call_flags(ink_env::CallFlags::default().set_allow_reentry(true)).fire();
                 self.env().emit_event(Transfer { from: Some(from), to: Some(buyer), id: token_id.clone() });                
 
-                let old_listed = self.minting.listed.get(token_id.clone());
+                
                 let new_listed: bool = false;
                 self.minting.listed.insert(token_id.clone(), &new_listed);
 
@@ -253,10 +269,34 @@ pub mod rmrk_example_mintable {
             let old_listed = self.minting.listed.get(token_id.clone());
             assert!(listed != old_listed.unwrap(), "Already listed/unlisted");
             let new_listed: bool = listed;
+
+            match self.approve(self.env().account_id(), Some(token_id.clone()), true){
+                Ok(res) => {
+                    self.env().emit_event(Approval {from: token_owner, to: self.env().account_id(), id: Some(token_id.clone()), approved: true});
+                }
+                Err(err) => {
+                    panic!("Could not approve");
+                    return Err(err);
+                }
+            }
+
             self.minting.listed.insert(token_id.clone(), &new_listed);
 
             self.env().emit_event(SetListed {token_id, old_listed, new_listed});
             
+            Ok(())
+        }
+
+        #[ink(message)]
+        pub fn change_nft_price(&mut self, token_id_u64: u64, new_price: Balance) -> Result<(), PSP34Error> {
+            let token_id = Id::U64(token_id_u64);
+            let token_owner = self.owner_of(token_id.clone()).ok_or(PSP34Error::TokenNotExists)?;
+            assert_eq!(token_owner, self.env().caller(), "You need to be the owner of the NFT");
+
+            let old_price = self.minting.nft_price.get(token_id.clone()).unwrap();
+            assert!(old_price != new_price, "Price did not change");
+            self.minting.nft_price.insert(token_id.clone(), &(new_price));
+            self.env().emit_event(ChangeNftPrice { old_price, new_price, id: token_id.clone() });
             Ok(())
         }
 
