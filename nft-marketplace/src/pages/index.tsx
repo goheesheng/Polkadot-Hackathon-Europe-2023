@@ -13,7 +13,8 @@ import {
 } from "@scio-labs/use-inkathon";
 import { ContractIds } from "@deployments/deployment";
 import { ContractMethod } from "@enumeration/contract-methods";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const Home: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.nft_equippable);
   const { api, account } = useInkathon();
@@ -47,23 +48,32 @@ const Home: NextPage = () => {
       );
       const res = JSON.parse(JSON.stringify(result.output?.toPrimitive()))
       const tmp_nfts: NftMeta[] = []
+      console.log(Object.keys(res).length)
       for(let index = 0; index < Object.keys(res).length; index++)
       {
-        const tmp = JSON.parse(res[index].metadata)
-        console.log(tmp)
-        tmp_nfts.push({
-          name: tmp.name,
-          description: tmp.description,
-          image: tmp.image,
-          attributes: tmp.attributes,
-        })
+        try{
+          const uri = JSON.parse((res[index]).metadata)
+          if(uri.substring(0,4) === "http")
+          {
+            const nftRes = await axios.get(uri, {
+              headers: { Accept: "text/plain" },
+            });
+            const metadata = nftRes.data;
+            tmp_nfts.push(metadata)
+          }
+        }
+        catch(e)
+        {
+        }
       }
       setNfts(tmp_nfts);
     } catch (e) {
       console.error(e);
     }
   };
-  getAllNFTs();
+  useEffect(() => {
+    getAllNFTs();
+  }, []);
   return (
     <BaseLayout>
       <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">

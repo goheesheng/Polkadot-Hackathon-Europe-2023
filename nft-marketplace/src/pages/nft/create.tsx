@@ -43,7 +43,7 @@ const NftCreate: NextPage = () => {
     ],
   });
 
-  const mintToken = async (nftUri: string) => {
+  const mintToken = async (nftUri: string, price: number) => {
     if (!account || !contract || !api) {
       toast("Wallet not connected. Try again...");
       return;
@@ -58,9 +58,9 @@ const NftCreate: NextPage = () => {
       api,
       account.address,
       contract,
-      ContractMethod.mintNext,
+      ContractMethod.mintWithMetadata,
       options,
-      [],
+      [JSON.stringify(nftUri), account.address, price],
       (result) => {
         const { status, events } = result;
         const { isInBlock } = status;
@@ -118,7 +118,6 @@ const NftCreate: NextPage = () => {
       });
 
       const data = res.data as PinataRes;
-      console.log(data);
       setNftMeta({
         ...nftMeta,
         image: `${process.env.NEXT_PUBLIC_PINATA_DOMAIN}/ipfs/${data.IpfsHash}`,
@@ -176,15 +175,14 @@ const NftCreate: NextPage = () => {
       const nftRes = await axios.get(nftURI, {
         headers: { Accept: "text/plain" },
       });
-      const content = nftRes.data;
-
+      // const content = nftRes.data;
       // Object.keys(content).forEach((key) => {
       //   if (!ALLOWED_FIELDS.includes(key)) {
       //     throw new Error("Invalid JSON structure");
       //   }
       // });
 
-      const tx = mintToken(nftURI);
+      const tx = mintToken(nftURI, price);
 
       await toast.promise(tx, {
         pending: "Minting NFT",
