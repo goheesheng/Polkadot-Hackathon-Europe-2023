@@ -1,8 +1,6 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
 use ink_lang as ink;
-use pallet as storage;
-use pallet_timestamp as timestamp;
 
 #[ink::contract]
 mod Auction {
@@ -19,10 +17,6 @@ mod Auction {
     };
 
     use openbrush::contracts::psp34::psp34_external::PSP34;
-
-    use chrono::{
-        NaiveDateTime,
-    };
 
     /// Defines the storage of your contract.
     /// Add new fields to the below struct in order
@@ -172,12 +166,12 @@ mod Auction {
             (self.high_bidder,self.high_bid)
         }
 
-        #[ink(message)]
-        #[pallet::storage]
-        #[pallet::getter(fn my_date)]
-        pub fn get_current_time(&self) -> u64 {
-            let timestamp: <T as pallet_timestamp::Config>::Moment = <pallet_timestamp::Pallet<T>>::get();
-        }
+        // #[ink(message)]
+        // #[pallet::storage]
+        // #[pallet::getter(fn my_date)]
+        // pub fn get_current_time(&self) -> u64 {
+        //     let timestamp: <T as pallet_timestamp::Config>::Moment = <pallet_timestamp::Pallet<T>>::get();
+        // }
         // Time might be able to get from frontend and stored in backend
     }
 
