@@ -157,7 +157,7 @@ dependencies = [
  "pallet",
  "pallet-timestamp",
  "parity-scale-codec",
- "rmrk_example_equippable",
+ "rmrk_example_mintable",
  "scale-info",
 ]
 
@@ -2756,23 +2756,6 @@ dependencies = [
  "rmrk_common",
  "rmrk_multiasset",
  "scale-info",
-]
-
-[[package]]
-name = "rmrk_example_equippable"
-version = "0.10.0"
-dependencies = [
- "ink_env",
- "ink_lang",
- "ink_metadata",
- "ink_prelude",
- "ink_primitives",
- "ink_storage",
- "openbrush",
- "parity-scale-codec",
- "rmrk",
- "scale-info",
- "serde",
 ]
 
 [[package]]

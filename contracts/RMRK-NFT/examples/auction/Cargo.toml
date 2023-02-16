@@ -16,7 +16,7 @@ scale = { package = "parity-scale-codec", version = "3", default-features = fals
 scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
 
 openbrush = { tag = "v2.3.0", git = "https://github.com/Supercolony-net/openbrush-contracts", default-features = false, features = ["ownable", "psp34", "reentrancy_guard"] }
-rmrk_example_equippable = { path = "../equippable", default-features = false, features = ["ink-as-dependency"] }
+rmrk_example_mintable = { path = "../mintable", default-features = false, features = ["ink-as-dependency"] }
 chrono = { version = '0.4.23', default_features = false }
 pallet = "0.7.0"
 pallet-timestamp = "15.0.0"
@@ -40,7 +40,7 @@ std = [
     "scale/std",
     "scale-info/std",
     "openbrush/std",
-    "rmrk_example_equippable/std",
+    "rmrk_example_mintable/std",
     "chrono/std",
 ]
 ink-as-dependency = []

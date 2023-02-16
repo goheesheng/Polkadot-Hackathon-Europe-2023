@@ -30,6 +30,7 @@ pub trait Minting {
         metadata: PreludeString,
         to: AccountId,
         nft_price: Balance,
+        royalty_pct: u8,
     ) -> Result<(), PSP34Error>;
 
     /// Get max supply of tokens.

@@ -96,5 +96,6 @@ where
         );
 
         // Handle royalty inits here
+
     }
 }

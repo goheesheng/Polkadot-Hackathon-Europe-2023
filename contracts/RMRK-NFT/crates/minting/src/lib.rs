@@ -50,6 +50,8 @@ pub struct MintingData {
     pub nft_metadata: Mapping<Id, String>,
     pub listed: Mapping<Id, bool>,
     pub nft_price: Mapping<Id, Balance>,
+    pub nft_royalty: Mapping<Id, u8>,
+    pub nft_author: Mapping<Id, AccountId>,
 }
 
 impl<T> Minting for T
@@ -109,9 +111,11 @@ where
         metadata: PreludeString,
         to: AccountId,
         nft_price: Balance,
+        royalty_pct: u8,
     ) -> Result<(), PSP34Error> {
 
         assert_eq!(self.price(), Self::env().transferred_value(), "Need to pay fee for listing NFT");
+        assert!(royalty_pct <= 50, "Royalty Percentage needs to be 0 <= 50");
 
         let token_id = self
             .data::<MintingData>()
@@ -131,6 +135,12 @@ where
         self.data::<MintingData>()
             .nft_price
             .insert(Id::U64(token_id), &(nft_price*1000000000000));
+        self.data::<MintingData>()
+            .nft_royalty
+            .insert(Id::U64(token_id), &royalty_pct);
+        self.data::<MintingData>()
+            .nft_author
+            .insert(Id::U64(token_id), &to);
         self.data::<MintingData>().last_token_id += 1;
 
         match self.approve(T::env().account_id(), Some(Id::U64(token_id)), true){

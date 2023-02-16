@@ -34,6 +34,17 @@ pub mod rmrk_example_mintable {
         Config as RmrkConfig,
     };
 
+    /// Event emitted when an nft royalty is updated.
+    #[ink(event)]
+    pub struct UpdateNftRoyalty {
+        #[ink(topic)]
+        token_id: Id,
+        #[ink(topic)]
+        old_royalty: u8,
+        #[ink(topic)]
+        new_royalty: u8,
+    }
+
     /// Event emitted when an nft price is changed.
     #[ink(event)]
     pub struct ChangeNftPrice {
@@ -115,9 +126,10 @@ pub mod rmrk_example_mintable {
             base_uri: String,
             price_per_mint: Balance,
             collection_metadata: String,
-            _royalty_receiver: AccountId,
-            _royalty: u8,
+            // _royalty_receiver: AccountId,
+            // _royalty: u8,
         ) -> Self {
+            
             ink_lang::codegen::initialize_contract(|instance: &mut Rmrk| {
                 RmrkConfig::config(
                     instance,
@@ -156,6 +168,16 @@ pub mod rmrk_example_mintable {
                     },
                     None => {
                         tokenId.insert("nft_price".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                    }
+                }
+
+                let nft_royalty = self.minting.nft_royalty.get(Id::U64(id));
+                match nft_royalty {
+                    Some(result) => {
+                        tokenId.insert("nft_royalty".as_bytes().to_vec(), result.to_string().as_bytes().to_vec());
+                    },
+                    None => {
+                        tokenId.insert("nft_royalty".as_bytes().to_vec(), "Error".as_bytes().to_vec());
                     }
                 }
                 
@@ -215,6 +237,16 @@ pub mod rmrk_example_mintable {
                             }
                         }
 
+                        let nft_royalty = self.minting.nft_royalty.get(Id::U64(token_id));
+                        match nft_royalty {
+                            Some(result) => {
+                                dictMap.insert("nft_royalty".as_bytes().to_vec(), result.to_string().as_bytes().to_vec());
+                            },
+                            None => {
+                                dictMap.insert("nft_royalty".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                            }
+                        }
+
                         info.push(dictMap);
                     },
                     Err(_err) => {
@@ -236,20 +268,40 @@ pub mod rmrk_example_mintable {
             let old_listed = self.minting.listed.get(token_id.clone());
             assert!(old_listed.unwrap(), "NFT is not listed!");
 
+            let mut old_royalty = self.minting.nft_royalty.get(token_id.clone()).unwrap();
             let paid = self.env().transferred_value();
             let nft_price = self.minting.nft_price.get(token_id.clone()).unwrap();
-            if paid != nft_price {
+            
+            let mut calculate_royalty = 0;
+            if old_royalty != 0 {
+                calculate_royalty = nft_price * (old_royalty as u128) /100;
+            }
+            
+            let new_nft_price = nft_price + calculate_royalty;
+            if paid < new_nft_price {
                 self.env().transfer(buyer, paid);
-                assert_eq!(paid, nft_price, "You need to pay the nft price!");
+                assert_eq!(paid, nft_price, "You need to pay the nft+royalty price!");
                 Err(PSP34Error::Custom("You need to pay the nft price!".as_bytes().to_vec(),))
             } else {
                 let from = self.env().account_id();           
 
                 self.env().transfer(old_owner, nft_price);
+
                 // This is the transfer function, calling with the context of the smart contract
                 PSP34Ref::transfer_builder(&self.env().account_id(), buyer, token_id.clone(), Vec::default()).call_flags(ink_env::CallFlags::default().set_allow_reentry(true)).fire();
                 self.env().emit_event(Transfer { from: Some(from), to: Some(buyer), id: token_id.clone() });                
 
+                let nft_author = self.minting.nft_author.get(token_id.clone()).unwrap();
+                // Pay author of NFT the royalty fee
+                self.env().transfer(nft_author, calculate_royalty as u128);
+
+                if old_royalty == 0u8 {
+                    // do nothing
+                } else if old_royalty < 50u8 {
+                    let new_royalty = old_royalty + 1u8;
+                    self.minting.nft_royalty.insert(token_id.clone(), &new_royalty);
+                    self.env().emit_event(UpdateNftRoyalty {token_id: token_id.clone(), old_royalty, new_royalty});
+                }
                 
                 let new_listed: bool = false;
                 self.minting.listed.insert(token_id.clone(), &new_listed);
@@ -275,7 +327,6 @@ pub mod rmrk_example_mintable {
                     self.env().emit_event(Approval {from: token_owner, to: self.env().account_id(), id: Some(token_id.clone()), approved: true});
                 }
                 Err(err) => {
-                    panic!("Could not approve");
                     return Err(err);
                 }
             }

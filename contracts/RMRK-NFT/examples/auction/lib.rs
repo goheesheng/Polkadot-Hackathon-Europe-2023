@@ -7,7 +7,7 @@ use pallet_timestamp as timestamp;
 #[ink::contract]
 mod Auction {
 
-    use rmrk_example_equippable::rmrk_example_equippable::RmrkRef;
+    use rmrk_example_mintable::rmrk_example_mintable::RmrkRef;
     use ink_env::call::FromAccountId;
 
     use openbrush::{
