@@ -1,6 +1,7 @@
 //! RMRK minting traits
 
 use ink_prelude::string::String as PreludeString;
+use ink_prelude::collections::BTreeMap;
 use openbrush::{
     contracts::psp34::PSP34Error,
     traits::{
@@ -43,5 +44,5 @@ pub trait Minting {
 
     /// Get URI for the token Id.
     #[ink(message)]
-    fn get_metadata(&self, token_id: u64) -> Result<PreludeString, PSP34Error>;
+    fn get_metadata(&self, token_id: u64) -> BTreeMap<PreludeString, PreludeString>;
 }

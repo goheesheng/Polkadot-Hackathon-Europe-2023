@@ -13,6 +13,8 @@ use rmrk_common::{
     utils::Utils,
 };
 
+use ink_prelude::collections::BTreeMap;
+
 use ink_prelude::string::{
     String as PreludeString,
     ToString,
@@ -164,8 +166,9 @@ where
     }
 
     /// Get URI for the token Id
-    default fn get_metadata(&self, token_id: u64) -> Result<PreludeString, PSP34Error> {
-        self.ensure_exists_and_get_owner(&Id::U64(token_id))?;
+    default fn get_metadata(&self, token_id: u64) -> BTreeMap<PreludeString, PreludeString> {
+        self.ensure_exists_and_get_owner(&Id::U64(token_id));
+        let mut dictMap: BTreeMap<PreludeString, PreludeString> = BTreeMap::new();
         let uri: PreludeString;
         match self
             .data::<MintingData>()
@@ -185,6 +188,36 @@ where
                 uri = get_metadata + &token_id.to_string() + &PreludeString::from(".json");
             }
         }
-        Ok(uri)
+
+        dictMap.insert("metadata".to_string(), uri);
+
+        match self.data::<MintingData>().nft_price.get(Id::U64(token_id)) {
+            Some (result) => {
+                dictMap.insert("nft_price".to_string(), result.to_string());
+            },
+            None => {
+                dictMap.insert("nft_price".to_string(), "Error".to_string());
+            }
+        }
+
+        match self.data::<MintingData>().nft_royalty.get(Id::U64(token_id)) {
+            Some(result) => {
+                dictMap.insert("nft_royalty".to_string(), result.to_string());
+            },
+            None => {
+                dictMap.insert("nft_royalty".to_string(), "Error".to_string());
+            }
+        }
+
+        match self.data::<MintingData>().listed.get(Id::U64(token_id)) {
+            Some(result) => {
+                dictMap.insert("listed".to_string(), result.to_string());
+            },
+            None => {
+                dictMap.insert("listed".to_string(), "Error".to_string());
+            }
+        }
+
+        dictMap
     }
 }
