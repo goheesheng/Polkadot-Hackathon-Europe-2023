@@ -56,9 +56,9 @@ React: A JavaScript library for building user interfaces. React can be used to c
 
 Blockchain Node: A server that runs a full copy of the blockchain ledger and can be used to validate and process transactions. The project use a Substrate node, such to ensure that the NFT marketplace is able to interact and execute transactions in a secure and efficient manner.
 
-## References
-1. [Ink!athon – DApp Boilerplate for Substrate & ink!](https://github.com/scio-labs/inkathon)
-2. [Jerga99/nft-marketplace](https://github.com/Jerga99/nft-marketplace) 
+Further takeaways:
+- Add auction smart contract to frontend (Already done)
+- Deploy to main net
 
 ## Contact information
  - Goh Ee Sheng - https://goheesheng.github.io/
@@ -67,12 +67,9 @@ Blockchain Node: A server that runs a full copy of the blockchain ledger and can
  - Derrick Png Teck Guan - derrickpng34@gmail.com
 
 
-
 ### To build and compile contracts:
 ```
-* Outdated - To be updated *
-cd Polkadot-Hackathon-Europe-2023/contracts/contracts/shiden34
-cargo contract build --release
+Go to /contracts/RMRK-NFT/examples/README.md
 ```
 
 ### You can use whatever node you want. 
@@ -131,7 +128,8 @@ NEXT_PUBLIC_DEFAULT_CHAIN=YOUR_PREFERRED_NETWORK
 NEXT_PUBLIC_SUPPORTED_CHAINS=["YOUR_PREFERRED_NETWORK"]
 ```
 
-### use-Inkathon library 
-https://github.com/scio-labs/use-inkathon/tree/main/src 
+## References
+[Ink!athon – DApp Boilerplate for Substrate & ink!](https://github.com/scio-labs/inkathon)
+
 
 
