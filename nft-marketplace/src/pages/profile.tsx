@@ -3,13 +3,13 @@
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { BaseLayout, ProfileNftList } from "@ui";
+import { BN, formatBalance } from "@polkadot/util";
 
-import { NftMeta } from "src/types/nft";
+import { Denomintation, NftMeta } from "src/types/nft";
 import { ContractIds } from "@deployments/deployment";
 import { ContractMethod } from "@enumeration/contract-methods";
-import { useRegisteredContract, useInkathon, contractQuery, contractTx } from "@scio-labs/use-inkathon";
+import { useRegisteredContract, useInkathon, contractQuery, contractTx, useBalance } from "@scio-labs/use-inkathon";
 import axios from "axios";
-import BN from "bn.js";
 import { toast } from "react-toastify";
 
 const tabs = [{ name: "Your Collection", href: "#", current: true }];
@@ -21,10 +21,15 @@ function classNames(...classes: string[]) {
 const Profile: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.nft_equippable);
   const { api, account } = useInkathon();
+  const { tokenSymbol } = useBalance(account?.address);
 
   const [nfts, setNfts] = useState<NftMeta[]>([]);
 
   const [selected, setSelected] = useState(-1)
+  const [listingFee, setListingFee] = useState<Denomintation>({
+    ShortForm: 0,
+    FullForm: "",
+  });
 
   const getUsersNfts = async () => {
     if (!api || !contract || !account) return;
@@ -68,12 +73,38 @@ const Profile: NextPage = () => {
     }
   };
 
+  const getListingFee = async () => {
+    if (!api || !contract || !account) return;
+    try {
+      const result = await contractQuery(
+        api,
+        account.address,
+        contract,
+        ContractMethod.mintingPrice
+      );
+      const fee = result.output?.toPrimitive() as string;
+      console.log(fee);
+      setListingFee({ ...listingFee, FullForm: fee });
+      const chainDecimal = api.registry.chainDecimals[0];
+      formatBalance.setDefaults({ decimals: chainDecimal, unit: tokenSymbol });
+      const feeShortForm = formatBalance(fee, {
+        withAll: false,
+        withSi: false,
+        withZero: false,
+      });
+      //setListingFee({ ...listingFee, ShortForm: parseInt(feeShortForm, 10) });
+      console.log(listingFee);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const _listNft = async (id: number, listed:boolean) => {
     if (!account || !contract || !api) {
       toast("Wallet not connected. Try again...");
       return;
     }
-    const value = new BN((10000000000000),10);
+    const value = new BN((listingFee.FullForm),10);
     const options = {
       storageDepositLimit: null,
       value: value,
