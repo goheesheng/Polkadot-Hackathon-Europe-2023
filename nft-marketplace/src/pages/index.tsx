@@ -18,6 +18,7 @@ import axios from "axios";
 const Home: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.nft_mintable);
   const { api, account } = useInkathon();
+
   const [nfts, setNfts] = useState<NftMeta[]>([]);
 
   console.log(contract);
@@ -84,7 +85,7 @@ const Home: NextPage = () => {
               Mint a NFT to get unlimited ownership forever!
             </p>
           </div>
-          <NftList nfts={nfts as NftMeta[]} />
+          <NftList nfts={nfts as NftMeta[]} tokenSymbol={tokenSymbol || ""} />
         </div>
       </div>
     </BaseLayout>
