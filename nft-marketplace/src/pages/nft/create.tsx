@@ -6,15 +6,16 @@ import { BaseLayout } from "@ui";
 import { Switch } from "@headlessui/react";
 import Link from "next/link";
 import React from "react";
-import { NftMeta, PinataRes } from "@_types/nft";
+import { Denomintation, NftMeta, PinataRes } from "@_types/nft";
 import axios from "axios";
 import {
   useInkathon,
   useBalance,
   useRegisteredContract,
   contractTx,
+  contractQuery,
 } from "@scio-labs/use-inkathon";
-import BN from "bn.js";
+import { BN, formatBalance } from "@polkadot/util";
 
 import { stringToHex } from "@polkadot/util";
 import { ContractIds } from "@deployments/deployment";
@@ -27,11 +28,16 @@ const ALLOWED_FIELDS = ["name", "description", "image", "attributes"];
 const NftCreate: NextPage = () => {
   const { account, api } = useInkathon();
   const { tokenSymbol } = useBalance(account?.address);
-  const { contract } = useRegisteredContract(ContractIds.nft_equippable);
+  const { contract } = useRegisteredContract(ContractIds.nft_mintable);
 
   const [nftURI, setNftURI] = useState("");
   const [hasURI, setHasURI] = useState(false);
   const [price, setPrice] = useState(0);
+  const [royalty, setRoyalty] = useState(0);
+  const [listingFee, setListingFee] = useState<Denomintation>({
+    ShortForm: 0,
+    FullForm: 0,
+  });
   const [nftMeta, setNftMeta] = useState<NftMeta>({
     name: "",
     description: "",
@@ -43,36 +49,66 @@ const NftCreate: NextPage = () => {
     ],
   });
 
-  const mintToken = async (nftUri: string, price: number) => {
+  const getListingFee = async () => {
+    if (!api || !contract || !account) return;
+    try {
+      const result = await contractQuery(
+        api,
+        account.address,
+        contract,
+        ContractMethod.mintingPrice
+      );
+      console.log(result.output?.toPrimitive());
+      const fee = result.output?.toPrimitive() as string;
+      setListingFee({ ...listingFee, FullForm: parseInt(fee, 10) });
+      const chainDecimal = api.registry.chainDecimals[0];
+      formatBalance.setDefaults({ decimals: chainDecimal, unit: tokenSymbol });
+      const feeShortForm = formatBalance(fee, {
+        withAll: false,
+        withSi: false,
+        withZero: false,
+      });
+      setListingFee({ ...listingFee, ShortForm: parseInt(feeShortForm, 10) });
+      console.log(listingFee);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const mintToken = async (nftUri: string, price: number, royalty: number) => {
     if (!account || !contract || !api) {
       toast("Wallet not connected. Try again...");
       return;
     }
-  
-    // Convert price to an integer by multiplying it by a large number
-    const priceInMicroUnits = Math.round(price * 1000000);
-  
-    const value = new BN("10000000000000", 10);
+    //getListingFee();
+    const value = new BN("2000000000000000000", 10);
+
     const options = {
       storageDepositLimit: null,
       value: value,
     };
+
     const tx = await contractTx(
       api,
       account.address,
       contract,
       ContractMethod.mintWithMetadata,
       options,
-      [JSON.stringify(nftUri), account.address, priceInMicroUnits],
+
+      [JSON.stringify(nftUri), account.address, price, royalty],
       (result) => {
         const { status, events } = result;
         const { isInBlock } = status;
+        console.log(events);
         if (isInBlock) {
-          events.forEach(({ event: { method } }) => {
+          events.forEach(({ event: { method, data } }) => {
+            console.log(method);
             if (method === "ExtrinsicSuccess") {
               toast.success("ExtrinsicSuccess");
             } else if (method === "ExtrinsicFailed") {
-              toast.error("Extrinsic Failed");
+              const [dispatchError] = data as any[];
+              const message = dispatchError.type;
+              toast.error(message);
             }
           });
         }
@@ -117,7 +153,11 @@ const NftCreate: NextPage = () => {
       const res = await toast.promise(promise, {
         pending: "Uploading image",
         success: "Image Uploaded",
-        error: "Image Upload error",
+        error: {
+          render({ data }) {
+            return `${data}`;
+          },
+        },
       });
 
       const data = res.data as PinataRes;
@@ -161,7 +201,11 @@ const NftCreate: NextPage = () => {
       const res = await toast.promise(promise, {
         pending: "Uploading metadata",
         success: "Metadata Uploaded",
-        error: "Upload metadata error",
+        error: {
+          render({ data }) {
+            return `${data}`;
+          },
+        },
       });
 
       const data = res.data as PinataRes;
@@ -178,14 +222,15 @@ const NftCreate: NextPage = () => {
       const nftRes = await axios.get(nftURI, {
         headers: { Accept: "text/plain" },
       });
-      // const content = nftRes.data;
-      // Object.keys(content).forEach((key) => {
-      //   if (!ALLOWED_FIELDS.includes(key)) {
-      //     throw new Error("Invalid JSON structure");
-      //   }
-      // });
+      const content = nftRes.data;
 
-      const tx = mintToken(nftURI, price);
+      Object.keys(content).forEach((key) => {
+        if (!ALLOWED_FIELDS.includes(key)) {
+          throw new Error("Invalid JSON structure");
+        }
+      });
+      console.log(royalty);
+      const tx = mintToken(nftURI, price, royalty);
 
       await toast.promise(tx, {
         pending: "Minting NFT",
@@ -206,7 +251,10 @@ const NftCreate: NextPage = () => {
               </div>
               <Switch
                 checked={hasURI}
-                onChange={() => setHasURI(!hasURI)}
+                onChange={() => {
+                  setHasURI(!hasURI);
+                  getListingFee();
+                }}
                 className={`${hasURI ? "bg-indigo-900" : "bg-indigo-700"}
                   relative inline-flex flex-shrink-0 h-[28px] w-[64px] border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
               >
@@ -228,8 +276,7 @@ const NftCreate: NextPage = () => {
                   List NFT
                 </h3>
                 <p className="mt-1 text-sm text-gray-600">
-                  This information will be displayed publicly so be careful what
-                  you share.
+                  You will pay {listingFee.ShortForm} {tokenSymbol} for minting
                 </p>
               </div>
             </div>
@@ -287,6 +334,29 @@ const NftCreate: NextPage = () => {
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="0.01"
                       />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+                    <div>
+                      <label
+                        htmlFor="royalty"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Royalty Percentage (0-50%)
+                      </label>
+                      <div className="mt-1 flex rounded-md shadow-sm">
+                        <input
+                          onChange={(e) =>
+                            setRoyalty(parseInt(e.target.value, 10))
+                          }
+                          value={royalty}
+                          type="number"
+                          name="royalty"
+                          id="royalty"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                          placeholder="0.8"
+                        />
                       </div>
                     </div>
                   </div>

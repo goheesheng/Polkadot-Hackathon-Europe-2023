@@ -4,5 +4,5 @@ export enum ContractMethod {
   mintingPrice = "minting::price",
   mintNext = "minting::mintNext",
   getAllNfts = "get_all_listed_nft",
-  getNftByOwner = "get_nft_by_owner"
+  getNftByOwner = "get_nft_by_owner",
 }

@@ -1,12 +1,12 @@
 {
   "source": {
-    "hash": "0xd68e8148bcfc7e3978f84d073282a1a5740e4a7f811719facd980479dbd403f6",
+    "hash": "0x87e280a94bf0161c39cee2540534aa0ef33a1170ec4e36b0b5b28077516ffdd6",
     "language": "ink! 3.4.0",
     "compiler": "rustc 1.65.0-nightly"
   },
   "contract": {
-    "name": "rmrk_example_equippable",
-    "version": "0.10.0",
+    "name": "rmrk_example_mintable",
+    "version": "0.6.0",
     "authors": [
       "Stake Technologies <devops@stake.co.jp>"
     ]
@@ -60,24 +60,6 @@
                 ],
                 "type": 7
               }
-            },
-            {
-              "label": "_royalty_receiver",
-              "type": {
-                "displayName": [
-                  "AccountId"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "_royalty",
-              "type": {
-                "displayName": [
-                  "u8"
-                ],
-                "type": 2
-              }
             }
           ],
           "docs": [
@@ -106,12 +88,94 @@
             {
               "docs": [],
               "indexed": true,
+              "label": "old_royalty",
+              "type": {
+                "displayName": [
+                  "u8"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "new_royalty",
+              "type": {
+                "displayName": [
+                  "u8"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " Event emitted when an nft royalty is updated."
+          ],
+          "label": "UpdateNftRoyalty"
+        },
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "old_price",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 6
+              }
+            },
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "new_price",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 6
+              }
+            },
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "Id"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [
+            " Event emitted when an nft price is changed."
+          ],
+          "label": "ChangeNftPrice"
+        },
+        {
+          "args": [
+            {
+              "docs": [],
+              "indexed": true,
+              "label": "token_id",
+              "type": {
+                "displayName": [
+                  "Id"
+                ],
+                "type": 1
+              }
+            },
+            {
+              "docs": [],
+              "indexed": true,
               "label": "old_listed",
               "type": {
                 "displayName": [
                   "Option"
                 ],
-                "type": 68
+                "type": 47
               }
             },
             {
@@ -122,11 +186,13 @@
                 "displayName": [
                   "bool"
                 ],
-                "type": 36
+                "type": 29
               }
             }
           ],
-          "docs": [],
+          "docs": [
+            " Event emitted when a token is bought/listed."
+          ],
           "label": "SetListed"
         },
         {
@@ -213,7 +279,7 @@
                 "displayName": [
                   "bool"
                 ],
-                "type": 36
+                "type": 29
               }
             }
           ],
@@ -221,485 +287,6 @@
             " Event emitted when a token approve occurs."
           ],
           "label": "Approval"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "to",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "collection",
-              "type": {
-                "displayName": [
-                  "AccountId"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when a new child is added."
-          ],
-          "label": "ChildAdded"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "parent",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "collection",
-              "type": {
-                "displayName": [
-                  "AccountId"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when a child is accepted."
-          ],
-          "label": "ChildAccepted"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "parent",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child_collection",
-              "type": {
-                "displayName": [
-                  "AccountId"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child_token_id",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when a child is removed."
-          ],
-          "label": "ChildRemoved"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "parent",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child_collection",
-              "type": {
-                "displayName": [
-                  "AccountId"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child_token_id",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when a child is rejected."
-          ],
-          "label": "ChildRejected"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when new asset is set for the collection."
-          ],
-          "label": "AssetSet"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "token",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "replaces",
-              "type": {
-                "displayName": [
-                  "Option"
-                ],
-                "type": 61
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when the asset is added to the token."
-          ],
-          "label": "AssetAddedToToken"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "token",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when the asset is accepted."
-          ],
-          "label": "AssetAccepted"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "token",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when the asset is rejected."
-          ],
-          "label": "AssetRejected"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "token",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when the asset is removed."
-          ],
-          "label": "AssetRemoved"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "token",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "priorities",
-              "type": {
-                "displayName": [
-                  "Vec"
-                ],
-                "type": 32
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when the asset is removed."
-          ],
-          "label": "AssetPrioritySet"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "token",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "child_asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when the asset is equipped."
-          ],
-          "label": "AssetEquipped"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "token",
-              "type": {
-                "displayName": [
-                  "Id"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "asset",
-              "type": {
-                "displayName": [
-                  "AssetId"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "slot",
-              "type": {
-                "displayName": [
-                  "SlotId"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Event emitted when the asset is un-equipped."
-          ],
-          "label": "AssetUnEquipped"
-        },
-        {
-          "args": [
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "group",
-              "type": {
-                "displayName": [
-                  "EquippableGroupId"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "slot",
-              "type": {
-                "displayName": [
-                  "SlotId"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "docs": [],
-              "indexed": true,
-              "label": "parent",
-              "type": {
-                "displayName": [
-                  "AccountId"
-                ],
-                "type": 8
-              }
-            }
-          ],
-          "docs": [
-            " Used to notify listeners that the assets belonging to a `equippableGroupId` have been marked as",
-            " equippable into a given slot and parent"
-          ],
-          "label": "ParentEquippableGroupSet"
         }
       ],
       "messages": [
@@ -713,7 +300,7 @@
             "displayName": [
               "Vec"
             ],
-            "type": 47
+            "type": 33
           },
           "selector": "0x7aa7b5ac"
         },
@@ -737,7 +324,7 @@
             "displayName": [
               "Vec"
             ],
-            "type": 47
+            "type": 33
           },
           "selector": "0xc15b3460"
         },
@@ -756,61 +343,137 @@
           "docs": [],
           "label": "buy_nft",
           "mutates": true,
+          "payable": true,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 37
+          },
+          "selector": "0x49505a05"
+        },
+        {
+          "args": [
+            {
+              "label": "token_id_u64",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "listed",
+              "type": {
+                "displayName": [
+                  "bool"
+                ],
+                "type": 29
+              }
+            }
+          ],
+          "docs": [],
+          "label": "toggle_list_nft",
+          "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
               "Result"
             ],
-            "type": 51
+            "type": 37
           },
-          "selector": "0x49505a05"
+          "selector": "0xf2cc6688"
         },
         {
-          "args": [],
-          "docs": [],
-          "label": "test1",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "AccountId"
-            ],
-            "type": 8
-          },
-          "selector": "0xe56837cc"
-        },
-        {
-          "args": [],
-          "docs": [],
-          "label": "test2",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "AccountId"
-            ],
-            "type": 8
-          },
-          "selector": "0x62a8b48c"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Returns the collection `Id` of the NFT token.",
-            "",
-            " This can represents the relationship between tokens/contracts/pallets."
+          "args": [
+            {
+              "label": "token_id_u64",
+              "type": {
+                "displayName": [
+                  "u64"
+                ],
+                "type": 5
+              }
+            },
+            {
+              "label": "new_price",
+              "type": {
+                "displayName": [
+                  "Balance"
+                ],
+                "type": 6
+              }
+            }
           ],
-          "label": "PSP34::collection_id",
-          "mutates": false,
+          "docs": [],
+          "label": "change_nft_price",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "Result"
+            ],
+            "type": 37
+          },
+          "selector": "0x616b9737"
+        },
+        {
+          "args": [
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput1"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput2"
+                ],
+                "type": 14
+              }
+            },
+            {
+              "label": "approved",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput3"
+                ],
+                "type": 29
+              }
+            }
+          ],
+          "docs": [
+            " Approves `operator` to withdraw the `id` token from the caller's account.",
+            " If `id` is `None` approves or disapproves the operator for all tokens of the caller.",
+            "",
+            " On success a `Approval` event is emitted.",
+            "",
+            " # Errors",
+            "",
+            " Returns `SelfApprove` error if it is self approve.",
+            "",
+            " Returns `NotApproved` error if caller is not owner of `id`."
+          ],
+          "label": "PSP34::approve",
+          "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
               "psp34_external",
-              "CollectionIdOutput"
+              "ApproveOutput"
             ],
-            "type": 1
+            "type": 37
           },
-          "selector": "0xffa27a5f"
+          "selector": "0x1932a8b0"
         },
         {
           "args": [
@@ -819,28 +482,47 @@
               "type": {
                 "displayName": [
                   "psp34_external",
-                  "BalanceOfInput1"
+                  "AllowanceInput1"
                 ],
                 "type": 8
+              }
+            },
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput2"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput3"
+                ],
+                "type": 14
               }
             }
           ],
           "docs": [
-            " Returns the balance of the owner.",
-            "",
-            " This represents the amount of unique tokens the owner has."
+            " Returns `true` if the operator is approved by the owner to withdraw `id` token.",
+            " If `id` is `None`, returns `true` if the operator is approved to withdraw all owner's tokens."
           ],
-          "label": "PSP34::balance_of",
+          "label": "PSP34::allowance",
           "mutates": false,
           "payable": false,
           "returnType": {
             "displayName": [
               "psp34_external",
-              "BalanceOfOutput"
+              "AllowanceOutput"
             ],
-            "type": 4
+            "type": 29
           },
-          "selector": "0xcde7e55f"
+          "selector": "0x4790f55a"
         },
         {
           "args": [
@@ -896,9 +578,75 @@
               "psp34_external",
               "TransferOutput"
             ],
-            "type": 51
+            "type": 37
           },
           "selector": "0x3128d61b"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Returns current NFT total supply."
+          ],
+          "label": "PSP34::total_supply",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "TotalSupplyOutput"
+            ],
+            "type": 6
+          },
+          "selector": "0x628413fe"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Returns the collection `Id` of the NFT token.",
+            "",
+            " This can represents the relationship between tokens/contracts/pallets."
+          ],
+          "label": "PSP34::collection_id",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "CollectionIdOutput"
+            ],
+            "type": 1
+          },
+          "selector": "0xffa27a5f"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "BalanceOfInput1"
+                ],
+                "type": 8
+              }
+            }
+          ],
+          "docs": [
+            " Returns the balance of the owner.",
+            "",
+            " This represents the amount of unique tokens the owner has."
+          ],
+          "label": "PSP34::balance_of",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "BalanceOfOutput"
+            ],
+            "type": 4
+          },
+          "selector": "0xcde7e55f"
         },
         {
           "args": [
@@ -927,156 +675,6 @@
             "type": 19
           },
           "selector": "0x1168624d"
-        },
-        {
-          "args": [
-            {
-              "label": "operator",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput2"
-                ],
-                "type": 14
-              }
-            },
-            {
-              "label": "approved",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput3"
-                ],
-                "type": 36
-              }
-            }
-          ],
-          "docs": [
-            " Approves `operator` to withdraw the `id` token from the caller's account.",
-            " If `id` is `None` approves or disapproves the operator for all tokens of the caller.",
-            "",
-            " On success a `Approval` event is emitted.",
-            "",
-            " # Errors",
-            "",
-            " Returns `SelfApprove` error if it is self approve.",
-            "",
-            " Returns `NotApproved` error if caller is not owner of `id`."
-          ],
-          "label": "PSP34::approve",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "ApproveOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x1932a8b0"
-        },
-        {
-          "args": [
-            {
-              "label": "owner",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "operator",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput2"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput3"
-                ],
-                "type": 14
-              }
-            }
-          ],
-          "docs": [
-            " Returns `true` if the operator is approved by the owner to withdraw `id` token.",
-            " If `id` is `None`, returns `true` if the operator is approved to withdraw all owner's tokens."
-          ],
-          "label": "PSP34::allowance",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "AllowanceOutput"
-            ],
-            "type": 36
-          },
-          "selector": "0x4790f55a"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Returns current NFT total supply."
-          ],
-          "label": "PSP34::total_supply",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "TotalSupplyOutput"
-            ],
-            "type": 6
-          },
-          "selector": "0x628413fe"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Leaves the contract without owner. It will not be possible to call",
-            " owner's functions anymore. Can only be called by the current owner.",
-            "",
-            " NOTE: Renouncing ownership will leave the contract without an owner,",
-            " thereby removing any functionality that is only available to the owner.",
-            "",
-            " On success a `OwnershipTransferred` event is emitted.",
-            "",
-            " # Errors",
-            "",
-            " Panics with `CallerIsNotOwner` error if caller is not owner"
-          ],
-          "label": "Ownable::renounce_ownership",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "ownable_external",
-              "RenounceOwnershipOutput"
-            ],
-            "type": 53
-          },
-          "selector": "0x5e228753"
         },
         {
           "args": [],
@@ -1128,9 +726,36 @@
               "ownable_external",
               "TransferOwnershipOutput"
             ],
-            "type": 53
+            "type": 39
           },
           "selector": "0x11f43efd"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Leaves the contract without owner. It will not be possible to call",
+            " owner's functions anymore. Can only be called by the current owner.",
+            "",
+            " NOTE: Renouncing ownership will leave the contract without an owner,",
+            " thereby removing any functionality that is only available to the owner.",
+            "",
+            " On success a `OwnershipTransferred` event is emitted.",
+            "",
+            " # Errors",
+            "",
+            " Panics with `CallerIsNotOwner` error if caller is not owner"
+          ],
+          "label": "Ownable::renounce_ownership",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "ownable_external",
+              "RenounceOwnershipOutput"
+            ],
+            "type": 39
+          },
+          "selector": "0x5e228753"
         },
         {
           "args": [
@@ -1168,7 +793,7 @@
               "psp34metadata_external",
               "GetAttributeOutput"
             ],
-            "type": 55
+            "type": 41
           },
           "selector": "0xf19d48d1"
         },
@@ -1209,7 +834,7 @@
               "psp34enumerable_external",
               "OwnersTokenByIndexOutput"
             ],
-            "type": 56
+            "type": 42
           },
           "selector": "0x3bcfb511"
         },
@@ -1240,26 +865,9 @@
               "psp34enumerable_external",
               "TokenByIndexOutput"
             ],
-            "type": 56
+            "type": 42
           },
           "selector": "0xcd0340d0"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Get token mint price."
-          ],
-          "label": "Minting::price",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "minting_external",
-              "PriceOutput"
-            ],
-            "type": 6
-          },
-          "selector": "0xdc61647f"
         },
         {
           "args": [
@@ -1285,26 +893,84 @@
               "minting_external",
               "GetMetadataOutput"
             ],
-            "type": 57
+            "type": 43
           },
           "selector": "0x3cf9e80b"
         },
         {
-          "args": [],
-          "docs": [
-            " Get max supply of tokens."
+          "args": [
+            {
+              "label": "metadata",
+              "type": {
+                "displayName": [
+                  "minting_external",
+                  "MintWithMetadataInput1"
+                ],
+                "type": 44
+              }
+            },
+            {
+              "label": "to",
+              "type": {
+                "displayName": [
+                  "minting_external",
+                  "MintWithMetadataInput2"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "nft_price",
+              "type": {
+                "displayName": [
+                  "minting_external",
+                  "MintWithMetadataInput3"
+                ],
+                "type": 6
+              }
+            },
+            {
+              "label": "royalty_pct",
+              "type": {
+                "displayName": [
+                  "minting_external",
+                  "MintWithMetadataInput4"
+                ],
+                "type": 2
+              }
+            }
           ],
-          "label": "Minting::max_supply",
-          "mutates": false,
-          "payable": false,
+          "docs": [
+            " Mint next available token with specific metadata"
+          ],
+          "label": "Minting::mint_with_metadata",
+          "mutates": true,
+          "payable": true,
           "returnType": {
             "displayName": [
               "minting_external",
-              "MaxSupplyOutput"
+              "MintWithMetadataOutput"
             ],
-            "type": 5
+            "type": 37
           },
-          "selector": "0xf38e35bf"
+          "selector": "0xc125efc7"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Mint next available token for the caller."
+          ],
+          "label": "Minting::mint_next",
+          "mutates": true,
+          "payable": true,
+          "returnType": {
+            "displayName": [
+              "minting_external",
+              "MintNextOutput"
+            ],
+            "type": 37
+          },
+          "selector": "0xe1ca1a29"
         },
         {
           "args": [
@@ -1340,1330 +1006,43 @@
               "minting_external",
               "MintOutput"
             ],
-            "type": 51
+            "type": 37
           },
           "selector": "0x0f8c5089"
         },
         {
           "args": [],
           "docs": [
-            " Mint next available token for the caller."
+            " Get max supply of tokens."
           ],
-          "label": "Minting::mint_next",
-          "mutates": true,
-          "payable": true,
+          "label": "Minting::max_supply",
+          "mutates": false,
+          "payable": false,
           "returnType": {
             "displayName": [
               "minting_external",
-              "MintNextOutput"
+              "MaxSupplyOutput"
             ],
-            "type": 51
+            "type": 5
           },
-          "selector": "0xe1ca1a29"
+          "selector": "0xf38e35bf"
         },
         {
-          "args": [
-            {
-              "label": "metadata",
-              "type": {
-                "displayName": [
-                  "minting_external",
-                  "MintWithMetadataInput1"
-                ],
-                "type": 58
-              }
-            },
-            {
-              "label": "to",
-              "type": {
-                "displayName": [
-                  "minting_external",
-                  "MintWithMetadataInput2"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "nft_price",
-              "type": {
-                "displayName": [
-                  "minting_external",
-                  "MintWithMetadataInput3"
-                ],
-                "type": 6
-              }
-            }
-          ],
+          "args": [],
           "docs": [
-            " Mint next available token with specific metadata"
+            " Get token mint price."
           ],
-          "label": "Minting::mint_with_metadata",
-          "mutates": true,
-          "payable": true,
+          "label": "Minting::price",
+          "mutates": false,
+          "payable": false,
           "returnType": {
             "displayName": [
               "minting_external",
-              "MintWithMetadataOutput"
+              "PriceOutput"
             ],
-            "type": 51
+            "type": 6
           },
-          "selector": "0xc125efc7"
-        },
-        {
-          "args": [
-            {
-              "label": "parent_token_id",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "RemoveChildInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "RemoveChildInput2"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Remove a child NFT (from different collection) from token_id in this collection.",
-            " The status of added child is `Pending` if caller is not owner of child NFT",
-            " The status of added child is `Accepted` if caller is is owner of child NFT",
-            "",
-            " # Requirements:",
-            " * The status of the child is `Accepted`",
-            "",
-            " # Arguments:",
-            " * `parent_token_id`: is the tokenId of the parent NFT.",
-            " * `child_nft`: (collection_id, token_id) of the child instance.",
-            "",
-            " # Result:",
-            " Ownership of child NFT will be transferred to parent NFT owner (cross contract call)",
-            " On success emitts `RmrkEvent::ChildRemoved`"
-          ],
-          "label": "Nesting::remove_child",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "RemoveChildOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x27e7420e"
-        },
-        {
-          "args": [
-            {
-              "label": "from",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "TransferChildInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "to",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "TransferChildInput2"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "TransferChildInput3"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Transfer the child NFT from one parent to another (in this collection).",
-            "",
-            " # Requirements:",
-            " * The status of the child is `Accepted`",
-            "",
-            " # Arguments:",
-            " * `current_parent`: current parent tokenId which holds child nft",
-            " * `new_parent`: new parent tokenId which will hold child nft",
-            " * `child_nft`: (collection_id, token_id) of the child instance.",
-            "",
-            " # Result:",
-            " Ownership of child NFT will be transferred to this contract (cross contract call)",
-            " On success emitts `RmrkEvent::ChildAdded`",
-            " On success emitts `RmrkEvent::ChildAccepted` - only if caller is already owner of child NFT"
-          ],
-          "label": "Nesting::transfer_child",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "TransferChildOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xdb43324e"
-        },
-        {
-          "args": [
-            {
-              "label": "parent_token_id",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "ChildrenBalanceInput1"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Read the number of children on the parent token.",
-            " # Arguments:",
-            " * `parent_token_id`: parent tokenId to check",
-            "",
-            " # Result:",
-            " Returns the tupple of `(accepted_children, pending_children)` count"
-          ],
-          "label": "Nesting::children_balance",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "ChildrenBalanceOutput"
-            ],
-            "type": 59
-          },
-          "selector": "0x2348106c"
-        },
-        {
-          "args": [
-            {
-              "label": "parent_token_id",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AcceptChildInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AcceptChildInput2"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Accept a child NFT (from different collection) to be owned by parent token.",
-            "",
-            " # Requirements:",
-            " * The status of the child is `Pending`",
-            "",
-            " # Arguments:",
-            " * `parent_token_id`: is the tokenId of the parent NFT.",
-            " * `child_nft`: (collection_id, token_id) of the child instance.",
-            "",
-            " # Result:",
-            " Child Nft is moved from pending to accepted",
-            " On success emitts `RmrkEvent::ChildAccepted`"
-          ],
-          "label": "Nesting::accept_child",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "AcceptChildOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x3b3e2643"
-        },
-        {
-          "args": [
-            {
-              "label": "parent_token_id",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "RejectChildInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "RejectChildInput2"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Reject a child NFT (from different collection).",
-            "",
-            " # Requirements:",
-            " * The status of the child is `Pending`",
-            "",
-            " # Arguments:",
-            " * `parent_token_id`: is the tokenId of the parent NFT.",
-            " * `child_nft`: (collection_id, token_id) of the child instance.",
-            "",
-            " # Result:",
-            " Child Nft is removed from pending",
-            " On success emitts `RmrkEvent::ChildRejected`"
-          ],
-          "label": "Nesting::reject_child",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "RejectChildOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xdd308ed4"
-        },
-        {
-          "args": [
-            {
-              "label": "parent_token_id",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AddChildInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "nesting_external",
-                  "AddChildInput2"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Add a child NFT (from different collection) to the NFT in this collection.",
-            " The status of the added child is `Pending` if caller is not owner of child NFT",
-            " The status of the added child is `Accepted` if caller is is owner of child NFT",
-            " The caller needs not to be the owner of the to_parent_token_id, but",
-            " Caller must be owner of the child NFT,",
-            " in order to perform transfer() ownership of the child nft to to_parent_token_id.",
-            "",
-            " # Requirements:",
-            " * `child_contract_address` needs to be added by collecion owner",
-            " * `to_parent_token_id` must exist.",
-            " * `child_token_id` must exist.",
-            " * There cannot be two identical children.",
-            "",
-            " # Arguments:",
-            " * `to_parent_token_id`: is the tokenId of the parent NFT. The receiver of child.",
-            " * `child_nft`: (collection_id, token_id) of the child instance.",
-            "",
-            " # Result:",
-            " Ownership of child NFT will be transferred to this contract (cross contract call)",
-            " On success emitts `RmrkEvent::ChildAdded`",
-            " On success emitts `RmrkEvent::ChildAccepted` - only if caller is already owner of child NFT"
-          ],
-          "label": "Nesting::add_child",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "nesting_external",
-              "AddChildOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x1d6f5156"
-        },
-        {
-          "args": [
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetEntryInput1"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "equippable_group_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetEntryInput2"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "asset_uri",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetEntryInput3"
-                ],
-                "type": 7
-              }
-            },
-            {
-              "label": "part_ids",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetEntryInput4"
-                ],
-                "type": 32
-              }
-            }
-          ],
-          "docs": [
-            " Used to add a asset entry.",
-            " The ID of the asset is automatically assigned to be the next available asset ID.",
-            " # Arguments",
-            "  * `asset_uri` Uri for the new asset",
-            " Emits an {AssetSet} event."
-          ],
-          "label": "MultiAsset::add_asset_entry",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "AddAssetEntryOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x5427f3c0"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetToTokenInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetToTokenInput2"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "replaces_asset_with_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AddAssetToTokenInput3"
-                ],
-                "type": 61
-              }
-            }
-          ],
-          "docs": [
-            " Used to add an asset to a token.",
-            " If the given asset is already added to the token, the execution will be reverted.",
-            " If the asset ID is invalid, the execution will be reverted.",
-            " If the token already has the maximum amount of pending assets (128), the execution will be",
-            " reverted.",
-            " If the asset is being added by the current root owner of the token, the asset will be automatically",
-            " accepted.",
-            " # Arguments",
-            "  * tokenId ID of the token to add the asset to",
-            "  * assetId ID of the asset to add to the token",
-            "  * replacesAssetWithId ID of the asset to replace from the token's list of active assets",
-            " Emits an {AssetAddedToToken} event."
-          ],
-          "label": "MultiAsset::add_asset_to_token",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "AddAssetToTokenOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xe893e17a"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "TotalTokenAssetsInput1"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Used to retrieve the total number of assets per token"
-          ],
-          "label": "MultiAsset::total_token_assets",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "TotalTokenAssetsOutput"
-            ],
-            "type": 59
-          },
-          "selector": "0x525922a3"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "RemoveAssetInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "RemoveAssetInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Remove the assets for the list of token assets"
-          ],
-          "label": "MultiAsset::remove_asset",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "RemoveAssetOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xfdbda22c"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "SetPriorityInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "priorities",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "SetPriorityInput2"
-                ],
-                "type": 32
-              }
-            }
-          ],
-          "docs": [
-            " Used to specify the priorities for a given token's active assets.",
-            " If the length of the priorities array doesn't match the length of the active assets array, the execution",
-            "  will be reverted.",
-            " The position of the priority value in the array corresponds the position of the asset in the active",
-            "  assets array it will be applied to.",
-            " # Arguments",
-            "  * tokenId ID of the token for which the priorities are being set",
-            "  * priorities Array of priorities for the assets",
-            " Emits a {AssetPrioritySet} event."
-          ],
-          "label": "MultiAsset::set_priority",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "SetPriorityOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x1fde0ead"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AcceptAssetInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "AcceptAssetInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Accepts an asset at from the pending array of given token.",
-            " Migrates the asset from the token's pending asset array to the token's active asset array.",
-            " Active assets cannot be removed by anyone, but can be replaced by a new asset.",
-            " # Requirements:",
-            "  * The caller must own the token or be approved to manage the token's assets",
-            "  * `tokenId` must exist.",
-            "  * `assetId` must be in the pending_asset list.",
-            " # Arguments",
-            "  * tokenId ID of the token for which to accept the pending asset",
-            "  * assetId ID of the asset expected to be in the pending_asset list.",
-            " Emits an {AssetAccepted} event."
-          ],
-          "label": "MultiAsset::accept_asset",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "AcceptAssetOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xdc2df4e5"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "RejectAssetInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "RejectAssetInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Rejects an asset from the pending array of given token.",
-            " Removes the asset from the token's pending asset array.",
-            " # Requirements:",
-            "  * The caller must own the token or be approved to manage the token's assets",
-            "  * `tokenId` must exist.",
-            "  * `assetId` must be in the pending_asset list.",
-            " # Arguments",
-            "  * tokenId ID of the token for which to accept the pending asset",
-            "  * assetId ID of the asset expected to be in the pending_asset list.",
-            " Emits a {AssetRejected} event."
-          ],
-          "label": "MultiAsset::reject_asset",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "RejectAssetOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xb3e25a89"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Used to retrieve the total number of assets.",
-            " # Returns",
-            "  * u64 The total number of assets"
-          ],
-          "label": "MultiAsset::total_assets",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "TotalAssetsOutput"
-            ],
-            "type": 4
-          },
-          "selector": "0x9b26f6d8"
-        },
-        {
-          "args": [
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "GetAssetUriInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to retrieve asset's uri"
-          ],
-          "label": "MultiAsset::get_asset_uri",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "GetAssetUriOutput"
-            ],
-            "type": 55
-          },
-          "selector": "0xb677b85c"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "multiasset_external",
-                  "GetAcceptedTokenAssetsInput1"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Fetch all accepted assets for the token_id"
-          ],
-          "label": "MultiAsset::get_accepted_token_assets",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "multiasset_external",
-              "GetAcceptedTokenAssetsOutput"
-            ],
-            "type": 62
-          },
-          "selector": "0x765ef0e3"
-        },
-        {
-          "args": [
-            {
-              "label": "parts",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "AddPartListInput1"
-                ],
-                "type": 64
-              }
-            }
-          ],
-          "docs": [
-            " Add one or more parts to the base"
-          ],
-          "label": "Base::add_part_list",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "AddPartListOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xa69bb397"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "EnsureEquippableInput1"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "target_address",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "EnsureEquippableInput2"
-                ],
-                "type": 8
-              }
-            }
-          ],
-          "docs": [
-            " Check whether the given address is allowed to equip the desired `PartId`."
-          ],
-          "label": "Base::ensure_equippable",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "EnsureEquippableOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x00b95e48"
-        },
-        {
-          "args": [],
-          "docs": [
-            " Get the list of all parts."
-          ],
-          "label": "Base::get_parts_count",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "GetPartsCountOutput"
-            ],
-            "type": 4
-          },
-          "selector": "0x0ae71607"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "AddEquippableAddressesInput1"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "equippable_address",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "AddEquippableAddressesInput2"
-                ],
-                "type": 41
-              }
-            }
-          ],
-          "docs": [
-            " Add collection address(es) that can be used to equip given `PartId`."
-          ],
-          "label": "Base::add_equippable_addresses",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "AddEquippableAddressesOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x676b2b0e"
-        },
-        {
-          "args": [],
-          "docs": [],
-          "label": "Base::get_base_metadata",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "GetBaseMetadataOutput"
-            ],
-            "type": 58
-          },
-          "selector": "0xef4c0817"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "IsEquippableByAllInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Checks if the given `PartId` can be equipped by any collection"
-          ],
-          "label": "Base::is_equippable_by_all",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "IsEquippableByAllOutput"
-            ],
-            "type": 36
-          },
-          "selector": "0xc51b3205"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "ResetEquippableAddressesInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Remove list of equippable addresses for given Part"
-          ],
-          "label": "Base::reset_equippable_addresses",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "ResetEquippableAddressesOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xa1771d47"
-        },
-        {
-          "args": [
-            {
-              "label": "base_metadata",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "SetupBaseInput1"
-                ],
-                "type": 7
-              }
-            }
-          ],
-          "docs": [],
-          "label": "Base::setup_base",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "SetupBaseOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xcd5b2ca6"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "GetPartInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Get the part details for the given PartId."
-          ],
-          "label": "Base::get_part",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "GetPartOutput"
-            ],
-            "type": 65
-          },
-          "selector": "0x4adb5884"
-        },
-        {
-          "args": [
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "base_external",
-                  "SetEquippableByAllInput1"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Sets the is_equippable_by_all flag to true, meaning that any collection may be equipped into the `PartId`"
-          ],
-          "label": "Base::set_equippable_by_all",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "base_external",
-              "SetEquippableByAllOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0xf02dfddf"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "EquipInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "EquipInput2"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "slot_part_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "EquipInput3"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "child_nft",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "EquipInput4"
-                ],
-                "type": 28
-              }
-            },
-            {
-              "label": "child_asset_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "EquipInput5"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to equip a child nft into a token.",
-            " # Requirements",
-            "  * Called on Parent token contract",
-            "  * If the `Slot` already has an item equipped, the execution will be reverted.",
-            "  * If the child can't be used in the given `Slot`, the execution will be reverted.",
-            "  * If the base doesn't allow this equip to happen, the execution will be reverted.",
-            "    ",
-            " # Arguments:",
-            "  * `token_id ID` of the token that had an asset equipped",
-            "  * `asset_id ID` of the asset associated with the token we are equipping into",
-            "  * `slot_part_id` ID of the slot we are using to equip",
-            "  * `child_nft` Child NFT tuple (CollectionId, Id)",
-            "  * `child_asset_id` ID of the asset associated with the token we are equipping",
-            " Emits an {ChildAssetEquipped} event."
-          ],
-          "label": "Equippable::equip",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "equippable_external",
-              "EquipOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x3553c8d4"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "UnequipInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "slot_part_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "UnequipInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to unequip child from parent token.",
-            " # Requirements",
-            "  * This can only be called by the owner of the token or by an account that has been granted permission to",
-            "  * Called on Parent token contract",
-            "",
-            " # Arguments:",
-            "  * `token_id` ID of the token that had an asset unequipped",
-            "  * `asset_id` ID of the asset associated with the token we are unequipping from",
-            "  * `slot_part_id` ID of the slot we are using to unequip",
-            "  * `child_nft` Child NFT tuple (CollectionId, Id)",
-            "  * `child_asset_id` ID of the asset associated with the token we are unequipping",
-            " Emits an {ChildAssetUnequipped} event."
-          ],
-          "label": "Equippable::unequip",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "equippable_external",
-              "UnequipOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x9d5323ba"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "GetAssetAndEquippableDataInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "asset_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "GetAssetAndEquippableDataInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to get the asset and equippable data associated with given `asset_id`.",
-            " # Arguments:",
-            "  * tokenId ID of the token for which to retrieve the asset",
-            "  * asset_id ID of the asset of which we are retrieving",
-            " # Returns:",
-            "    * asset_id metadataURI,",
-            "    * EquippableAsset"
-          ],
-          "label": "Equippable::get_asset_and_equippable_data",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "equippable_external",
-              "GetAssetAndEquippableDataOutput"
-            ],
-            "type": 66
-          },
-          "selector": "0xeddf27de"
-        },
-        {
-          "args": [
-            {
-              "label": "equippable_group_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "SetValidParentForEquippableGroupInput1"
-                ],
-                "type": 4
-              }
-            },
-            {
-              "label": "parent_address",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "SetValidParentForEquippableGroupInput2"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "part_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "SetValidParentForEquippableGroupInput3"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to declare that the assets belonging to a given `equippableGroupId` are equippable into the `Slot`",
-            " associated with the `partId` of the collection at the specified `parentAddress`",
-            " # Requirements",
-            "  * Called on Child Token contract",
-            "",
-            " # Arguments:",
-            "  * `equippable_group_id` ID of the equippable group",
-            "  * `parent_address` Address of the parent into which the equippable group can be equipped into",
-            "  * `part_id` ID of the `Slot` that the items belonging to the equippable group can be equipped into"
-          ],
-          "label": "Equippable::set_valid_parent_for_equippable_group",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "equippable_external",
-              "SetValidParentForEquippableGroupOutput"
-            ],
-            "type": 51
-          },
-          "selector": "0x12f1715b"
-        },
-        {
-          "args": [
-            {
-              "label": "token_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "GetEquipmentInput1"
-                ],
-                "type": 1
-              }
-            },
-            {
-              "label": "slot_part_id",
-              "type": {
-                "displayName": [
-                  "equippable_external",
-                  "GetEquipmentInput2"
-                ],
-                "type": 4
-              }
-            }
-          ],
-          "docs": [
-            " Used to extend already added Asset with details needed to support equipping.",
-            " These details are not present in MultiAsset trait to avoid dependencies on Equippable trait.",
-            " # Arguments:",
-            "  * `asset_id` ID of the asset being extended",
-            "  * `equippableGroupId` ID of the equippable group",
-            "  * `partIds` An array of IDs of fixed and slot parts to be included in the asset",
-            " Used to get the Equipment object equipped into the specified slot of the desired token.",
-            "",
-            " # Arguments:",
-            "  * `token_id` ID of the token for which we are retrieving the equipped object",
-            "  * `slot_part_id` ID of the `Slot` part that we are checking for equipped objects"
-          ],
-          "label": "Equippable::get_equipment",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "equippable_external",
-              "GetEquipmentOutput"
-            ],
-            "type": 67
-          },
-          "selector": "0xce09be8e"
+          "selector": "0xdc61647f"
         }
       ]
     },
@@ -2906,78 +1285,6 @@
                   {
                     "layout": {
                       "cell": {
-                        "key": "0x178830e900000000000000000000000000000000000000000000000000000000",
-                        "ty": 26
-                      }
-                    },
-                    "name": "pending_children"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0x188830e900000000000000000000000000000000000000000000000000000000",
-                        "ty": 26
-                      }
-                    },
-                    "name": "accepted_children"
-                  }
-                ]
-              }
-            },
-            "name": "nesting"
-          },
-          {
-            "layout": {
-              "struct": {
-                "fields": [
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0xe441c47200000000000000000000000000000000000000000000000000000000",
-                        "ty": 30
-                      }
-                    },
-                    "name": "collection_asset_entries"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0xe541c47200000000000000000000000000000000000000000000000000000000",
-                        "ty": 32
-                      }
-                    },
-                    "name": "collection_asset_ids"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0xe641c47200000000000000000000000000000000000000000000000000000000",
-                        "ty": 33
-                      }
-                    },
-                    "name": "accepted_assets"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0xe741c47200000000000000000000000000000000000000000000000000000000",
-                        "ty": 33
-                      }
-                    },
-                    "name": "pending_assets"
-                  }
-                ]
-              }
-            },
-            "name": "multiasset"
-          },
-          {
-            "layout": {
-              "struct": {
-                "fields": [
-                  {
-                    "layout": {
-                      "cell": {
                         "key": "0xf6155c5c00000000000000000000000000000000000000000000000000000000",
                         "ty": 5
                       }
@@ -3006,7 +1313,7 @@
                     "layout": {
                       "cell": {
                         "key": "0xf9155c5c00000000000000000000000000000000000000000000000000000000",
-                        "ty": 34
+                        "ty": 26
                       }
                     },
                     "name": "nft_metadata"
@@ -3015,7 +1322,7 @@
                     "layout": {
                       "cell": {
                         "key": "0xfa155c5c00000000000000000000000000000000000000000000000000000000",
-                        "ty": 35
+                        "ty": 28
                       }
                     },
                     "name": "listed"
@@ -3024,87 +1331,33 @@
                     "layout": {
                       "cell": {
                         "key": "0xfb155c5c00000000000000000000000000000000000000000000000000000000",
-                        "ty": 37
+                        "ty": 30
                       }
                     },
                     "name": "nft_price"
+                  },
+                  {
+                    "layout": {
+                      "cell": {
+                        "key": "0xfc155c5c00000000000000000000000000000000000000000000000000000000",
+                        "ty": 31
+                      }
+                    },
+                    "name": "nft_royalty"
+                  },
+                  {
+                    "layout": {
+                      "cell": {
+                        "key": "0xfd155c5c00000000000000000000000000000000000000000000000000000000",
+                        "ty": 32
+                      }
+                    },
+                    "name": "nft_author"
                   }
                 ]
               }
             },
             "name": "minting"
-          },
-          {
-            "layout": {
-              "struct": {
-                "fields": [
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0x77bbab4600000000000000000000000000000000000000000000000000000000",
-                        "ty": 32
-                      }
-                    },
-                    "name": "part_ids"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0x78bbab4600000000000000000000000000000000000000000000000000000000",
-                        "ty": 38
-                      }
-                    },
-                    "name": "parts"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0x79bbab4600000000000000000000000000000000000000000000000000000000",
-                        "ty": 4
-                      }
-                    },
-                    "name": "next_part_id"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0x7abbab4600000000000000000000000000000000000000000000000000000000",
-                        "ty": 7
-                      }
-                    },
-                    "name": "base_metadata_uri"
-                  }
-                ]
-              }
-            },
-            "name": "base"
-          },
-          {
-            "layout": {
-              "struct": {
-                "fields": [
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0x8ae1b8e300000000000000000000000000000000000000000000000000000000",
-                        "ty": 42
-                      }
-                    },
-                    "name": "equipment"
-                  },
-                  {
-                    "layout": {
-                      "cell": {
-                        "key": "0x8be1b8e300000000000000000000000000000000000000000000000000000000",
-                        "ty": 45
-                      }
-                    },
-                    "name": "valid_parent_slot"
-                  }
-                ]
-              }
-            },
-            "name": "equippable"
           }
         ]
       }
@@ -3577,184 +1830,7 @@
               "fields": [
                 {
                   "name": "offset_key",
-                  "type": 29,
-                  "typeName": "Key"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "K",
-              "type": 1
-            },
-            {
-              "name": "V",
-              "type": 27
-            }
-          ],
-          "path": [
-            "ink_storage",
-            "lazy",
-            "mapping",
-            "Mapping"
-          ]
-        }
-      },
-      {
-        "id": 27,
-        "type": {
-          "def": {
-            "sequence": {
-              "type": 28
-            }
-          }
-        }
-      },
-      {
-        "id": 28,
-        "type": {
-          "def": {
-            "tuple": [
-              8,
-              1
-            ]
-          }
-        }
-      },
-      {
-        "id": 29,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "type": 9,
-                  "typeName": "[u8; 32]"
-                }
-              ]
-            }
-          },
-          "path": [
-            "ink_primitives",
-            "Key"
-          ]
-        }
-      },
-      {
-        "id": 30,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "name": "offset_key",
-                  "type": 29,
-                  "typeName": "Key"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "K",
-              "type": 4
-            },
-            {
-              "name": "V",
-              "type": 31
-            }
-          ],
-          "path": [
-            "ink_storage",
-            "lazy",
-            "mapping",
-            "Mapping"
-          ]
-        }
-      },
-      {
-        "id": 31,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "name": "equippable_group_id",
-                  "type": 4,
-                  "typeName": "EquippableGroupId"
-                },
-                {
-                  "name": "asset_uri",
-                  "type": 7,
-                  "typeName": "String"
-                },
-                {
-                  "name": "part_ids",
-                  "type": 32,
-                  "typeName": "Vec<PartId>"
-                }
-              ]
-            }
-          },
-          "path": [
-            "rmrk_common",
-            "types",
-            "Asset"
-          ]
-        }
-      },
-      {
-        "id": 32,
-        "type": {
-          "def": {
-            "sequence": {
-              "type": 4
-            }
-          }
-        }
-      },
-      {
-        "id": 33,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "name": "offset_key",
-                  "type": 29,
-                  "typeName": "Key"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "K",
-              "type": 1
-            },
-            {
-              "name": "V",
-              "type": 32
-            }
-          ],
-          "path": [
-            "ink_storage",
-            "lazy",
-            "mapping",
-            "Mapping"
-          ]
-        }
-      },
-      {
-        "id": 34,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "name": "offset_key",
-                  "type": 29,
+                  "type": 27,
                   "typeName": "Key"
                 }
               ]
@@ -3779,14 +1855,33 @@
         }
       },
       {
-        "id": 35,
+        "id": 27,
+        "type": {
+          "def": {
+            "composite": {
+              "fields": [
+                {
+                  "type": 9,
+                  "typeName": "[u8; 32]"
+                }
+              ]
+            }
+          },
+          "path": [
+            "ink_primitives",
+            "Key"
+          ]
+        }
+      },
+      {
+        "id": 28,
         "type": {
           "def": {
             "composite": {
               "fields": [
                 {
                   "name": "offset_key",
-                  "type": 29,
+                  "type": 27,
                   "typeName": "Key"
                 }
               ]
@@ -3799,7 +1894,7 @@
             },
             {
               "name": "V",
-              "type": 36
+              "type": 29
             }
           ],
           "path": [
@@ -3811,7 +1906,7 @@
         }
       },
       {
-        "id": 36,
+        "id": 29,
         "type": {
           "def": {
             "primitive": "bool"
@@ -3819,14 +1914,14 @@
         }
       },
       {
-        "id": 37,
+        "id": 30,
         "type": {
           "def": {
             "composite": {
               "fields": [
                 {
                   "name": "offset_key",
-                  "type": 29,
+                  "type": 27,
                   "typeName": "Key"
                 }
               ]
@@ -3851,14 +1946,14 @@
         }
       },
       {
-        "id": 38,
+        "id": 31,
         "type": {
           "def": {
             "composite": {
               "fields": [
                 {
                   "name": "offset_key",
-                  "type": 29,
+                  "type": 27,
                   "typeName": "Key"
                 }
               ]
@@ -3867,11 +1962,11 @@
           "params": [
             {
               "name": "K",
-              "type": 4
+              "type": 1
             },
             {
               "name": "V",
-              "type": 39
+              "type": 2
             }
           ],
           "path": [
@@ -3883,107 +1978,28 @@
         }
       },
       {
-        "id": 39,
+        "id": 32,
         "type": {
           "def": {
             "composite": {
               "fields": [
                 {
-                  "name": "part_type",
-                  "type": 40,
-                  "typeName": "PartType"
-                },
-                {
-                  "name": "z",
-                  "type": 2,
-                  "typeName": "u8"
-                },
-                {
-                  "name": "equippable",
-                  "type": 41,
-                  "typeName": "Vec<AccountId>"
-                },
-                {
-                  "name": "metadata_uri",
-                  "type": 7,
-                  "typeName": "String"
-                },
-                {
-                  "name": "is_equippable_by_all",
-                  "type": 36,
-                  "typeName": "bool"
+                  "name": "offset_key",
+                  "type": 27,
+                  "typeName": "Key"
                 }
               ]
             }
           },
-          "path": [
-            "rmrk_common",
-            "types",
-            "Part"
-          ]
-        }
-      },
-      {
-        "id": 40,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "index": 0,
-                  "name": "None"
-                },
-                {
-                  "index": 1,
-                  "name": "Slot"
-                },
-                {
-                  "index": 2,
-                  "name": "Fixed"
-                }
-              ]
-            }
-          },
-          "path": [
-            "rmrk_common",
-            "types",
-            "PartType"
-          ]
-        }
-      },
-      {
-        "id": 41,
-        "type": {
-          "def": {
-            "sequence": {
+          "params": [
+            {
+              "name": "K",
+              "type": 1
+            },
+            {
+              "name": "V",
               "type": 8
             }
-          }
-        }
-      },
-      {
-        "id": 42,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "name": "offset_key",
-                  "type": 29,
-                  "typeName": "Key"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "K",
-              "type": 43
-            },
-            {
-              "name": "V",
-              "type": 44
-            }
           ],
           "path": [
             "ink_storage",
@@ -3994,108 +2010,23 @@
         }
       },
       {
-        "id": 43,
-        "type": {
-          "def": {
-            "tuple": [
-              1,
-              4
-            ]
-          }
-        }
-      },
-      {
-        "id": 44,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "name": "asset_id",
-                  "type": 4,
-                  "typeName": "AssetId"
-                },
-                {
-                  "name": "child_asset_id",
-                  "type": 4,
-                  "typeName": "AssetId"
-                },
-                {
-                  "name": "child_nft",
-                  "type": 28,
-                  "typeName": "ChildNft"
-                }
-              ]
-            }
-          },
-          "path": [
-            "rmrk_common",
-            "types",
-            "Equipment"
-          ]
-        }
-      },
-      {
-        "id": 45,
-        "type": {
-          "def": {
-            "composite": {
-              "fields": [
-                {
-                  "name": "offset_key",
-                  "type": 29,
-                  "typeName": "Key"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "K",
-              "type": 46
-            },
-            {
-              "name": "V",
-              "type": 4
-            }
-          ],
-          "path": [
-            "ink_storage",
-            "lazy",
-            "mapping",
-            "Mapping"
-          ]
-        }
-      },
-      {
-        "id": 46,
-        "type": {
-          "def": {
-            "tuple": [
-              4,
-              8
-            ]
-          }
-        }
-      },
-      {
-        "id": 47,
+        "id": 33,
         "type": {
           "def": {
             "sequence": {
-              "type": 48
+              "type": 34
             }
           }
         }
       },
       {
-        "id": 48,
+        "id": 34,
         "type": {
           "def": {
             "composite": {
               "fields": [
                 {
-                  "type": 49
+                  "type": 35
                 }
               ]
             }
@@ -4116,17 +2047,17 @@
         }
       },
       {
-        "id": 49,
+        "id": 35,
         "type": {
           "def": {
             "sequence": {
-              "type": 50
+              "type": 36
             }
           }
         }
       },
       {
-        "id": 50,
+        "id": 36,
         "type": {
           "def": {
             "tuple": [
@@ -4137,7 +2068,7 @@
         }
       },
       {
-        "id": 51,
+        "id": 37,
         "type": {
           "def": {
             "variant": {
@@ -4154,7 +2085,7 @@
                 {
                   "fields": [
                     {
-                      "type": 52
+                      "type": 38
                     }
                   ],
                   "index": 1,
@@ -4170,7 +2101,7 @@
             },
             {
               "name": "E",
-              "type": 52
+              "type": 38
             }
           ],
           "path": [
@@ -4179,7 +2110,7 @@
         }
       },
       {
-        "id": 52,
+        "id": 38,
         "type": {
           "def": {
             "variant": {
@@ -4233,7 +2164,7 @@
         }
       },
       {
-        "id": 53,
+        "id": 39,
         "type": {
           "def": {
             "variant": {
@@ -4250,7 +2181,7 @@
                 {
                   "fields": [
                     {
-                      "type": 54
+                      "type": 40
                     }
                   ],
                   "index": 1,
@@ -4266,7 +2197,7 @@
             },
             {
               "name": "E",
-              "type": 54
+              "type": 40
             }
           ],
           "path": [
@@ -4275,7 +2206,7 @@
         }
       },
       {
-        "id": 54,
+        "id": 40,
         "type": {
           "def": {
             "variant": {
@@ -4301,7 +2232,7 @@
         }
       },
       {
-        "id": 55,
+        "id": 41,
         "type": {
           "def": {
             "variant": {
@@ -4334,7 +2265,7 @@
         }
       },
       {
-        "id": 56,
+        "id": 42,
         "type": {
           "def": {
             "variant": {
@@ -4351,7 +2282,7 @@
                 {
                   "fields": [
                     {
-                      "type": 52
+                      "type": 38
                     }
                   ],
                   "index": 1,
@@ -4367,7 +2298,7 @@
             },
             {
               "name": "E",
-              "type": 52
+              "type": 38
             }
           ],
           "path": [
@@ -4376,49 +2307,34 @@
         }
       },
       {
-        "id": 57,
+        "id": 43,
         "type": {
           "def": {
-            "variant": {
-              "variants": [
+            "composite": {
+              "fields": [
                 {
-                  "fields": [
-                    {
-                      "type": 58
-                    }
-                  ],
-                  "index": 0,
-                  "name": "Ok"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 52
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Err"
+                  "type": 45
                 }
               ]
             }
           },
           "params": [
             {
-              "name": "T",
-              "type": 58
+              "name": "K",
+              "type": 44
             },
             {
-              "name": "E",
-              "type": 52
+              "name": "V",
+              "type": 44
             }
           ],
           "path": [
-            "Result"
+            "BTreeMap"
           ]
         }
       },
       {
-        "id": 58,
+        "id": 44,
         "type": {
           "def": {
             "primitive": "str"
@@ -4426,60 +2342,28 @@
         }
       },
       {
-        "id": 59,
+        "id": 45,
         "type": {
           "def": {
-            "variant": {
-              "variants": [
-                {
-                  "fields": [
-                    {
-                      "type": 60
-                    }
-                  ],
-                  "index": 0,
-                  "name": "Ok"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 52
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Err"
-                }
-              ]
+            "sequence": {
+              "type": 46
             }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 60
-            },
-            {
-              "name": "E",
-              "type": 52
-            }
-          ],
-          "path": [
-            "Result"
-          ]
+          }
         }
       },
       {
-        "id": 60,
+        "id": 46,
         "type": {
           "def": {
             "tuple": [
-              5,
-              5
+              44,
+              44
             ]
           }
         }
       },
       {
-        "id": 61,
+        "id": 47,
         "type": {
           "def": {
             "variant": {
@@ -4491,7 +2375,7 @@
                 {
                   "fields": [
                     {
-                      "type": 4
+                      "type": 29
                     }
                   ],
                   "index": 1,
@@ -4503,233 +2387,7 @@
           "params": [
             {
               "name": "T",
-              "type": 4
-            }
-          ],
-          "path": [
-            "Option"
-          ]
-        }
-      },
-      {
-        "id": 62,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "fields": [
-                    {
-                      "type": 63
-                    }
-                  ],
-                  "index": 0,
-                  "name": "Ok"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 52
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Err"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 63
-            },
-            {
-              "name": "E",
-              "type": 52
-            }
-          ],
-          "path": [
-            "Result"
-          ]
-        }
-      },
-      {
-        "id": 63,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "index": 0,
-                  "name": "None"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 32
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Some"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 32
-            }
-          ],
-          "path": [
-            "Option"
-          ]
-        }
-      },
-      {
-        "id": 64,
-        "type": {
-          "def": {
-            "sequence": {
-              "type": 39
-            }
-          }
-        }
-      },
-      {
-        "id": 65,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "index": 0,
-                  "name": "None"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 39
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Some"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 39
-            }
-          ],
-          "path": [
-            "Option"
-          ]
-        }
-      },
-      {
-        "id": 66,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "fields": [
-                    {
-                      "type": 31
-                    }
-                  ],
-                  "index": 0,
-                  "name": "Ok"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 52
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Err"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 31
-            },
-            {
-              "name": "E",
-              "type": 52
-            }
-          ],
-          "path": [
-            "Result"
-          ]
-        }
-      },
-      {
-        "id": 67,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "index": 0,
-                  "name": "None"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 44
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Some"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 44
-            }
-          ],
-          "path": [
-            "Option"
-          ]
-        }
-      },
-      {
-        "id": 68,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "index": 0,
-                  "name": "None"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 36
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Some"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 36
+              "type": 29
             }
           ],
           "path": [
