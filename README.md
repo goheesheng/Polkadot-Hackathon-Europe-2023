@@ -56,6 +56,9 @@ React: A JavaScript library for building user interfaces. React can be used to c
 
 Blockchain Node: A server that runs a full copy of the blockchain ledger and can be used to validate and process transactions. The project use a Substrate node, such to ensure that the NFT marketplace is able to interact and execute transactions in a secure and efficient manner.
 
+## References
+1. [Ink!athon – DApp Boilerplate for Substrate & ink!](https://github.com/scio-labs/inkathon)
+2. [Jerga99/nft-marketplace](https://github.com/Jerga99/nft-marketplace) 
 
 ## Contact information
  - Goh Ee Sheng - https://goheesheng.github.io/
