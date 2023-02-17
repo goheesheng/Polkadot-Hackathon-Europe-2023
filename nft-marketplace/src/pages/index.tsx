@@ -16,11 +16,11 @@ import { ContractMethod } from "@enumeration/contract-methods";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const Home: NextPage = () => {
-  const { contract } = useRegisteredContract(ContractIds.nft_equippable);
+  const { contract } = useRegisteredContract(ContractIds.nft_mintable);
   const { api, account } = useInkathon();
-
   const [nfts, setNfts] = useState<NftMeta[]>([]);
 
+  console.log(contract);
   const getContractInfo = async () => {
     if (!api || !contract || !account) return;
     try {
@@ -46,25 +46,20 @@ const Home: NextPage = () => {
         contract,
         ContractMethod.getAllNfts
       );
-      const res = JSON.parse(JSON.stringify(result.output?.toPrimitive()))
-      const tmp_nfts: NftMeta[] = []
-      console.log(Object.keys(res).length)
-      for(let index = 0; index < Object.keys(res).length; index++)
-      {
-        try{
-          const uri = JSON.parse((res[index]).metadata)
-          if(uri.substring(0,4) === "http")
-          {
+      const res = JSON.parse(JSON.stringify(result.output?.toPrimitive()));
+      const tmp_nfts: NftMeta[] = [];
+      console.log(Object.keys(res).length);
+      for (let index = 0; index < Object.keys(res).length; index++) {
+        try {
+          const uri = JSON.parse(res[index].metadata);
+          if (uri.substring(0, 4) === "http") {
             const nftRes = await axios.get(uri, {
               headers: { Accept: "text/plain" },
             });
             const metadata = nftRes.data;
-            tmp_nfts.push(metadata)
+            tmp_nfts.push(metadata);
           }
-        }
-        catch(e)
-        {
-        }
+        } catch (e) {}
       }
       setNfts(tmp_nfts);
     } catch (e) {

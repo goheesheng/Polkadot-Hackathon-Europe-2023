@@ -24,3 +24,8 @@ export type PinataRes = {
   Timestamp: string;
   isDuplicate: boolean;
 };
+
+export type Denomintation = {
+  ShortForm: number;
+  FullForm: number;
+};
