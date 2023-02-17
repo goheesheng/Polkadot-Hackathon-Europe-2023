@@ -82,6 +82,7 @@ const NftCreate: NextPage = () => {
     }
     //getListingFee();
     const value = new BN("2000000000000000000", 10);
+
     const options = {
       storageDepositLimit: null,
       value: value,
@@ -93,6 +94,7 @@ const NftCreate: NextPage = () => {
       contract,
       ContractMethod.mintWithMetadata,
       options,
+
       [JSON.stringify(nftUri), account.address, price, royalty],
       (result) => {
         const { status, events } = result;
@@ -322,17 +324,16 @@ const NftCreate: NextPage = () => {
                         Price {tokenSymbol}
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
-                        <input
-                          onChange={(e) =>
-                            setPrice(parseInt(e.target.value, 10))
-                          }
-                          value={price}
-                          type="number"
-                          name="price"
-                          id="price"
-                          className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                          placeholder="0.8"
-                        />
+                      <input
+                        onChange={(e) => setPrice(parseFloat(e.target.value))}
+                        value={price}
+                        type="number"
+                        step="0.01"
+                        name="price"
+                        id="price"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        placeholder="0.01"
+                      />
                       </div>
                     </div>
                   </div>
