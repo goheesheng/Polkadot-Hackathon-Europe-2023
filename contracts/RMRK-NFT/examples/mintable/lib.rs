@@ -174,6 +174,16 @@ pub mod rmrk_example_mintable {
                         tokenId.insert("nft_royalty".as_bytes().to_vec(), "Error".as_bytes().to_vec());
                     }
                 }
+
+                let listed = self.minting.listed.get(Id::U64(id));
+                match listed {
+                    Some(result) => {
+                        tokenId.insert("listed".as_bytes().to_vec(), result.to_string().as_bytes().to_vec());
+                    },
+                    None => {
+                        tokenId.insert("listed".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                    }
+                }
                 
                 info.push(tokenId);
             }
