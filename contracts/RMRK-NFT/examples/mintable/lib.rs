@@ -151,15 +151,9 @@ pub mod rmrk_example_mintable {
                 let mut tokenId: BTreeMap<String, String> = BTreeMap::new();
                 tokenId.insert("token".as_bytes().to_vec(),id.to_string().as_bytes().to_vec());
                 
-                let result = self.get_metadata(id);
-                match result {
-                    Ok(result) => {
-                        tokenId.insert("metadata".as_bytes().to_vec(), result.as_bytes().to_vec());
-                    },
-                    Err(_err) => {
-                        tokenId.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
-                    }
-                }
+                let metadataRef = self.get_metadata(id);
+                let metadata = metadataRef.get(&"metadata".to_string()).unwrap();
+                tokenId.insert("metadata".as_bytes().to_vec(), metadata.as_bytes().to_vec());
 
                 let nft_price = self.minting.nft_price.get(Id::U64(id));
                 match nft_price {
@@ -178,6 +172,16 @@ pub mod rmrk_example_mintable {
                     },
                     None => {
                         tokenId.insert("nft_royalty".as_bytes().to_vec(), "Error".as_bytes().to_vec());
+                    }
+                }
+
+                let listed = self.minting.listed.get(Id::U64(id));
+                match listed {
+                    Some(result) => {
+                        tokenId.insert("listed".as_bytes().to_vec(), result.to_string().as_bytes().to_vec());
+                    },
+                    None => {
+                        tokenId.insert("listed".as_bytes().to_vec(), "Error".as_bytes().to_vec());
                     }
                 }
                 
@@ -211,15 +215,9 @@ pub mod rmrk_example_mintable {
                         {
                             Some(res) => {
                                 dictMap.insert("listed".as_bytes().to_vec(), res.to_string().as_bytes().to_vec());
-                                let resultId = self.get_metadata(token_id);
-                                match resultId {
-                                    Ok(resultId) => {
-                                        dictMap.insert("metadata".as_bytes().to_vec(), resultId.as_bytes().to_vec());
-                                    },
-                                    Err(_err) => {
-                                        dictMap.insert("metadata".as_bytes().to_vec(), "Error".as_bytes().to_vec());
-                                    }
-                                }
+                                let metadataRef = self.get_metadata(token_id);
+                                let metadata = metadataRef.get(&"metadata".to_string()).unwrap();
+                                dictMap.insert("metadata".as_bytes().to_vec(), metadata.as_bytes().to_vec());
                             }
                             None => {
                                 dictMap.insert("listed".as_bytes().to_vec(), "Error".as_bytes().to_vec());
@@ -268,7 +266,7 @@ pub mod rmrk_example_mintable {
             let old_listed = self.minting.listed.get(token_id.clone());
             assert!(old_listed.unwrap(), "NFT is not listed!");
 
-            let mut old_royalty = self.minting.nft_royalty.get(token_id.clone()).unwrap();
+            let old_royalty = self.minting.nft_royalty.get(token_id.clone()).unwrap();
             let paid = self.env().transferred_value();
             let nft_price = self.minting.nft_price.get(token_id.clone()).unwrap();
             
