@@ -1,7 +1,7 @@
 import { withIronSession, Session } from "next-iron-session";
-import { development } from "@contracts/psp34-nft/address.json";
+import { development } from "@contracts/rmrk-nft/address.json";
 import { NextApiRequest, NextApiResponse } from "next";
-import contractJson from "../../../contracts/psp34-nft/metadata.json";
+import contractJson from "../../../contracts/rmrk-nft/metadata.json";
 import { ContractIds } from "@deployments/deployment";
 import { web3Accounts } from "@polkadot/extension-dapp";
 import {
