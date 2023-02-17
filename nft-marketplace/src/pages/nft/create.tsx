@@ -36,7 +36,7 @@ const NftCreate: NextPage = () => {
   const [royalty, setRoyalty] = useState(0);
   const [listingFee, setListingFee] = useState<Denomintation>({
     ShortForm: 0,
-    FullForm: 0,
+    FullForm: "",
   });
   const [nftMeta, setNftMeta] = useState<NftMeta>({
     name: "",
@@ -58,9 +58,9 @@ const NftCreate: NextPage = () => {
         contract,
         ContractMethod.mintingPrice
       );
-      console.log(result.output?.toPrimitive());
       const fee = result.output?.toPrimitive() as string;
-      setListingFee({ ...listingFee, FullForm: parseInt(fee, 10) });
+      console.log(fee);
+      setListingFee({ ...listingFee, FullForm: fee });
       const chainDecimal = api.registry.chainDecimals[0];
       formatBalance.setDefaults({ decimals: chainDecimal, unit: tokenSymbol });
       const feeShortForm = formatBalance(fee, {
@@ -68,7 +68,7 @@ const NftCreate: NextPage = () => {
         withSi: false,
         withZero: false,
       });
-      setListingFee({ ...listingFee, ShortForm: parseInt(feeShortForm, 10) });
+      //setListingFee({ ...listingFee, ShortForm: parseInt(feeShortForm, 10) });
       console.log(listingFee);
     } catch (e) {
       console.error(e);
@@ -80,12 +80,12 @@ const NftCreate: NextPage = () => {
       toast("Wallet not connected. Try again...");
       return;
     }
-    //getListingFee();
-    const value = new BN("2000000000000000000", 10);
+    getListingFee();
+    const value = new BN(listingFee.FullForm, 10);
 
     const options = {
       storageDepositLimit: null,
-      value: value,
+      value: listingFee.FullForm,
     };
 
     const tx = await contractTx(
@@ -229,7 +229,6 @@ const NftCreate: NextPage = () => {
           throw new Error("Invalid JSON structure");
         }
       });
-      console.log(royalty);
       const tx = mintToken(nftURI, price, royalty);
 
       await toast.promise(tx, {
@@ -324,16 +323,16 @@ const NftCreate: NextPage = () => {
                         Price {tokenSymbol}
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
-                      <input
-                        onChange={(e) => setPrice(parseFloat(e.target.value))}
-                        value={price}
-                        type="number"
-                        step="0.01"
-                        name="price"
-                        id="price"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
-                        placeholder="0.01"
-                      />
+                        <input
+                          onChange={(e) => setPrice(parseFloat(e.target.value))}
+                          value={price}
+                          type="number"
+                          step="0.01"
+                          name="price"
+                          id="price"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                          placeholder="0.01"
+                        />
                       </div>
                     </div>
                   </div>

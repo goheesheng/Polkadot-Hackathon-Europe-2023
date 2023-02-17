@@ -30,5 +30,5 @@ export type PinataRes = {
 
 export type Denomintation = {
   ShortForm: number;
-  FullForm: number;
+  FullForm: string;
 };

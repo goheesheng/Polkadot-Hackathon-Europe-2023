@@ -17,9 +17,12 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
-  const { accounts, connect, isConnecting, isConnected, activeChain } =
-    useInkathon();
+  const { accounts, connect, isConnecting, activeChain } = useInkathon();
 
+  const isConnected = async () => {
+    const { isWeb3Injected } = await import("@polkadot/extension-dapp");
+    return isWeb3Injected;
+  };
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -70,7 +73,7 @@ export default function Navbar() {
                     </svg>
                     {isConnecting
                       ? "Loading..."
-                      : isConnected
+                      : { isConnected }
                       ? activeChain?.network
                       : "Install Web3 Wallet"}
                   </span>

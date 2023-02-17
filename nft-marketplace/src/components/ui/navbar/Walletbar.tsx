@@ -45,9 +45,8 @@ const Walletbar: FunctionComponent<WalletbarProps> = () => {
   }
 
   const connectIfWalletAvailable = async () => {
-    const { web3Enable } = await import("@polkadot/extension-dapp");
-    const extensions = await web3Enable("NFT!Marketplace");
-    if (!extensions?.length) {
+    const { isWeb3Injected } = await import("@polkadot/extension-dapp");
+    if (!isWeb3Injected) {
       window.open("https://polkadot.js.org/", "_ blank");
     } else {
       {
@@ -130,33 +129,33 @@ const Walletbar: FunctionComponent<WalletbarProps> = () => {
     </>
   );
 
-  if (isConnected) {
-    return (
-      <div>
-        <button
-          onClick={connect}
-          type="button"
-          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Connect Wallet
-        </button>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <button
-          onClick={() => {
-            window.open("https://polkadot.js.org/", "_ blank");
-          }}
-          type="button"
-          className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          No Wallet
-        </button>
-      </div>
-    );
-  }
+  // if (isConnected) {
+  //   return (
+  //     <div>
+  //       <button
+  //         onClick={connect}
+  //         type="button"
+  //         className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  //       >
+  //         Connect Wallet
+  //       </button>
+  //     </div>
+  //   );
+  // } else {
+  //   return (
+  //     <div>
+  //       <button
+  //         onClick={() => {
+  //           window.open("https://polkadot.js.org/", "_ blank");
+  //         }}
+  //         type="button"
+  //         className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+  //       >
+  //         No Wallet
+  //       </button>
+  //     </div>
+  //   );
+  // }
 };
 
 export default Walletbar;
