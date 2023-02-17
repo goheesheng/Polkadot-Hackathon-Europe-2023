@@ -1,5 +1,5 @@
 # Polkadot-Hackathon-Europe-2023
-# **RMRK NFT** NFT minting site
+# **RMRK NFT** minting site
 
 ## Challenge Category: Ink! Smart Contracts
 - **Bounty:** **Build NFT project (marketplace) with ink!**
