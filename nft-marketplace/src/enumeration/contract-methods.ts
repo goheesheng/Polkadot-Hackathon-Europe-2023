@@ -6,5 +6,5 @@ export enum ContractMethod {
   getAllNfts = "get_all_listed_nft",
   getNftByOwner = "get_nft_by_owner",
   getMetadata = "Minting::get_metadata",
-  buyNFT = "buyNft",
+  buyNFT = "toggleListNft",
 }
