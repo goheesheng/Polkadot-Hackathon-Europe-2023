@@ -6,7 +6,7 @@ import { BaseLayout, NftItem } from "@ui";
 import { Switch } from "@headlessui/react";
 import Link from "next/link";
 import React from "react";
-import { NftMeta, PinataRes } from "@_types/nft";
+import { Denomintation, NftMeta, PinataRes } from "@_types/nft";
 import axios from "axios";
 import {
   useInkathon,
@@ -15,7 +15,8 @@ import {
   contractTx,
   contractQuery,
 } from "@scio-labs/use-inkathon";
-import BN from "bn.js";
+
+import { BN, formatBalance } from "@polkadot/util";
 
 import { stringToHex } from "@polkadot/util";
 import { ContractIds } from "@deployments/deployment";
@@ -35,6 +36,11 @@ const NftCreate: NextPage = () => {
 
   const [nftURI, setNftURI] = useState("");
   const [hasURI, setHasURI] = useState(false);
+  const [price, setPrice] = useState(1);
+  const [listingFee, setListingFee] = useState<Denomintation>({
+    ShortForm: 0,
+    FullForm: "",
+  });
   const [nftMeta, setNftMeta] = useState<NftMeta>({
     name: "",
     description: "",
@@ -46,16 +52,41 @@ const NftCreate: NextPage = () => {
     ],
   });
 
+
+  const getListingFee = async () => {
+    if (!api || !contract || !account) return;
+    try {
+      const result = await contractQuery(
+        api,
+        account.address,
+        contract,
+        ContractMethod.mintingPrice
+      );
+      const fee = result.output?.toPrimitive() as string;
+      console.log(fee);
+      setListingFee({ ShortForm: 0, FullForm: fee });
+      const chainDecimal = api.registry.chainDecimals[0];
+      // formatBalance.setDefaults({ decimals: chainDecimal, unit: tokenSymbol });
+      // const feeShortForm = formatBalance(fee, {
+      //   withAll: false,
+      //   withSi: false,
+      //   withZero: false,
+      // });
+      //setListingFee({ ...listingFee, ShortForm: parseInt(feeShortForm, 10) });
+      console.log(listingFee);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const _buyNft = async (price: number) => {
     if (!account || !contract || !api) {
       toast("Wallet not connected. Try again...");
       return;
     }
-
-    const value = new BN((price || 0).toString(), 10);
     const options = {
       storageDepositLimit: null,
-      value: value,
+      value: listingFee.FullForm,
     };
     const tx = await contractTx(
       api,
@@ -97,7 +128,7 @@ const NftCreate: NextPage = () => {
       }));
       console.log(res)
       setNftMeta({
-        price: JSON.parse(res.nft_price) / 100 * (100 + JSON.parse(res.nft_royalty)),
+        price: JSON.parse(res.nft_price) / 100 * (100 + JSON.parse(res.nft_royalty)) / JSON.parse(listingFee.FullForm) * 10,
         ...metadata.data
       })
     } catch (e) {
@@ -118,7 +149,8 @@ const NftCreate: NextPage = () => {
       pending: "Minting NFT",
     });
   }
-  useEffect(() => {getNFTMetadata()},[api, account, contract])
+  useEffect(() => {getListingFee()},[api, account, contract])
+  useEffect(() => {getNFTMetadata()}, [listingFee]);
   return (
     <BaseLayout>
       <div>

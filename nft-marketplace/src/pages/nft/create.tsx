@@ -60,14 +60,14 @@ const NftCreate: NextPage = () => {
       );
       const fee = result.output?.toPrimitive() as string;
       console.log(fee);
-      setListingFee({ ...listingFee, FullForm: fee });
+      setListingFee({ ShortForm: 0, FullForm: fee });
       const chainDecimal = api.registry.chainDecimals[0];
-      formatBalance.setDefaults({ decimals: chainDecimal, unit: tokenSymbol });
-      const feeShortForm = formatBalance(fee, {
-        withAll: false,
-        withSi: false,
-        withZero: false,
-      });
+      // formatBalance.setDefaults({ decimals: chainDecimal, unit: tokenSymbol });
+      // const feeShortForm = formatBalance(fee, {
+      //   withAll: false,
+      //   withSi: false,
+      //   withZero: false,
+      // });
       //setListingFee({ ...listingFee, ShortForm: parseInt(feeShortForm, 10) });
       console.log(listingFee);
     } catch (e) {
@@ -80,9 +80,9 @@ const NftCreate: NextPage = () => {
       toast("Wallet not connected. Try again...");
       return;
     }
-    getListingFee();
+    await getListingFee();
     const value = new BN(listingFee.FullForm, 10);
-
+    console.log(listingFee.FullForm);
     const options = {
       storageDepositLimit: null,
       value: listingFee.FullForm,
@@ -100,6 +100,7 @@ const NftCreate: NextPage = () => {
         const { status, events } = result;
         const { isInBlock } = status;
         console.log(events);
+        console.log(result)
         if (isInBlock) {
           events.forEach(({ event: { method, data } }) => {
             console.log(method);
@@ -219,16 +220,16 @@ const NftCreate: NextPage = () => {
 
   const createNft = async () => {
     try {
-      const nftRes = await axios.get(nftURI, {
-        headers: { Accept: "text/plain" },
-      });
-      const content = nftRes.data;
+      // const nftRes = await axios.get(nftURI, {
+      //   headers: { Accept: "text/plain" },
+      // });
+      // const content = nftRes.data;
 
-      Object.keys(content).forEach((key) => {
-        if (!ALLOWED_FIELDS.includes(key)) {
-          throw new Error("Invalid JSON structure");
-        }
-      });
+      // Object.keys(content).forEach((key) => {
+      //   if (!ALLOWED_FIELDS.includes(key)) {
+      //     throw new Error("Invalid JSON structure");
+      //   }
+      // });
       const tx = mintToken(nftURI, price, royalty);
 
       await toast.promise(tx, {

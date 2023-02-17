@@ -19,6 +19,7 @@ const Home: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.nft_mintable);
   const { api, account } = useInkathon();
   const { tokenSymbol } = useBalance(account?.address);
+  const [price, setPrice] = useState(1);
   const [nfts, setNfts] = useState<NftMeta[]>([]);
 
   const getContractInfo = async () => {
@@ -30,7 +31,7 @@ const Home: NextPage = () => {
         contract,
         ContractMethod.mintingPrice
       );
-      console.log(result.output?.toPrimitive());
+      setPrice(JSON.parse(JSON.stringify(result.output?.toPrimitive())) / 10);
     } catch (e) {
       console.error(e);
     }
@@ -62,7 +63,7 @@ const Home: NextPage = () => {
             });
             const metadata = {
               id: res[index].token,
-              price: JSON.parse(res[index].nft_price) / 100 * (100 + JSON.parse(res[index].nft_royalty)),
+              price: JSON.parse(res[index].nft_price) / 100 * (100 + JSON.parse(res[index].nft_royalty)) / price,
               listed: res[index].listed,
               ...nftRes.data
             };
@@ -77,8 +78,12 @@ const Home: NextPage = () => {
     }
   };
   useEffect(() => {
-    getAllNFTs();
+    getContractInfo();
   }, [account, api, contract]);
+
+  useEffect(() => {
+    getAllNFTs();
+  }, [price]);
   return (
     <BaseLayout>
       <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">

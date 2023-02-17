@@ -37,7 +37,7 @@ const NftItem: FunctionComponent<NFTItemProps> = ({ item, tokenSymbol, buttons =
               </dt>
               <dd className="order-1 text-xl font-extrabold text-indigo-600">
                 <div className="flex justify-center items-center">
-                  {(item.price || 0) / 10000000000000} {tokenSymbol}
+                  {(item.price || 0)} {tokenSymbol}
                   {/* <img
                     className="h-6"
                     src="/images/small-eth.webp"
