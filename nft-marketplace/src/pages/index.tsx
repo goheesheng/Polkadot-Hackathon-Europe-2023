@@ -18,7 +18,7 @@ import axios from "axios";
 const Home: NextPage = () => {
   const { contract } = useRegisteredContract(ContractIds.nft_mintable);
   const { api, account } = useInkathon();
-
+  const { tokenSymbol } = useBalance(account?.address);
   const [nfts, setNfts] = useState<NftMeta[]>([]);
 
   console.log(contract);
@@ -49,15 +49,24 @@ const Home: NextPage = () => {
       );
       const res = JSON.parse(JSON.stringify(result.output?.toPrimitive()));
       const tmp_nfts: NftMeta[] = [];
-      console.log(Object.keys(res).length);
       for (let index = 0; index < Object.keys(res).length; index++) {
         try {
+          if(!JSON.parse(res[index].listed))
+          {
+            continue;
+          }
           const uri = JSON.parse(res[index].metadata);
           if (uri.substring(0, 4) === "http") {
             const nftRes = await axios.get(uri, {
               headers: { Accept: "text/plain" },
             });
-            const metadata = nftRes.data;
+            const metadata = {
+              id: res[index].token,
+              price: JSON.parse(res[index].nft_price) / 100 * (100 + JSON.parse(res[index].nft_royalty)),
+              listed: res[index].listed,
+              ...nftRes.data
+            };
+
             tmp_nfts.push(metadata);
           }
         } catch (e) {}
