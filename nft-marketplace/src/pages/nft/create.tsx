@@ -105,11 +105,11 @@ const NftCreate: NextPage = () => {
           events.forEach(({ event: { method, data } }) => {
             console.log(method);
             if (method === "ExtrinsicSuccess") {
-              toast.success("ExtrinsicSuccess");
+              toast.success("Successfully Minted NFT");
             } else if (method === "ExtrinsicFailed") {
               const [dispatchError] = data as any[];
               const message = dispatchError.type;
-              toast.error(message);
+              toast.error("An error has occured");
             }
           });
         }
