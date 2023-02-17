@@ -7,8 +7,10 @@ import { BaseLayout, ProfileNftList } from "@ui";
 import { NftMeta } from "src/types/nft";
 import { ContractIds } from "@deployments/deployment";
 import { ContractMethod } from "@enumeration/contract-methods";
-import { useRegisteredContract, useInkathon, contractQuery } from "@scio-labs/use-inkathon";
+import { useRegisteredContract, useInkathon, contractQuery, contractTx } from "@scio-labs/use-inkathon";
 import axios from "axios";
+import BN from "bn.js";
+import { toast } from "react-toastify";
 
 const tabs = [{ name: "Your Collection", href: "#", current: true }];
 
@@ -48,7 +50,11 @@ const Profile: NextPage = () => {
               headers: { Accept: "text/plain" },
             });
             const metadata = nftRes.data;
-            tmp_nfts.push(metadata)
+            tmp_nfts.push({
+              id: res[index].token,
+              listed: JSON.parse(res[index].listed),
+              ...metadata
+            })
           }
         }
         catch(e)
@@ -61,6 +67,53 @@ const Profile: NextPage = () => {
       console.error(e);
     }
   };
+
+  const _listNft = async (id: number, listed:boolean) => {
+    if (!account || !contract || !api) {
+      toast("Wallet not connected. Try again...");
+      return;
+    }
+    const value = new BN((10000000000000),10);
+    const options = {
+      storageDepositLimit: null,
+      value: value,
+    };
+    const tx = await contractTx(
+      api,
+      account.address,
+      contract,
+      ContractMethod.toggleListNFT,
+      {},
+      [id, !listed],
+      (result) => {
+        console.log(result)
+        const { status, events } = result;
+        const { isInBlock } = status;
+        if (isInBlock) {
+          events.forEach(({ event: { method } }) => {
+            if (method === "ExtrinsicSuccess") {
+              toast.success(`Successfully ${listed ? 'unlisted' : 'listed'} NFT`);
+            } else if (method === "ExtrinsicFailed") {
+              toast.error("An Error has occured. Please try again later.");
+            }
+          });
+        }
+      }
+    );
+  };
+
+  const toggleListingNFT = async () => {
+    try {
+      const tx = _listNft(JSON.parse(nfts[selected].id || "") || 0, nfts[selected].listed || false)
+
+      await toast.promise(tx, {
+        pending: `${!nfts[selected].listed ? 'Listing NFT' : 'Unlisting NFT'}`,
+      });
+    } catch (e: any) {
+      console.error(e.message);
+    }
+  };
+  
   useEffect(() => { getUsersNfts(); },[api, contract, account])
   return (
     <BaseLayout>
@@ -154,11 +207,11 @@ const Profile: NextPage = () => {
                       Download Image
                     </button>
                     <button
-                      onClick={() => {}}
+                      onClick={async () => {await toggleListingNFT()}}
                       type="button"
                       className="flex-1 ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                      Transfer?
+                      {nfts[selected].listed ? "Unlist NFT?" : "List NFT?"}
                     </button>
                   </div>
                 </div>

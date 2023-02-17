@@ -1,11 +1,15 @@
+import { useBalance } from "@scio-labs/use-inkathon";
+import ActiveLink from "@ui/link";
 import { NftMeta } from "@_types/nft";
 import { FunctionComponent } from "react";
 
 type NFTItemProps = {
   item: NftMeta;
+  tokenSymbol: string;
+  buttons: boolean;
 };
 
-const NftItem: FunctionComponent<NFTItemProps> = ({ item }) => {
+const NftItem: FunctionComponent<NFTItemProps> = ({ item, tokenSymbol, buttons = true }) => {
   return (
     <>
       <div className="flex-shrink-0">
@@ -33,7 +37,7 @@ const NftItem: FunctionComponent<NFTItemProps> = ({ item }) => {
               </dt>
               <dd className="order-1 text-xl font-extrabold text-indigo-600">
                 <div className="flex justify-center items-center">
-                  100 Eth
+                  {(item.price || 0) / 10000000000000} {tokenSymbol}
                   {/* <img
                     className="h-6"
                     src="/images/small-eth.webp"
@@ -58,18 +62,27 @@ const NftItem: FunctionComponent<NFTItemProps> = ({ item }) => {
           </dl>
         </div>
         <div>
-          <button
-            type="button"
-            className="disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:cursor-not-allowed mr-2 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Buy
-          </button>
-          <button
-            type="button"
-            className="disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:cursor-not-allowed inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Preview
-          </button>
+          {buttons && (
+            <>
+              <ActiveLink
+                key={item.name + `${item.id}`}
+                href={`/nft/buy/${item.id}`}
+                activeClass="bg-gray-900 text-white"
+              >
+                <a
+                  className="disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 shadow-none mr-2 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Buy
+                </a>
+              </ActiveLink>
+              <button
+                type="button"
+                className="disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:cursor-not-allowed inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Preview
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>

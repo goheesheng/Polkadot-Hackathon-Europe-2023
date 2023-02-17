@@ -5,7 +5,7 @@ import {
 } from "@scio-labs/use-inkathon";
 
 export enum ContractIds {
-  nft_equippable = "rmrk_example_equippable",
+  nft_equippable = "rmrk_example_mintable",
   psp34_nft = "shiden34",
   nft_mintable = "rmrk_example_mintable",
 }
