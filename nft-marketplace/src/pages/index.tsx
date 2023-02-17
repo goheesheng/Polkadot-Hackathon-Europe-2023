@@ -20,13 +20,12 @@ const Home: NextPage = () => {
   const { api, account } = useInkathon();
   const [nfts, setNfts] = useState<NftMeta[]>([]);
 
-  console.log(contract);
   const getContractInfo = async () => {
     if (!api || !contract || !account) return;
     try {
       const result = await contractQuery(
         api,
-        account.address,
+        "",
         contract,
         ContractMethod.mintingPrice
       );
@@ -35,7 +34,8 @@ const Home: NextPage = () => {
       console.error(e);
     }
   };
-  getContractInfo();
+
+  //getContractInfo();
 
   const getAllNFTs = async () => {
     if (!api || !contract || !account) return;
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
   };
   useEffect(() => {
     getAllNFTs();
-  }, [api, contract, account]);
+  }, [account, api, contract]);
   return (
     <BaseLayout>
       <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
