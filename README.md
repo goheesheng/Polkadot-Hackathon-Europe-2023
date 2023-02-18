@@ -57,7 +57,7 @@ React: A JavaScript library for building user interfaces. React can be used to c
 Blockchain Node: A server that runs a full copy of the blockchain ledger and can be used to validate and process transactions. The project use a Substrate node, such to ensure that the NFT marketplace is able to interact and execute transactions in a secure and efficient manner.
 
 Further takeaways:
-- Add auction smart contract to frontend (Already done)
+- Integrate auction smart contract to frontend (Smart Contract already done)
 - Deploy to main net
 
 ## Contact information
