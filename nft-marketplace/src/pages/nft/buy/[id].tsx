@@ -86,7 +86,7 @@ const NftCreate: NextPage = () => {
     }
     const options = {
       storageDepositLimit: null,
-      value: listingFee.FullForm,
+      value: price,
     };
     const tx = await contractTx(
       api,
@@ -127,6 +127,7 @@ const NftCreate: NextPage = () => {
         headers: { Accept: "text/plain" },
       }));
       console.log(res)
+      setPrice(JSON.parse(res.nft_price) / 100 * (100 + JSON.parse(res.nft_royalty)))
       setNftMeta({
         price: JSON.parse(res.nft_price) / 100 * (100 + JSON.parse(res.nft_royalty)) / JSON.parse(listingFee.FullForm) * 10,
         ...metadata.data
@@ -143,10 +144,10 @@ const NftCreate: NextPage = () => {
   };
 
   const buyNft = async () => {
-    const tx = _buyNft(nftMeta.price || 0);
+    const tx = _buyNft(price || 0);
 
     await toast.promise(tx, {
-      pending: "Minting NFT",
+      pending: "Purchasing NFT",
     });
   }
   useEffect(() => {getListingFee()},[api, account, contract])

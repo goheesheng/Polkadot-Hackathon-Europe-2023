@@ -74,7 +74,7 @@ export default function Navbar() {
                     {isConnecting
                       ? "Loading..."
                       : { isConnected }
-                      ? "shibuya"
+                      ? activeChain?.network
                       : "Install Web3 Wallet"}
                   </span>
                 </div>
