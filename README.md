@@ -66,6 +66,8 @@ Further takeaways:
  - Poon Kang Wei - kang5647@hotmail.com
  - Derrick Png Teck Guan - derrickpng34@gmail.com
 
+# Demo
+`https://www.youtube.com/watch?v=4IuSFKVcUuY`
 
 ### To build and compile contracts:
 ```
