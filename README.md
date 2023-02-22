@@ -67,7 +67,7 @@ Further takeaways:
  - Derrick Png Teck Guan - derrickpng34@gmail.com
 
 # Demo
-`https://www.youtube.com/watch?v=4IuSFKVcUuY`
+https://www.youtube.com/watch?v=4IuSFKVcUuY
 
 ### To build and compile contracts:
 ```
